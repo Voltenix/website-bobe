@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>CGV &amp; FAQ – Bobe Florian</title>
+  <style>
+    @font-face{font-family:'Zodiak';src:url('Fonts/Zodiak/Zodiak-Bold.otf') format('opentype');font-weight:700;font-display:swap;}
+    @font-face{font-family:'Satoshi';src:url('Fonts/Satoshi/Fonts/WEB/fonts/Satoshi-Regular.woff2') format('woff2');font-weight:400;font-display:swap;}
+    @font-face{font-family:'Satoshi';src:url('Fonts/Satoshi/Fonts/WEB/fonts/Satoshi-Medium.woff2') format('woff2');font-weight:500;font-display:swap;}
+    @font-face{font-family:'Satoshi';src:url('Fonts/Satoshi/Fonts/WEB/fonts/Satoshi-Bold.woff2') format('woff2');font-weight:700;font-display:swap;}
+
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --purple:#6C63FF;
+      --bg:#eef2ff;--text:#1a1a3e;--muted:#6b7ab8;
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family:'Satoshi',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;min-height:100vh;}
+
+    /* PAGE BG */
+    .page-bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;
+      background:linear-gradient(160deg,#f0f5ff 0%,#e6ecff 40%,#f5f0ff 100%);}
+    .bg-blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.35;}
+    .bg-blob-1{width:700px;height:700px;background:radial-gradient(circle,#c7d7ff,transparent 70%);top:-200px;left:-200px;}
+    .bg-blob-2{width:600px;height:600px;background:radial-gradient(circle,#dfd6ff,transparent 70%);top:30%;right:-150px;}
+    .bg-blob-3{width:500px;height:500px;background:radial-gradient(circle,#ffd6ec,transparent 70%);bottom:0;left:20%;}
+    .bg-blob-4{width:400px;height:400px;background:radial-gradient(circle,#d6eaff,transparent 70%);bottom:20%;right:10%;}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+      padding:20px 60px;background:rgba(245,244,255,0.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(84,92,158,0.12);}
+    .nav-logo{text-decoration:none;display:inline-flex;align-items:center;position:relative;cursor:pointer;}
+    .nav-logo-text{display:flex;flex-direction:column;line-height:1;transition:opacity .22s;}
+    .nav-logo-bobe{font-size:22px;font-weight:900;letter-spacing:2px;color:#545c9e;}
+    .nav-logo-florian{font-size:10px;font-weight:300;letter-spacing:2px;color:rgba(84,92,158,0.50);margin-top:3px;text-transform:uppercase;}
+    .nav-logo-bf{position:absolute;left:0;top:50%;transform:translateY(-50%);height:40px;width:auto;opacity:0;transition:opacity .22s;}
+    .nav-logo:hover .nav-logo-text{opacity:0;}
+    .nav-logo:hover .nav-logo-bf{opacity:1;}
+    .nav-links{display:flex;gap:36px;list-style:none;}
+    .nav-links>li{position:relative;}
+    .nav-links>li::after{content:'';position:absolute;top:100%;left:-20px;right:-20px;height:18px;display:block;}
+    .nav-links a{color:rgba(84,92,158,0.72);text-decoration:none;font-size:14px;font-weight:500;letter-spacing:0.5px;transition:color .2s;display:flex;align-items:center;gap:4px;}
+    .nav-links a:hover,.nav-links a.active{color:#545c9e;}
+    .nav-chevron{font-size:8px;opacity:0.55;transition:transform .22s;color:rgba(84,92,158,0.38);}
+    .nav-links>li:hover .nav-chevron{transform:rotate(180deg);opacity:1;}
+    .nav-dropdown{position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%) translateY(-6px);
+      background:rgba(245,244,255,0.97);backdrop-filter:blur(22px);
+      border:1px solid rgba(84,92,158,0.12);border-radius:16px;padding:8px;min-width:200px;
+      opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;z-index:200;
+      box-shadow:0 20px 60px rgba(0,0,0,0.12);}
+    .nav-dropdown::before{content:'';position:absolute;top:-5px;left:50%;transform:translateX(-50%) rotate(45deg);
+      width:10px;height:10px;background:rgba(245,244,255,0.97);
+      border-top:1px solid rgba(84,92,158,0.12);border-left:1px solid rgba(84,92,158,0.12);}
+    .nav-links>li:hover .nav-dropdown{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0);}
+    .nav-dropdown-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;
+      text-decoration:none;color:rgba(84,92,158,0.78);font-size:13px;font-weight:500;
+      transition:background .15s,color .15s;white-space:nowrap;}
+    .nav-dropdown-item:hover,.nav-dropdown-item.active{background:rgba(84,92,158,0.07);color:#545c9e;}
+    .nav-dropdown-item svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;opacity:.75;}
+    .nav-dropdown-divider{height:1px;background:rgba(84,92,158,0.12);margin:5px 8px;}
+    .nav-right{display:flex;gap:10px;align-items:center;}
+    .lang-toggle{background:none;border:none;padding:0;cursor:pointer;border-radius:3px;overflow:hidden;
+      display:flex;align-items:center;transition:transform .2s,box-shadow .2s;box-shadow:0 2px 8px rgba(0,0,0,0.25);}
+    .lang-toggle:hover{transform:scale(1.08);}
+    .lang-toggle img{width:32px;height:22px;object-fit:cover;display:block;}
+
+    /* PAGE */
+    .page-content{position:relative;z-index:1;padding-top:80px;}
+
+    /* HERO */
+    .hero{text-align:center;padding:64px 24px 40px;}
+    .hero-tag{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#8b80c8;
+      margin-bottom:12px;display:flex;flex-direction:column;align-items:center;gap:8px;}
+    .hero-tag::after{content:'';width:30px;height:1.5px;background:rgba(100,110,200,0.22);border-radius:2px;}
+    .hero h1{font-family:'Satoshi',sans-serif;font-size:clamp(48px,7vw,80px);font-weight:700;
+      background:linear-gradient(135deg,#3a2a7a 0%,#6c63ff 60%,#a78bfa 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      line-height:1.05;letter-spacing:-1px;}
+    .hero-sub{font-size:16px;color:var(--muted);margin-top:14px;font-weight:400;max-width:520px;margin-left:auto;margin-right:auto;}
+
+    /* SECTION LABEL */
+    .section-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#8b80c8;margin-bottom:8px;}
+    .section-title{font-size:28px;font-weight:800;color:#2a235a;margin-bottom:32px;}
+
+    /* CGV SECTION */
+    .cgv-section{max-width:860px;margin:0 auto;padding:20px 32px 60px;}
+    .cgv-card{display:flex;flex-direction:column;gap:0;border:1px solid rgba(108,99,255,0.14);
+      border-radius:16px;overflow:hidden;background:#fff;
+      box-shadow:0 4px 32px rgba(80,70,160,0.06);}
+    .cgv-article{padding:22px 28px;}
+    .cgv-article:not(:last-child){border-bottom:1px solid rgba(108,99,255,0.08);}
+    .cgv-article-label{font-size:11.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
+      color:#6c63ff;margin-bottom:7px;}
+    .cgv-article p{font-size:13.5px;color:#4a4a7a;line-height:1.7;}
+    .cgv-article strong{color:#2a235a;}
+
+    /* FAQ SECTION */
+    .faq-section{max-width:860px;margin:0 auto;padding:20px 32px 80px;}
+    .faq-list{display:flex;flex-direction:column;gap:12px;}
+    .faq-item{background:#fff;border:1px solid rgba(108,99,255,0.13);border-radius:14px;
+      overflow:hidden;box-shadow:0 2px 16px rgba(80,70,160,0.05);transition:box-shadow .2s;}
+    .faq-item.open{box-shadow:0 6px 32px rgba(108,99,255,0.12);}
+    .faq-q{width:100%;background:none;border:none;padding:18px 22px;cursor:pointer;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      font-family:'Satoshi',sans-serif;font-size:15px;font-weight:600;color:#2a235a;
+      text-align:left;transition:color .2s;}
+    .faq-q:hover{color:#6c63ff;}
+    .faq-item.open .faq-q{color:#6c63ff;}
+    .faq-chevron{flex-shrink:0;width:20px;height:20px;display:flex;align-items:center;justify-content:center;
+      background:rgba(108,99,255,0.08);border-radius:50%;transition:transform .25s,background .2s;}
+    .faq-chevron svg{width:11px;height:11px;stroke:#6c63ff;fill:none;stroke-width:2.2;
+      stroke-linecap:round;stroke-linejoin:round;transition:transform .25s;}
+    .faq-item.open .faq-chevron{background:rgba(108,99,255,0.14);}
+    .faq-item.open .faq-chevron svg{transform:rotate(180deg);}
+    .faq-a{font-size:13.5px;color:#4a4a7a;line-height:1.7;
+      max-height:0;overflow:hidden;transition:max-height .32s ease,padding .28s ease;
+      padding:0 22px;}
+    .faq-item.open .faq-a{max-height:300px;padding:0 22px 18px;}
+
+    /* FOOTER */
+    footer{background:rgba(255,255,255,0.55);backdrop-filter:blur(16px);border-top:1px solid rgba(100,110,200,0.10);}
+    .footer-inner{max-width:1100px;margin:0 auto;padding:48px 48px 32px;
+      display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:48px;}
+    .footer-logo{font-family:'Satoshi',sans-serif;font-size:22px;font-weight:700;color:#2a235a;}
+    .footer-logo span{display:block;font-family:'Satoshi',sans-serif;font-size:10px;font-weight:500;color:#9d90cc;letter-spacing:2px;text-transform:uppercase;margin-top:4px;}
+    .footer-col h4{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#9d90cc;margin-bottom:16px;}
+    .footer-col a{display:block;font-size:13px;color:#6b7ab8;text-decoration:none;margin-bottom:8px;transition:color .2s;}
+    .footer-col a:hover{color:#6c63ff;}
+    .footer-bottom{max-width:1100px;margin:0 auto;padding:16px 48px 24px;
+      display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(100,110,200,0.08);}
+    .footer-bottom p{font-size:11.5px;color:#9d90cc;}
+    .payment-icons{display:flex;align-items:center;gap:12px;}
+    .payment-icons img{height:18px;opacity:0.55;}
+
+    @media(max-width:960px){
+      .nav-links{display:none;}
+      nav{padding:16px 24px;}
+      .footer-inner{grid-template-columns:1fr 1fr;gap:32px;padding:36px 24px 24px;}
+      .footer-bottom{padding:12px 24px 20px;}
+      .cgv-section,.faq-section{padding-left:20px;padding-right:20px;}
+    }
+    @media(max-width:600px){
+      .footer-inner{grid-template-columns:1fr;gap:24px;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- PAGE BG -->
+<div class="page-bg">
+  <div class="bg-blob bg-blob-1"></div>
+  <div class="bg-blob bg-blob-2"></div>
+  <div class="bg-blob bg-blob-3"></div>
+  <div class="bg-blob bg-blob-4"></div>
+</div>
+
+<div class="page-content">
+
+<!-- NAV -->
+<nav>
+  <a href="coaching.html" class="nav-logo">
+    <span class="nav-logo-text"><span class="nav-logo-bobe">BOBE</span><span class="nav-logo-florian">Florian</span></span>
+    <img class="nav-logo-bf" src="images/icones/Logo FB/BF.png" alt="BF"/>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">Portfolio</a></li>
+    <li>
+      <a href="coaching.html">Coaching <span class="nav-chevron">&#9660;</span></a>
+      <div class="nav-dropdown">
+        <a class="nav-dropdown-item" href="coaching.html#section-feedback">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Feedback
+        </a>
+        <a class="nav-dropdown-item" href="coaching.html#section-classroom">
+          <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>Classroom
+        </a>
+        <a class="nav-dropdown-item" href="coaching.html#section-mastery">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Mastery
+        </a>
+      </div>
+    </li>
+    <li>
+      <a href="commission.html" class="active">Commission <span class="nav-chevron">&#9660;</span></a>
+      <div class="nav-dropdown">
+        <a class="nav-dropdown-item" href="commission.html#commander">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.57L23 6H6"/></svg>Commander
+        </a>
+        <a class="nav-dropdown-item" href="galerie.html">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Galerie
+        </a>
+        <div class="nav-dropdown-divider"></div>
+        <a class="nav-dropdown-item active" href="cgv-faq.html">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>CGV
+        </a>
+        <a class="nav-dropdown-item" href="avis.html">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Avis clients
+        </a>
+      </div>
+    </li>
+    <li><a href="#">Formations</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="lang-toggle">
+      <img src="images/icones/langues/france.png" alt="FR"/>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">INFOS</div>
+  <h1>CGV &amp; FAQ</h1>
+  <p class="hero-sub">Conditions générales de vente et réponses aux questions les plus fréquentes sur les commissions.</p>
+</section>
+
+<!-- CGV -->
+<section class="cgv-section" id="cgv">
+  <p class="section-label">Conditions générales — Commissions</p>
+  <h2 class="section-title">CGV &amp; Règlement</h2>
+  <p style="text-align:center;font-size:13px;color:#8b80c8;margin-bottom:28px;">Ces conditions s'appliquent exclusivement aux commandes d'illustrations (Character Design, Portrait, Splash Art, Unique). Elles ne concernent pas les prestations de coaching.</p>
+  <div class="cgv-card">
+
+    <div class="cgv-article">
+      <p class="cgv-article-label">Article 1 — Objet</p>
+      <p>Les présentes conditions régissent toute commande d'illustration passée auprès de Bobe Florian. Toute commande implique l'acceptation sans réserve des présentes conditions.</p>
+    </div>
+
+    <div class="cgv-article">
+      <p class="cgv-article-label">Article 2 — Paiement</p>
+      <p>Un acompte de <strong>50 %</strong> est exigé avant tout démarrage. Le solde est dû à la livraison des fichiers finaux. Seuls les modes de paiement intégrés au site sont acceptés. Aucun paiement externe ne sera traité.</p>
+    </div>
+
+    <div class="cgv-article">
+      <p class="cgv-article-label">Article 3 — Révisions</p>
+      <p>Deux rondes de révisions mineures sont incluses par commission. Toute modification structurelle demandée après validation d'une étape fera l'objet d'un devis complémentaire.</p>
+    </div>
+
+    <div class="cgv-article">
+      <p class="cgv-article-label">Article 4 — Droits &amp; Licences</p>
+      <p>Par défaut, la livraison confère un droit d'usage <strong>personnel et non commercial</strong>. Les usages commerciaux, streaming ou NFT nécessitent la licence correspondante sélectionnée lors de la commande. Bobe Florian conserve le droit moral sur l'œuvre et peut la publier dans son portfolio sauf accord NDA.</p>
+    </div>
+
+    <div class="cgv-article">
+      <p class="cgv-article-label">Article 5 — Délais</p>
+      <p>Les délais indiqués sont des estimations indicatives. Bobe Florian ne peut être tenu responsable de retards liés à des circonstances extérieures. Tout retard significatif fera l'objet d'une communication proactive.</p>
+    </div>
+
+    <div class="cgv-article">
+      <p class="cgv-article-label">Article 6 — Annulation &amp; Remboursement</p>
+      <p>En cas d'annulation avant démarrage, l'acompte est intégralement remboursé. Après démarrage des travaux, l'acompte est conservé à titre d'indemnisation. Aucun remboursement ne sera accordé après livraison des fichiers finaux.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <p class="section-label">Questions fréquentes</p>
+  <h2 class="section-title">FAQ</h2>
+  <div class="faq-list">
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Comment se passe une commission&#8239;?
+        <span class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </button>
+      <p class="faq-a">Après votre demande, on échange sur votre projet (références, besoins, délais). Je vous envoie un devis détaillé. Une fois validé et l'acompte reçu, je commence et vous tiens informé à chaque étape clé.</p>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Combien de temps prend une commission&#8239;?
+        <span class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </button>
+      <p class="faq-a">Character Design (2–3 sem.), Portrait (3–5 sem.), Splash Art (4–7 sem.), Unique (à définir). Ces délais varient selon le carnet de commandes.</p>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Puis-je utiliser la commission commercialement&#8239;?
+        <span class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </button>
+      <p class="faq-a">Par défaut, la commission est pour usage personnel. Les droits commerciaux, streaming ou NFT nécessitent une licence supplémentaire sélectionnable dans les modalités.</p>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Quelles références préparer&#8239;?
+        <span class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </button>
+      <p class="faq-a">Plus vos références sont précises, meilleur sera le résultat : description du personnage, images similaires, palette de couleurs, ambiance souhaitée.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div><div class="footer-logo">BOBE<span>Florian &middot; Digital Artist</span></div></div>
+    <div class="footer-col"><h4>Navigation</h4><a href="#">Portfolio</a><a href="coaching.html">Coaching</a><a href="commission.html">Commission</a><a href="#">Formations</a></div>
+    <div class="footer-col"><h4>Commission</h4><a href="commission.html#commander">Character Design</a><a href="commission.html#commander">Portrait</a><a href="commission.html#commander">Splash Art</a><a href="commission.html#commander">Unique</a></div>
+    <div class="footer-col"><h4>L&#233;gal</h4><a href="cgv-faq.html#cgv">CGV</a><a href="cgv-faq.html#faq">FAQ</a><a href="#">Confidentialit&#233;</a></div>
+  </div>
+  <div class="footer-bottom">
+    <p>&#169; 2026 Bobe Florian. Tous droits r&#233;serv&#233;s.</p>
+    <div class="payment-icons">
+      <img src="images/icones/Paiement/Visa.png" alt="Visa"/>
+      <img src="images/icones/Paiement/Mastercard.png" alt="Mastercard"/>
+      <img src="images/icones/Paiement/PayPal.png" alt="PayPal"/>
+      <img src="images/icones/Paiement/Stripe.png" alt="Stripe"/>
+    </div>
+  </div>
+</footer>
+
+</div><!-- /page-content -->
+
+<script>
+  function toggleFaq(btn) {
+    var item = btn.closest('.faq-item');
+    var isOpen = item.classList.contains('open');
+    // Close all open items
+    document.querySelectorAll('.faq-item.open').forEach(function(el) {
+      el.classList.remove('open');
+    });
+    // Open clicked item if it was closed
+    if (!isOpen) {
+      item.classList.add('open');
+    }
+  }
+</script>
+
+</body>
+</html>

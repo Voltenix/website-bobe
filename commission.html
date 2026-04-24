@@ -1,0 +1,2485 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Commission – Bobe Florian</title>
+  <style>
+    @font-face{font-family:'Zodiak';src:url('Fonts/Zodiak/Zodiak-Bold.otf') format('opentype');font-weight:700;font-display:swap;}
+    @font-face{font-family:'Satoshi';src:url('Fonts/Satoshi/Fonts/WEB/fonts/Satoshi-Regular.woff2') format('woff2');font-weight:400;font-display:swap;}
+    @font-face{font-family:'Satoshi';src:url('Fonts/Satoshi/Fonts/WEB/fonts/Satoshi-Medium.woff2') format('woff2');font-weight:500;font-display:swap;}
+    @font-face{font-family:'Satoshi';src:url('Fonts/Satoshi/Fonts/WEB/fonts/Satoshi-Bold.woff2') format('woff2');font-weight:700;font-display:swap;}
+    @font-face{font-family:'Satoshi';src:url('Fonts/Satoshi/Fonts/WEB/fonts/Satoshi-Black.woff2') format('woff2');font-weight:900;font-display:swap;}
+
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --orange:#FF7A3D; --orange2:#FF4E1F;
+      --purple:#6C63FF; --purple2:#4A40E8;
+      --pink:#FF3DA8;   --pink2:#CC0080;
+      --teal:#00D4B8;   --teal2:#00A890;
+      --bg:#eef2ff; --text:#1a1a3e; --muted:#6b7ab8;
+      --card-r:10px;
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family:'Satoshi',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;min-height:100vh;}
+
+    /* PAGE BG */
+    .page-bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;
+      background:linear-gradient(160deg,#f0f5ff 0%,#e6ecff 40%,#f5f0ff 100%);}
+    .bg-blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.35;}
+    .bg-blob-1{width:700px;height:700px;background:radial-gradient(circle,#c7d7ff,transparent 70%);top:-200px;left:-200px;}
+    .bg-blob-2{width:600px;height:600px;background:radial-gradient(circle,#dfd6ff,transparent 70%);top:30%;right:-150px;}
+    .bg-blob-3{width:500px;height:500px;background:radial-gradient(circle,#ffd6ec,transparent 70%);bottom:0;left:20%;}
+    .bg-blob-4{width:400px;height:400px;background:radial-gradient(circle,#d6eaff,transparent 70%);bottom:20%;right:10%;}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+      padding:20px 60px;background:rgba(245,244,255,0.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(84,92,158,0.12);transition:background .35s ease,border-color .35s ease;}
+    .nav-logo{text-decoration:none;display:inline-flex;align-items:center;position:relative;cursor:pointer;}
+    .nav-logo-text{display:flex;flex-direction:column;line-height:1;transition:opacity .22s;}
+    .nav-logo-bobe{font-size:22px;font-weight:900;letter-spacing:2px;color:#545c9e;}
+    .nav-logo-florian{font-size:10px;font-weight:300;letter-spacing:2px;color:rgba(84,92,158,0.50);margin-top:3px;text-transform:uppercase;}
+    .nav-logo-bf{position:absolute;left:0;top:50%;transform:translateY(-50%);height:40px;width:auto;opacity:0;transition:opacity .22s;}
+    .nav-logo:hover .nav-logo-text{opacity:0;}
+    .nav-logo:hover .nav-logo-bf{opacity:1;}
+    .nav-links{display:flex;gap:36px;list-style:none;}
+    .nav-links>li{position:relative;}
+    .nav-links>li::after{content:'';position:absolute;top:100%;left:-20px;right:-20px;height:18px;display:block;}
+    .nav-links a{color:rgba(84,92,158,0.72);text-decoration:none;font-size:14px;font-weight:500;letter-spacing:0.5px;transition:color .2s;display:flex;align-items:center;gap:4px;}
+    .nav-links a:hover,.nav-links a.active{color:#545c9e;}
+    .nav-chevron{font-size:8px;opacity:0.55;transition:transform .22s;color:rgba(84,92,158,0.38);}
+    .nav-links>li:hover .nav-chevron{transform:rotate(180deg);opacity:1;}
+    .nav-dropdown{position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%) translateY(-6px);
+      background:rgba(245,244,255,0.97);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+      border:1px solid rgba(84,92,158,0.12);border-radius:16px;padding:8px;min-width:200px;
+      opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;z-index:200;
+      box-shadow:0 20px 60px rgba(0,0,0,0.12);}
+    .nav-dropdown::before{content:'';position:absolute;top:-5px;left:50%;transform:translateX(-50%) rotate(45deg);
+      width:10px;height:10px;background:rgba(245,244,255,0.97);
+      border-top:1px solid rgba(84,92,158,0.12);border-left:1px solid rgba(84,92,158,0.12);}
+    .nav-links>li:hover .nav-dropdown{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0);}
+    .nav-dropdown-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;
+      text-decoration:none;color:rgba(84,92,158,0.78);font-size:13px;font-weight:500;letter-spacing:0;
+      transition:background .15s,color .15s;white-space:nowrap;}
+    .nav-dropdown-item:hover{background:rgba(84,92,158,0.07);color:#545c9e;}
+    .nav-dropdown-item img{width:16px;height:16px;object-fit:contain;flex-shrink:0;}
+    .nav-dropdown-item svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;opacity:.75;}
+    .nav-dropdown-divider{height:1px;background:rgba(84,92,158,0.12);margin:5px 8px;}
+    .nav-right{display:flex;gap:10px;align-items:center;}
+    .lang-toggle{background:none;border:none;padding:0;cursor:pointer;border-radius:3px;overflow:hidden;
+      display:flex;align-items:center;transition:transform .2s,box-shadow .2s;box-shadow:0 2px 8px rgba(0,0,0,0.25);}
+    .lang-toggle:hover{transform:scale(1.08);box-shadow:0 4px 14px rgba(0,0,0,0.35);}
+    .lang-toggle img{width:32px;height:22px;object-fit:cover;display:block;}
+
+    /* PAGE */
+    .page-content{position:relative;z-index:1;padding-top:80px;}
+
+    /* HERO */
+    .hero{text-align:center;padding:64px 24px 32px;}
+    .hero-tag{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#8b80c8;
+      margin-bottom:12px;display:flex;flex-direction:column;align-items:center;gap:8px;}
+    .hero-tag::after{content:'';width:30px;height:1.5px;background:rgba(100,110,200,0.22);border-radius:2px;}
+    .hero h1{font-family:'Satoshi',sans-serif;font-size:clamp(52px,8vw,88px);font-weight:700;
+      background:linear-gradient(135deg,#3a2a7a 0%,#6c63ff 60%,#a78bfa 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      line-height:1.05;letter-spacing:-1px;transition:all .4s ease;}
+    .hero-sub{font-size:16px;color:var(--muted);margin-top:14px;font-weight:400;max-width:480px;margin-left:auto;margin-right:auto;}
+
+    /* PACK SECTION */
+    .pack-section{padding:16px 32px 60px;max-width:1280px;margin:0 auto;}
+    .pack-section-q{text-align:center;margin-bottom:40px;font-size:21px;font-weight:600;color:#2a235a;}
+    .pack-section-q em{font-style:italic;color:#6c63ff;font-family:'Satoshi',sans-serif;font-size:25px;}
+    .pack-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;align-items:stretch;}
+
+    /* ── PRESET CARD ── */
+    .preset-card{
+      position:relative;border-radius:var(--card-r);overflow:hidden;cursor:pointer;
+      border:2px solid rgba(180,180,240,0.25);
+      box-shadow:0 4px 24px rgba(80,70,160,0.08);
+      transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+      background:#fff;
+      /* CSS vars for holographic effect */
+      --mx:50%; --my:50%;
+      height:572px;
+      user-select:none;
+    }
+    .preset-card:hover{transform:translateY(-6px) scale(1.01);box-shadow:0 16px 48px rgba(80,70,160,0.18);}
+    .preset-card.selected{
+      border-color:rgba(108,99,255,0.70);
+      box-shadow:0 0 0 3px rgba(108,99,255,0.22), 0 12px 40px rgba(108,99,160,0.20);
+      transform:translateY(-4px) scale(1.01);
+    }
+
+    /* Holographic overlay */
+    .preset-card .holo{
+      position:absolute;inset:0;z-index:4;pointer-events:none;border-radius:var(--card-r);
+      opacity:0;transition:opacity .3s;
+      background:conic-gradient(from calc(var(--angle,120deg)) at var(--mx) var(--my),
+        rgba(255,0,128,0.10) 0deg,rgba(120,80,255,0.12) 72deg,
+        rgba(0,200,255,0.11) 144deg,rgba(0,255,128,0.09) 216deg,
+        rgba(255,220,0,0.11) 288deg,rgba(255,0,128,0.10) 360deg);
+      mix-blend-mode:screen;
+    }
+    /* Shine overlay */
+    .preset-card .shine{
+      position:absolute;inset:0;z-index:5;pointer-events:none;border-radius:var(--card-r);
+      opacity:0;transition:opacity .25s;
+      background:radial-gradient(circle at var(--mx) var(--my),rgba(255,255,255,0.30) 0%,transparent 55%);
+    }
+    .preset-card:hover .holo{opacity:1;}
+    .preset-card:hover .shine{opacity:1;}
+
+    /* Selected check */
+    .preset-check{
+      position:absolute;top:10px;right:10px;z-index:8;
+      width:26px;height:26px;border-radius:50%;
+      background:rgba(255,255,255,0.92);border:2px solid rgba(108,99,255,0.30);
+      display:flex;align-items:center;justify-content:center;
+      opacity:0;transition:opacity .25s,border-color .25s,background .25s;
+    }
+    .preset-check svg{width:13px;height:13px;stroke:#6c63ff;stroke-width:2.5;}
+    .preset-card.selected .preset-check svg{stroke:#fff;}
+
+    /* Card image fills full card */
+    .preset-img{position:absolute;inset:0;overflow:hidden;}
+    .preset-img-bg{
+      position:absolute;inset:0;background-size:cover;background-position:center top;
+      transition:transform .6s ease;
+    }
+    .preset-card:hover .preset-img-bg{transform:scale(1.08);}
+    .preset-img-overlay{position:absolute;inset:0;}
+    .preset-badge{
+      position:absolute;top:14px;left:50%;transform:translateX(-50%);
+      padding:4px 16px;border-radius:6px;
+      background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);
+      font-size:10px;font-weight:900;letter-spacing:1.8px;white-space:nowrap;
+      border:1.5px solid rgba(255,255,255,0.8);text-transform:uppercase;z-index:3;
+    }
+    .badge-char{color:var(--orange);}
+    .badge-port{color:var(--purple);}
+    .badge-splash{color:var(--pink);}
+    .badge-unique{color:var(--teal);}
+    /* Titre universel — Satoshi Black, blanc, ombres ASL */
+    .preset-title-wrap{
+      position:absolute;bottom:148px;left:0;right:0;z-index:8;
+      display:flex;justify-content:center;pointer-events:none;}
+    .preset-title{
+      font-family:'Satoshi',sans-serif;font-size:26px;font-weight:900;line-height:1.1;
+      letter-spacing:.4px;color:#ffffff;
+      text-shadow:0 0 7px rgba(40,44,132,1),0 0 32px rgba(40,44,132,0.56);
+      margin:0;text-align:center;padding:0 14px;}
+
+    /* ── Gradient par carte (texte bouton CTA) ── */
+    .preset-card[data-pack="chardesign"]{--pack-gradient:linear-gradient(135deg,#FF7A3D,#FFB080);}
+    .preset-card[data-pack="portrait"]  {--pack-gradient:linear-gradient(135deg,#6c63ff,#a78bfa);}
+    .preset-card[data-pack="splashart"] {--pack-gradient:linear-gradient(135deg,#FF3DA8,#ff82c3);}
+    .preset-card[data-pack="unique"]    {--pack-gradient:linear-gradient(135deg,#00D4B8,#6efff0);}
+
+    /* ── Bouton CTA hover — remplace preset-info-btn ── */
+    .preset-cta-btn{
+      position:absolute;bottom:20px;left:16px;right:16px;z-index:9;
+      height:42px;border:none;border-radius:10px;
+      background:rgba(255,255,255,0.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+      box-shadow:0 4px 18px rgba(0,0,0,0.10);
+      cursor:pointer;display:flex;align-items:center;justify-content:center;
+      opacity:0;transform:translateY(8px);
+      transition:opacity .25s,transform .25s,box-shadow .2s;}
+    .preset-card:hover .preset-cta-btn{opacity:1;transform:translateY(0);}
+    .preset-cta-btn:hover{transform:translateY(-2px)!important;box-shadow:0 8px 28px rgba(0,0,0,0.14);}
+    .preset-card.flipped .preset-cta-btn{opacity:0;pointer-events:none;}
+    .cta-label{
+      font-family:'Satoshi',sans-serif;font-size:13px;font-weight:700;letter-spacing:.35px;
+      background:var(--pack-gradient);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+    /* ── Check holographique animé ── */
+    @property --holo-angle{syntax:'<angle>';inherits:false;initial-value:0deg;}
+    @keyframes holo-spin{to{--holo-angle:360deg;}}
+    .preset-card.selected .preset-check{
+      opacity:1;border-color:transparent;
+      background:conic-gradient(from var(--holo-angle),
+        #ff6ec7,#c084fc,#818cf8,#60a5fa,#34d399,#fbbf24,#fb923c,#ff6ec7);
+      animation:holo-spin 2.2s linear infinite;
+      box-shadow:0 0 10px rgba(180,120,255,0.5);}
+    .preset-card.selected .preset-check svg{stroke:#fff;}
+    /* Iridescent animated border */
+    @property --ring-angle {
+      syntax: '<angle>';
+      inherits: false;
+      initial-value: 0deg;
+    }
+    @keyframes iridescent-ring-spin {
+      from { --ring-angle: 0deg; }
+      to   { --ring-angle: 360deg; }
+    }
+    .iridescent-ring{
+      position:absolute;inset:-3px;z-index:0;
+      border-radius:calc(var(--card-r) + 3px);
+      background:conic-gradient(from var(--ring-angle,0deg),
+        #ff6ec7,#c084fc,#818cf8,#60a5fa,#34d399,#fbbf24,#fb923c,#ff6ec7);
+      -webkit-mask:linear-gradient(#fff,#fff) content-box,linear-gradient(#fff,#fff);
+      mask:linear-gradient(#fff,#fff) content-box,linear-gradient(#fff,#fff);
+      -webkit-mask-composite:destination-out;mask-composite:exclude;
+      padding:3px;opacity:0;transition:opacity .45s ease;
+      pointer-events:none;
+      animation:iridescent-ring-spin 3s linear infinite paused;
+    }
+    .preset-card.selected .iridescent-ring{opacity:1;animation-play-state:running;}
+    .preset-card.selected{
+      border-color:transparent;
+      box-shadow:0 20px 56px rgba(80,70,160,0.24);
+      transform:translateY(-5px) scale(1.015);
+    }
+
+
+    /* ── FLIP CARD ── */
+    .preset-card{
+      overflow:visible!important;    /* allow back face */
+      perspective:1000px;
+    }
+    .preset-inner{
+      position:absolute;inset:0;
+      transform-style:preserve-3d;
+      transition:transform .65s cubic-bezier(.4,0,.2,1);
+      border-radius:var(--card-r);
+    }
+    .preset-card.flipped .preset-inner{transform:rotateY(180deg);}
+    /* disable hover/select while flipped */
+    .preset-card.flipped{pointer-events:none;}
+    .preset-card.flipped .preset-inner{pointer-events:all;}
+
+    .preset-front,.preset-back{
+      position:absolute;inset:0;overflow:hidden;
+      border-radius:var(--card-r);
+      backface-visibility:hidden;-webkit-backface-visibility:hidden;
+    }
+    .preset-front{display:flex;flex-direction:column;}
+    .preset-back{
+      transform:rotateY(180deg);
+      padding:22px 20px 18px;
+      background:#fff;
+      display:flex;flex-direction:column;
+      gap:0;
+    }
+
+
+    /* Back face content */
+    .preset-back-close{
+      position:absolute;top:12px;right:12px;z-index:9;
+      width:26px;height:26px;border-radius:50%;
+      border:1.5px solid rgba(180,180,255,0.30);
+      background:rgba(108,99,255,0.06);
+      cursor:pointer;font-size:12px;color:#8880cc;
+      display:flex;align-items:center;justify-content:center;transition:all .2s;
+    }
+    .preset-back-close:hover{background:rgba(255,80,80,0.08);color:#e04040;border-color:rgba(255,80,80,0.25);}
+    .back-pack-dot{width:8px;height:8px;border-radius:50%;margin-bottom:10px;flex-shrink:0;}
+    .back-title{font-family:'Satoshi',sans-serif;font-size:17px;font-weight:700;color:#1a1a3e;margin-bottom:4px;}
+    .back-sub{font-size:11px;color:#9d90cc;margin-bottom:10px;font-style:italic;}
+    .back-desc{font-size:11px;color:#6b7ab8;line-height:1.6;font-style:italic;margin-bottom:12px;}
+    .back-features{list-style:none;padding:0;margin:0 0 14px;display:flex;flex-direction:column;gap:6px;}
+    .back-feature{font-size:11.5px;color:#3a2a7a;display:flex;align-items:center;gap:8px;line-height:1.3;}
+    .back-feature::before{content:'✦';color:var(--pack-accent,#6c63ff);font-size:8px;flex-shrink:0;}
+    .back-price-row{display:flex;align-items:baseline;gap:6px;margin-top:auto;padding-top:12px;
+      border-top:1px solid rgba(180,180,255,0.15);}
+    .back-from{font-size:10px;color:#9d90cc;font-weight:600;letter-spacing:.5px;}
+    .back-price-val{font-family:'Satoshi',sans-serif;font-size:26px;font-weight:700;
+      background:linear-gradient(135deg,var(--pack-accent,#6c63ff),#a78bfa);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .back-delay{font-size:10.5px;color:#b0a8d8;margin-top:5px;}
+    .back-thumbs{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:10px 0 8px;border-radius:8px;overflow:hidden;}
+    .back-thumb{aspect-ratio:4/3;overflow:hidden;border-radius:6px;}
+    .back-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s;}
+    .back-thumb:hover img{transform:scale(1.07);}
+    .back-see-more{display:block;text-align:center;font-size:10.5px;font-weight:700;letter-spacing:.5px;
+      color:var(--pack-accent,#6c63ff);text-decoration:none;padding:6px 0;margin-bottom:8px;
+      border:1px solid rgba(108,99,255,0.18);border-radius:7px;transition:background .15s,border-color .15s;}
+    .back-see-more:hover{background:rgba(108,99,255,0.06);border-color:rgba(108,99,255,0.30);}
+
+    /* ── SPOTLIGHT EFFECT ── */
+    .spotlight{
+      position:absolute;inset:0;z-index:6;pointer-events:none;
+      opacity:0;transition:opacity .35s;
+      background:radial-gradient(circle at var(--mx) var(--my),
+        rgba(255,255,255,0.20) 0%,
+        rgba(255,255,255,0.06) 38%,
+        transparent 65%);
+    }
+    .spotlight-border{
+      position:absolute;inset:-2px;z-index:10;pointer-events:none;
+      border-radius:calc(var(--card-r) + 2px);
+      opacity:0;transition:opacity .35s;
+      background:radial-gradient(circle at var(--mx) var(--my),
+        rgba(180,160,255,0.60) 0%, transparent 55%);
+      -webkit-mask:linear-gradient(#fff,#fff) content-box,linear-gradient(#fff,#fff);
+      mask:linear-gradient(#fff,#fff) content-box,linear-gradient(#fff,#fff);
+      -webkit-mask-composite:destination-out;mask-composite:exclude;
+      padding:2px;
+    }
+    .preset-card:hover .spotlight,.preset-card:hover .spotlight-border{opacity:1;}
+    .preset-card.flipped .spotlight,.preset-card.flipped .spotlight-border{opacity:0;}
+
+    /* ── PERSONNALISATION ── */
+    .perso-section{max-width:1160px;margin:0 auto;padding:0 32px 80px;
+      opacity:0;transform:translateY(28px);transition:opacity .5s ease,transform .5s ease;pointer-events:none;}
+    .perso-section.visible{opacity:1;transform:none;pointer-events:all;}
+
+    .perso-header{display:flex;align-items:center;gap:16px;margin-bottom:28px;}
+    .perso-header-pack-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+    .perso-header-title{font-family:'Satoshi',sans-serif;font-size:26px;font-weight:700;color:#2a235a;}
+    .perso-header-sub{font-size:13px;color:#8b80c8;}
+
+    /* Accordion groups */
+    .perso-group{background:rgba(255,255,255,0.68);backdrop-filter:blur(14px);
+      border:1px solid rgba(180,180,255,0.28);border-radius:16px;margin-bottom:14px;overflow:visible;
+      position:relative;z-index:1;}
+    .perso-group-head{display:flex;align-items:center;gap:12px;padding:16px 20px;cursor:pointer;
+      user-select:none;transition:background .15s;border-radius:16px 16px 0 0;overflow:hidden;}
+    .perso-group-head:hover{background:rgba(108,99,255,0.04);}
+    .perso-group-ico{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .perso-group-ico svg{width:16px;height:16px;}
+    .perso-group-label{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#9d90cc;flex:1;}
+    .perso-group-chevron{width:10px;height:10px;border-right:2px solid #b0a8d8;border-bottom:2px solid #b0a8d8;
+      transform:rotate(45deg) translateY(-2px);transition:transform .25s;}
+    .perso-group.open .perso-group-chevron{transform:rotate(-135deg) translateY(-2px);}
+    .perso-group-body{display:none;padding:0 16px 16px;border-top:1px solid rgba(180,180,255,0.15);overflow:visible;}
+    .perso-group.open .perso-group-body{display:block;}
+
+    /* Fields */
+    .perso-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:14px;}
+    .perso-field{display:flex;align-items:center;gap:10px;min-width:0;
+      background:rgba(255,255,255,0.80);border:1px solid rgba(108,99,255,0.12);
+      border-radius:10px;padding:11px 14px;transition:border-color .2s;}
+    .perso-field:hover,.perso-field:focus-within{border-color:rgba(108,99,255,0.35);}
+    .perso-field-ico{width:30px;height:30px;border-radius:7px;background:rgba(108,99,255,0.08);
+      border:1px solid rgba(108,99,255,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .perso-field-ico svg{width:14px;height:14px;stroke:#6c63ff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+    .perso-field label{font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#9d90cc;white-space:nowrap;}
+    .perso-field select,.perso-field input{border:none;background:transparent;font-family:'Satoshi',sans-serif;
+      font-size:13px;color:#3a2a7a;font-weight:500;outline:none;flex:1;min-width:0;appearance:none;cursor:pointer;overflow:hidden;text-overflow:ellipsis;}
+    .perso-field select option{background:#f0eeff;color:#3a2a7a;}
+    .perso-field.full{grid-column:1/-1;width:100%;}
+
+    /* Counter */
+    .counter{display:flex;align-items:center;gap:8px;}
+    .counter-btn{width:24px;height:24px;border-radius:50%;border:1.5px solid rgba(108,99,255,0.25);
+      background:rgba(108,99,255,0.06);color:#6c63ff;font-size:14px;font-weight:700;
+      display:flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;transition:background .15s;}
+    .counter-btn:hover{background:rgba(108,99,255,0.16);}
+    .counter-val{font-size:14px;font-weight:700;color:#3a2a7a;min-width:16px;text-align:center;}
+
+    /* Toggle (checkbox style) */
+    .toggle-wrap{display:flex;align-items:center;gap:10px;}
+    .toggle{position:relative;width:40px;height:22px;flex-shrink:0;}
+    .toggle input{opacity:0;width:0;height:0;}
+    .toggle-slider{position:absolute;inset:0;background:rgba(108,99,255,0.15);border-radius:11px;
+      cursor:pointer;transition:background .2s;border:1.5px solid rgba(108,99,255,0.20);}
+    .toggle-slider::before{content:'';position:absolute;width:16px;height:16px;left:2px;top:1px;
+      background:#fff;border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,0.15);transition:transform .2s;}
+    .toggle input:checked + .toggle-slider{background:#6c63ff;border-color:#6c63ff;}
+    .toggle input:checked + .toggle-slider::before{transform:translateX(18px);}
+    .toggle-label{font-size:13px;font-weight:500;color:#3a2a7a;cursor:pointer;}
+
+    /* Price estimation */
+    .perso-price-bar{
+      background:rgba(255,255,255,0.80);backdrop-filter:blur(14px);
+      border:1.5px solid rgba(108,99,255,0.20);border-radius:16px;
+      padding:20px 24px;margin-top:16px;
+      display:flex;align-items:center;justify-content:space-between;gap:20px;
+      flex-wrap:wrap;
+    }
+    .price-est-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#9d90cc;}
+    .price-est-val{font-family:'Satoshi',sans-serif;font-size:36px;font-weight:700;
+      background:linear-gradient(135deg,#6c63ff,#a78bfa);-webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;background-clip:text;}
+    .price-est-note{font-size:11px;color:#b0a8d8;margin-top:3px;}
+    .perso-cta{padding:13px 32px;border-radius:30px;border:none;cursor:pointer;
+      font-family:'Satoshi',sans-serif;font-size:14px;font-weight:700;color:#fff;
+      background:linear-gradient(135deg,#6c63ff,#4a40e8);transition:transform .2s,box-shadow .2s;}
+    .perso-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(108,99,255,0.35);}
+
+    /* ── STEPPER ── */
+    .steps-stepper{display:flex;align-items:flex-start;justify-content:center;gap:0;padding:8px 0 28px;}
+    .step-item{display:flex;flex-direction:column;align-items:center;gap:7px;}
+    .step-connector{width:64px;height:2px;margin-top:15px;background:rgba(108,99,255,0.15);transition:background .4s;}
+    .step-connector.done{background:#6c63ff;}
+    .step-circle{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:13px;font-weight:700;transition:all .3s;flex-shrink:0;}
+    .step-circle.future{background:rgba(108,99,255,0.10);color:rgba(108,99,255,0.4);border:1.5px solid rgba(108,99,255,0.18);}
+    .step-circle.active{background:#6c63ff;color:#fff;box-shadow:0 0 0 4px rgba(108,99,255,0.18);}
+    .step-circle.done{background:#22c55e;color:#fff;font-size:0;}
+    .step-circle.done::after{content:'✓';font-size:14px;}
+    .step-lbl{font-size:11px;font-weight:600;color:rgba(108,99,255,0.45);text-align:center;max-width:80px;line-height:1.3;letter-spacing:.3px;}
+    .step-lbl.active{color:#6c63ff;}
+    .step-lbl.done{color:rgba(108,99,255,0.65);}
+    /* ── SLIDER ── */
+    .steps-slider{overflow:hidden;}
+    .steps-track{display:flex;transition:transform .45s cubic-bezier(.4,0,.2,1);will-change:transform;}
+    .step-panel{min-width:100%;box-sizing:border-box;}
+    /* ── STEP NAV BAR ── */
+    .step-nav-bar{display:flex;align-items:center;justify-content:space-between;
+      padding:20px 0 0;margin-top:16px;border-top:1px solid rgba(108,99,255,0.12);}
+    .btn-step-back{background:none;border:1.5px solid rgba(108,99,255,0.25);color:rgba(84,92,158,0.8);
+      font-family:'Satoshi',sans-serif;font-size:14px;font-weight:600;padding:11px 22px;
+      border-radius:50px;cursor:pointer;transition:all .2s;}
+    .btn-step-back:hover{border-color:#6c63ff;color:#6c63ff;}
+    .btn-step-next{background:linear-gradient(135deg,#6c63ff,#a78bfa);color:#fff;border:none;
+      font-family:'Satoshi',sans-serif;font-size:14px;font-weight:700;padding:13px 28px;
+      border-radius:50px;cursor:pointer;transition:opacity .2s;}
+    .btn-step-next:hover{opacity:.88;}
+    .btn-step-confirm{background:linear-gradient(135deg,#22c55e,#4ade80);color:#fff;border:none;
+      font-family:'Satoshi',sans-serif;font-size:14px;font-weight:700;padding:13px 28px;
+      border-radius:50px;cursor:pointer;transition:opacity .2s;}
+    .btn-step-confirm:hover{opacity:.88;}
+    .btn-step-confirm:disabled{opacity:.4;cursor:not-allowed;}
+    /* Step panel inner styles */
+    .step-panel-title{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+      color:#9d90cc;margin-bottom:20px;}
+    .step-field-group{margin-bottom:16px;}
+    .step-field-group label{display:block;font-size:12px;font-weight:700;letter-spacing:1.5px;
+      text-transform:uppercase;color:#9d90cc;margin-bottom:8px;}
+    .step-input{width:100%;background:rgba(255,255,255,0.6);border:1.5px solid rgba(108,99,255,0.15);
+      border-radius:10px;padding:11px 14px;font-family:'Satoshi',sans-serif;font-size:14px;
+      color:#1a1a3e;outline:none;transition:border-color .2s;}
+    .step-input:focus{border-color:#6c63ff;}
+    .step-input.field-error{border-color:#f87171;background:rgba(248,113,113,0.08);}
+    .step-select{width:100%;background:rgba(255,255,255,0.6);border:1.5px solid rgba(108,99,255,0.15);
+      border-radius:10px;padding:11px 14px;font-family:'Satoshi',sans-serif;font-size:14px;
+      color:#1a1a3e;outline:none;cursor:pointer;appearance:none;-webkit-appearance:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236c63ff' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;}
+    .step-select:focus{border-color:#6c63ff;}
+    .step-select.field-error{border-color:#f87171;}
+    .step-textarea{width:100%;background:rgba(255,255,255,0.6);border:1.5px solid rgba(108,99,255,0.15);
+      border-radius:10px;padding:11px 14px;font-family:'Satoshi',sans-serif;font-size:14px;
+      color:#1a1a3e;outline:none;resize:vertical;min-height:110px;transition:border-color .2s;}
+    .step-textarea:focus{border-color:#6c63ff;}
+    .step-textarea.field-error{border-color:#f87171;background:rgba(248,113,113,0.08);}
+    .step-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .step-addr-block{margin-top:4px;}
+    .step-cgv-box{background:rgba(255,255,255,0.5);border:1.5px solid rgba(108,99,255,0.15);
+      border-radius:12px;padding:16px 18px;font-size:12px;color:#6b7ab8;line-height:1.6;
+      max-height:120px;overflow-y:auto;margin-bottom:16px;}
+    .step-check-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;cursor:pointer;}
+    .step-check-row input[type=checkbox]{width:16px;height:16px;flex-shrink:0;margin-top:2px;accent-color:#6c63ff;cursor:pointer;}
+    .step-check-row span{font-size:13px;color:#545c9e;line-height:1.5;}
+    .step-check-row a{color:#d97706;text-decoration:underline;font-weight:700;}
+    .step-error-msg{font-size:12px;color:#f87171;margin-top:8px;display:none;}
+    /* ── PERSO 2-COL (form + recap) ── */
+    .perso-cols{display:grid;grid-template-columns:1fr 380px;gap:24px;align-items:start;}
+    .perso-right{position:sticky;top:92px;}
+    @media(max-width:900px){.perso-cols{grid-template-columns:1fr;}.perso-right{position:relative;top:0;}}
+    /* PREVIEW PANEL */
+    .preview-panel{background:rgba(255,255,255,0.70);backdrop-filter:blur(16px);
+      border:1.5px solid rgba(180,180,255,0.25);border-radius:20px;padding:22px 20px;}
+    .preview-panel-hd{display:flex;align-items:center;margin-bottom:16px;}
+    .preview-panel-lbl{font-size:9.5px;font-weight:700;letter-spacing:2.5px;
+      text-transform:uppercase;color:#9d90cc;flex:1;}
+    .preview-panel-hr{height:1px;background:rgba(180,180,255,0.22);margin-left:12px;flex:1;}
+    .preview-stage-wrap{display:flex;justify-content:center;align-items:center;
+      background:rgba(108,99,255,0.04);border-radius:12px;padding:14px;min-height:180px;}
+    .preview-stage{position:relative;overflow:hidden;border-radius:10px;
+      box-shadow:0 10px 36px rgba(42,35,90,0.22);
+      transition:width .45s cubic-bezier(.4,0,.2,1);height:auto;}
+    .preview-stage[data-fmt="portrait"]{width:min(70%,360px);aspect-ratio:3/4;}
+    .preview-stage[data-fmt="landscape"]{width:min(95%,480px);aspect-ratio:16/9;}
+    .preview-stage[data-fmt="square"]{width:min(80%,380px);aspect-ratio:1/1;}
+    .preview-bg{position:absolute;inset:0;transition:background .45s ease;}
+    .preview-bg[data-bg="none"]{background:repeating-conic-gradient(rgba(190,190,230,0.28) 0% 25%,rgba(240,240,255,0.28) 0% 50%) 0 0/14px 14px;background-color:#f3f2ff;}
+    .preview-bg[data-bg="simple"]{background:linear-gradient(155deg,#c9d6ff 0%,#d8b8ff 100%);}
+    .preview-bg[data-bg="complex"]{background:linear-gradient(180deg,#1a1040 0%,#4a2d7a 40%,#7a4428 75%,#c8a060 100%);}
+    .preview-mood{position:absolute;inset:0;z-index:2;pointer-events:none;
+      transition:opacity .4s ease;opacity:0;mix-blend-mode:soft-light;}
+    .preview-mood[data-mood="warm"]{opacity:.55;background:linear-gradient(135deg,rgba(255,140,0,.7),rgba(255,60,60,.5));}
+    .preview-mood[data-mood="cold"]{opacity:.55;background:linear-gradient(135deg,rgba(40,80,255,.6),rgba(120,0,255,.45));}
+    .preview-mood[data-mood="dark"]{opacity:.65;background:rgba(10,0,30,.65);}
+    .preview-mood[data-mood="light"]{opacity:.45;background:radial-gradient(circle at 38% 28%,rgba(255,255,220,.85),transparent 68%);}
+    .preview-grid-svg{position:absolute;inset:0;z-index:3;pointer-events:none;width:100%;height:100%;}
+    .preview-grid-svg line{stroke:rgba(255,255,255,.22);stroke-width:.8;stroke-dasharray:3 3;}
+    .preview-chars{position:absolute;inset:0;z-index:4;overflow:hidden;}
+    .preview-char-wrap{position:absolute;top:0;transform-origin:top center;
+      transition:transform .4s cubic-bezier(.4,0,.2,1),left .4s ease,width .4s ease;}
+    .preview-char-wrap svg{width:100%;display:block;}
+    .preview-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;}
+    .preview-tag{font-size:10px;font-weight:600;color:#6c63ff;
+      background:rgba(108,99,255,0.08);border:1px solid rgba(108,99,255,0.15);
+      border-radius:20px;padding:3px 9px;transition:all .25s;}
+
+    /* ── OPEN STATUS ── */
+    .commission-status{display:inline-flex;align-items:center;gap:8px;
+      background:rgba(34,197,94,0.10);border:1px solid rgba(34,197,94,0.28);
+      border-radius:20px;padding:6px 14px;margin:0 auto 20px;
+      font-size:12px;font-weight:600;color:#16a34a;letter-spacing:0.3px;}
+    .status-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;flex-shrink:0;
+      animation:pulse-green 2s infinite;}
+    @keyframes pulse-green{
+      0%{box-shadow:0 0 0 0 rgba(34,197,94,0.5);}
+      70%{box-shadow:0 0 0 7px rgba(34,197,94,0);}
+      100%{box-shadow:0 0 0 0 rgba(34,197,94,0);}
+    }
+
+    /* ── CONFIRM BLOCK ── */
+    .confirm-block{
+      background:rgba(255,251,235,0.90);backdrop-filter:blur(14px);
+      border:1.5px solid rgba(217,119,6,0.22);border-radius:16px;
+      padding:20px 22px;margin-top:14px;display:flex;flex-direction:column;gap:12px;
+    }
+    .confirm-header{display:flex;align-items:center;gap:10px;}
+    .confirm-ico{width:34px;height:34px;border-radius:9px;background:rgba(217,119,6,0.10);
+      display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .confirm-ico svg{width:16px;height:16px;stroke:#d97706;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+    .confirm-title-text{font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#92400e;}
+    .confirm-desc{font-size:12.5px;color:#78350f;line-height:1.65;}
+    /* NDA tooltip */
+    .info-btn{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;
+      background:rgba(108,99,255,0.12);border:1px solid rgba(108,99,255,0.30);color:#6c63ff;
+      cursor:pointer;flex-shrink:0;transition:background .15s;position:relative;vertical-align:middle;margin-left:4px;}
+    .info-btn svg{width:9px;height:9px;stroke:#6c63ff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+    .info-btn:hover{background:rgba(108,99,255,0.22);}
+    .info-tooltip{display:none;position:absolute;top:50%;left:calc(100% + 10px);transform:translateY(-50%);
+      background:rgba(22,14,60,0.96);color:rgba(255,255,255,0.88);font-size:12px;font-weight:400;line-height:1.6;
+      padding:12px 14px;border-radius:10px;width:280px;z-index:300;pointer-events:none;
+      box-shadow:0 8px 32px rgba(0,0,0,0.35);white-space:normal;text-transform:none;letter-spacing:0;}
+    .info-tooltip::before{content:'';position:absolute;top:50%;right:100%;transform:translateY(-50%);
+      border:5px solid transparent;border-right-color:rgba(22,14,60,0.96);}
+    .info-btn:hover .info-tooltip{display:block;}
+    .confirm-check-row{display:flex;align-items:flex-start;gap:10px;cursor:pointer;user-select:none;}
+    .confirm-checkbox{
+      width:18px;height:18px;min-width:18px;border-radius:5px;
+      border:2px solid rgba(217,119,6,0.45);appearance:none;-webkit-appearance:none;
+      background:rgba(255,255,255,0.85);cursor:pointer;margin-top:1px;
+      transition:background .2s,border-color .2s;position:relative;
+    }
+    .confirm-checkbox:checked{background:#d97706;border-color:#d97706;}
+    .confirm-checkbox:checked::after{content:'';position:absolute;top:1px;left:5px;
+      width:5px;height:9px;border:2px solid #fff;border-top:none;border-left:none;
+      transform:rotate(45deg);}
+    .confirm-label{font-size:13px;font-weight:600;color:#92400e;line-height:1.5;}
+    .perso-cta:disabled{opacity:0.38;cursor:not-allowed;transform:none !important;box-shadow:none !important;}
+
+    /* GALLERY */
+    .gallery-section{max-width:1100px;margin:0 auto;padding:0 32px 80px;}
+    .section-tag{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#9d90cc;
+      text-align:center;margin-bottom:8px;display:flex;flex-direction:column;align-items:center;gap:8px;}
+    .section-tag::after{content:'';width:30px;height:1.5px;background:rgba(100,110,200,0.18);border-radius:2px;}
+    .section-title{text-align:center;font-family:'Satoshi',sans-serif;font-size:32px;font-weight:700;color:#2a235a;margin-bottom:36px;}
+    .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+    .gallery-item{border-radius:12px;overflow:hidden;cursor:pointer;position:relative;aspect-ratio:3/4;}
+    .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;display:block;}
+    .gallery-item:hover img{transform:scale(1.04);}
+    .gallery-item-tag{position:absolute;bottom:12px;left:12px;background:rgba(255,255,255,0.88);
+      backdrop-filter:blur(8px);padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;color:#3a2a7a;}
+
+    /* FAQ */
+    .faq-section{max-width:700px;margin:0 auto;padding:0 24px 80px;}
+    .faq-item{border-bottom:1px solid rgba(100,110,200,0.12);}
+    .faq-item:first-of-type{border-top:1px solid rgba(100,110,200,0.12);}
+    .faq-q{width:100%;background:none;border:none;text-align:left;padding:16px 0;
+      display:flex;justify-content:space-between;align-items:center;
+      font-family:'Satoshi',sans-serif;font-size:14.5px;font-weight:600;color:#2a235a;cursor:pointer;transition:color .2s;}
+    .faq-q:hover{color:#6c63ff;}
+    .faq-item.open .faq-q{color:#6c63ff;}
+    .faq-chevron{width:12px;height:12px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;
+      transform:rotate(45deg) translateY(-2px);transition:transform .25s;flex-shrink:0;}
+    .faq-item.open .faq-chevron{transform:rotate(-135deg) translateY(-2px);}
+    .faq-a{display:none;padding-bottom:16px;font-size:13.5px;color:#6b7ab8;line-height:1.7;}
+    .faq-item.open .faq-a{display:block;}
+
+    /* LIGHTBOX */
+    .lightbox{display:none;position:fixed;inset:0;z-index:1000;background:rgba(10,8,40,0.88);
+      align-items:center;justify-content:center;backdrop-filter:blur(12px);}
+    .lightbox.open{display:flex;}
+    .lightbox img{max-width:88vw;max-height:88vh;border-radius:12px;object-fit:contain;}
+    .lightbox-close{position:absolute;top:20px;right:24px;font-size:26px;color:rgba(255,255,255,0.8);cursor:pointer;background:none;border:none;}
+
+    /* ── ORDER RECAP MODAL ── */
+    .or-overlay{display:none;position:fixed;inset:0;z-index:600;
+      background:rgba(10,8,40,0.75);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+      align-items:center;justify-content:center;padding:20px;}
+    .or-overlay.open{display:flex;}
+    .or-modal{
+      background:#fff;border-radius:22px;width:100%;max-width:700px;max-height:88vh;
+      overflow-y:auto;box-shadow:0 28px 90px rgba(0,0,0,0.30);
+      display:flex;flex-direction:column;}
+    .or-modal-hd{
+      display:flex;align-items:center;gap:12px;
+      padding:22px 24px 18px;border-bottom:1px solid rgba(180,180,240,0.18);}
+    .or-modal-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+    .or-modal-title-wrap{flex:1;}
+    .or-modal-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#9d90cc;display:block;margin-bottom:2px;}
+    .or-modal-pack{font-family:'Satoshi',sans-serif;font-size:18px;font-weight:900;color:#1a1a3e;}
+    .or-modal-close{width:30px;height:30px;border-radius:50%;border:none;background:rgba(180,180,240,0.12);
+      cursor:pointer;font-size:16px;color:#9d90cc;display:flex;align-items:center;justify-content:center;
+      transition:background .15s,color .15s;flex-shrink:0;}
+    .or-modal-close:hover{background:rgba(255,60,60,0.10);color:#e04040;}
+    .or-modal-body{padding:20px 24px;flex:1;}
+    .or-body-cols{display:flex;gap:24px;align-items:center;}
+    .or-body-left{flex:1;min-width:0;}
+    .or-body-right{flex:0 0 190px;display:flex;justify-content:center;}
+    .or-body-right .recap-frame-wrap{margin-bottom:0;width:100%;}
+    .or-body-right .recap-frame{width:190px;}
+    .or-body-right .recap-frame[data-fmt="landscape"]{width:190px;aspect-ratio:16/9;}
+    .or-body-right .recap-frame[data-fmt="square"]{width:170px;}
+    .or-body-right .recap-vp-box{width:190px;max-width:190px;}
+    .or-section-lbl{font-size:9.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+      color:#9d90cc;margin-bottom:10px;display:block;}
+    .or-rows{display:flex;flex-direction:column;gap:5px;margin-bottom:20px;}
+    .or-price-box{
+      background:linear-gradient(135deg,rgba(108,99,255,0.06),rgba(108,99,255,0.03));
+      border:1.5px solid rgba(108,99,255,0.15);border-radius:14px;
+      padding:14px 18px;display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px;}
+    .or-price-lbl{font-size:11px;font-weight:600;color:#9d90cc;text-transform:uppercase;letter-spacing:1px;}
+    .or-price-val{font-family:'Satoshi',sans-serif;font-size:24px;font-weight:900;color:#1a1a3e;}
+    .or-note{font-size:10.5px;color:#9d90cc;margin-bottom:20px;}
+    .or-modal-footer{
+      display:flex;gap:10px;padding:18px 24px;
+      border-top:1px solid rgba(180,180,240,0.18);}
+    .or-btn-back{flex:1;height:44px;border:1.5px solid rgba(108,99,255,0.25);border-radius:12px;
+      background:none;cursor:pointer;font-family:'Satoshi',sans-serif;font-size:13px;font-weight:600;
+      color:#6c63ff;transition:background .15s,border-color .15s;}
+    .or-btn-back:hover{background:rgba(108,99,255,0.06);}
+    .or-btn-confirm{flex:2;height:44px;border:none;border-radius:12px;
+      background:linear-gradient(135deg,#5558e3,#7c63ff);
+      cursor:pointer;font-family:'Satoshi',sans-serif;font-size:13px;font-weight:700;
+      color:#fff;letter-spacing:.3px;
+      box-shadow:0 6px 20px rgba(108,99,255,0.35);
+      transition:opacity .18s,transform .15s;}
+    .or-btn-confirm:hover{opacity:.92;transform:translateY(-1px);}
+
+    /* FOOTER */
+    footer{background:rgba(255,255,255,0.55);backdrop-filter:blur(16px);border-top:1px solid rgba(100,110,200,0.10);}
+    .footer-inner{max-width:1100px;margin:0 auto;padding:48px 48px 32px;
+      display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:48px;}
+    .footer-logo{font-family:'Satoshi',sans-serif;font-size:22px;font-weight:700;color:#2a235a;}
+    .footer-logo span{display:block;font-family:'Satoshi',sans-serif;font-size:10px;font-weight:500;color:#9d90cc;letter-spacing:2px;text-transform:uppercase;margin-top:4px;}
+    .footer-col h4{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#9d90cc;margin-bottom:16px;}
+    .footer-col a{display:block;font-size:13px;color:#6b7ab8;text-decoration:none;margin-bottom:8px;transition:color .2s;}
+    .footer-col a:hover{color:#6c63ff;}
+    .footer-bottom{max-width:1100px;margin:0 auto;padding:16px 48px 24px;
+      display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(100,110,200,0.08);}
+    .footer-bottom p{font-size:11.5px;color:#9d90cc;}
+    .payment-icons{display:flex;align-items:center;gap:12px;}
+    .payment-icons img{height:18px;opacity:0.55;}
+
+    @media(max-width:960px){
+      .pack-grid{grid-template-columns:repeat(2,1fr);}
+      .pack-grid .preset-card:nth-child(n){grid-column:span 1;}
+      .nav-links{display:none;}
+    }
+
+    /* ── CUSTOM SELECT ── */
+    .csel{flex:1;min-width:0;}
+    .csel-trigger{width:100%;display:flex;align-items:center;justify-content:space-between;
+      gap:8px;background:none;border:none;padding:0;cursor:pointer;
+      font-family:'Satoshi',sans-serif;font-size:13px;color:#3a2a7a;font-weight:500;
+      text-align:left;min-width:0;}
+    .csel-val{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .csel-trigger svg{width:10px;height:6px;flex-shrink:0;transition:transform .2s;color:#9d90cc;}
+    .csel.open .csel-trigger svg{transform:rotate(180deg);}
+    .perso-field{position:relative;overflow:visible;}
+    .csel-list{
+      position:absolute;z-index:50;top:100%;left:-1px;right:-1px;margin-top:-1px;
+      background:#fff;
+      border:1px solid rgba(108,99,255,0.28);border-top:none;
+      border-radius:0 0 10px 10px;
+      box-shadow:0 6px 18px rgba(80,70,180,0.10);
+      padding:4px;
+      opacity:0;transform:translateY(-4px);pointer-events:none;
+      transition:opacity .15s,transform .15s;
+    }
+    .perso-field.csel-open{border-radius:10px 10px 0 0;border-color:rgba(108,99,255,0.28);}
+    .perso-field.csel-open .csel-list{opacity:1;transform:none;pointer-events:all;}
+    .csel-opt{padding:9px 12px;border-radius:7px;font-size:12.5px;color:#3a2a7a;
+      cursor:pointer;transition:background .1s;line-height:1.3;white-space:nowrap;}
+    .csel-opt:hover{background:rgba(108,99,255,0.07);}
+    .csel-opt.active{background:rgba(108,99,255,0.11);color:#6c63ff;font-weight:600;}
+
+    /* ── PROJECT DETAILS ── */
+    .perso-field-area{flex-direction:column;align-items:stretch;gap:8px;padding:14px;}
+    .perso-field-area .field-top{display:flex;align-items:center;gap:10px;}
+    .perso-field-area textarea{
+      border:none;background:transparent;font-family:'Satoshi',sans-serif;
+      font-size:13px;color:#3a2a7a;font-weight:500;outline:none;
+      width:100%;resize:vertical;min-height:80px;line-height:1.6;
+    }
+    .perso-field-area input[type="url"],.perso-field-area input[type="text"]{
+      border:none;background:transparent;font-family:'Satoshi',sans-serif;
+      font-size:13px;color:#3a2a7a;font-weight:500;outline:none;width:100%;
+    }
+    .project-tip{
+      background:rgba(108,99,255,0.06);
+      border:1.5px dashed rgba(108,99,255,0.22);border-radius:12px;
+      padding:14px 16px;margin-top:10px;display:flex;gap:12px;
+    }
+    .project-tip-icon{font-size:15px;flex-shrink:0;margin-top:1px;}
+    .project-tip-text{font-size:11.5px;color:#5a4a9a;line-height:1.68;}
+    .project-tip-text strong{color:#3a2a7a;}
+
+    /* ── RECAP PANEL ── */
+    .recap-panel{
+      background:rgba(255,255,255,0.72);backdrop-filter:blur(16px);
+      border:1.5px solid rgba(180,180,255,0.25);border-radius:20px;
+      padding:20px 18px;
+    }
+    .recap-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+    .recap-lbl{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#9d90cc;}
+    .recap-pack-badge{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;color:#fff;letter-spacing:.3px;}
+    /* Schematic frame */
+    .recap-frame-wrap{display:flex;justify-content:center;margin-bottom:16px;}
+    .recap-frame{
+      position:relative;overflow:hidden;border-radius:8px;
+      border:1.5px solid rgba(108,99,255,0.20);
+      background:rgba(240,238,255,0.55);
+      width:160px;aspect-ratio:3/4;transition:width .35s,aspect-ratio .35s;
+    }
+    .recap-frame[data-fmt="landscape"]{width:100%;max-width:290px;aspect-ratio:16/9;}
+    .recap-frame[data-fmt="square"]{width:140px;aspect-ratio:1/1;}
+    .recap-frame-bg{position:absolute;inset:0;transition:background .3s;}
+    .recap-frame[data-bg="complex"] .recap-frame-bg{background:rgba(40,28,100,0.30);}
+    .recap-frame[data-mood="warm"] .recap-frame-bg{background:rgba(255,120,60,0.20);}
+    .recap-frame[data-mood="cold"] .recap-frame-bg{background:rgba(80,100,255,0.20);}
+    .recap-frame[data-mood="dark"] .recap-frame-bg{background:rgba(20,10,60,0.42);}
+    .recap-frame[data-mood="light"] .recap-frame-bg{background:rgba(255,248,210,0.45);}
+    .recap-chars-wrap{position:absolute;bottom:0;left:0;right:0;
+      display:flex;align-items:flex-end;justify-content:center;gap:2px;}
+    .recap-char{flex-shrink:0;color:rgba(80,60,180,0.55);transition:color .3s;}
+    .recap-frame[data-bg="complex"] .recap-char{color:rgba(255,255,255,0.72);}
+    .recap-char svg{width:100%;height:auto;display:block;}
+    /* Recap rows */
+    .recap-rows{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;}
+    .recap-row{display:flex;align-items:center;gap:8px;padding:6px 10px;
+      background:rgba(255,255,255,0.55);border-radius:8px;}
+    .recap-row-ico{flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+    .recap-row-ico svg{width:12px;height:12px;stroke:#b0a8d8;fill:none;
+      stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+    .recap-row-key{font-size:9.5px;color:#b0a8d8;font-weight:700;letter-spacing:.5px;
+      text-transform:uppercase;flex:0 0 56px;}
+    .recap-row-val{font-size:11.5px;color:#3a2a7a;font-weight:500;flex:1;
+      overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    /* Recap price */
+    .recap-price-row{border-top:1px solid rgba(180,180,255,0.20);padding-top:14px;
+      display:flex;align-items:baseline;justify-content:space-between;}
+    .recap-price-label{font-size:9.5px;color:#9d90cc;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+    .recap-price-val{font-family:'Satoshi',sans-serif;font-size:22px;font-weight:700;
+      background:linear-gradient(135deg,#6c63ff,#a78bfa);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+    /* ── VIEW PACK CARDS (chardesign) ── */
+    .view-pack-section{margin-bottom:2px;}
+    .view-pack-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+    .view-pack-card{
+      border:1.5px solid rgba(255,122,61,0.18);border-radius:10px;overflow:hidden;
+      cursor:pointer;background:rgba(255,122,61,0.03);
+      transition:border-color .18s,background .18s,transform .12s,box-shadow .18s;
+      display:flex;flex-direction:column;
+      border-left:3px solid transparent;
+    }
+    .view-pack-card:hover{border-color:rgba(255,122,61,0.42);background:rgba(255,122,61,0.07);transform:translateY(-1px);}
+    .view-pack-card.selected{border-left-color:#FF7A3D;border-color:rgba(255,122,61,0.35);background:rgba(255,122,61,0.09);}
+    .view-pack-img-wrap{width:100%;aspect-ratio:4/3;overflow:hidden;border-radius:7px 7px 0 0;}
+    .view-pack-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s;}
+    .view-pack-card:hover .view-pack-img-wrap img{transform:scale(1.04);}
+    .view-pack-body{padding:13px 14px 14px;flex:1;display:flex;flex-direction:column;gap:4px;}
+    .view-pack-name{font-size:12.5px;font-weight:800;color:#d97706;line-height:1.2;text-transform:uppercase;letter-spacing:.04em;}
+    .view-pack-sub{font-size:11px;color:#b45309;font-weight:500;opacity:.7;}
+    .view-pack-desc{font-size:11.5px;color:#57534e;line-height:1.5;margin-top:4px;}
+    /* ── RECAP VIEW PACK (chardesign) ── */
+    .recap-vp-box{position:relative;width:100%;aspect-ratio:16/9;border-radius:8px;border:1.5px solid rgba(255,122,61,0.22);background:rgba(255,122,61,0.05);overflow:hidden;cursor:pointer;}
+    .recap-vp-box::after{
+      content:'';position:absolute;inset:0;z-index:5;border-radius:8px;
+      background:rgba(20,10,60,0) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3Cline x1='11' y1='8' x2='11' y2='14'/%3E%3Cline x1='8' y1='11' x2='14' y2='11'/%3E%3C/svg%3E") center/30px no-repeat;
+      opacity:0;transition:opacity .22s,background-color .22s;pointer-events:none;}
+    .recap-vp-box:hover::after{opacity:1;background-color:rgba(20,10,60,0.38);}
+    .recap-vp-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:52px;font-weight:800;color:rgba(255,122,61,0.18);pointer-events:none;}
+    .recap-vp-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+
+    /* ── VALIDATION ERRORS ── */
+    .perso-field.field-error{
+      border-color:#ef4444 !important;
+      background:rgba(239,68,68,0.05) !important;
+      animation:shake-field .35s ease;
+    }
+    @keyframes shake-field{
+      0%,100%{transform:translateX(0);}
+      20%{transform:translateX(-5px);}
+      40%{transform:translateX(5px);}
+      60%{transform:translateX(-3px);}
+      80%{transform:translateX(2px);}
+    }
+    .perso-field.field-error label{color:#ef4444 !important;}
+    .perso-field.field-error .perso-field-ico{background:rgba(239,68,68,0.10);border-color:rgba(239,68,68,0.25);}
+    .perso-field.field-error .perso-field-ico svg{stroke:#ef4444;}
+    .confirm-check-row.field-error .confirm-label{color:#ef4444 !important;}
+    .confirm-check-row.field-error .confirm-checkbox{border-color:#ef4444;}
+
+    /* ── VALIDATION TOAST ── */
+    .validation-toast{
+      position:fixed;top:24px;left:50%;
+      transform:translateX(-50%) translateY(calc(-100% - 30px));
+      background:rgba(22,12,50,0.97);color:#fff;
+      border:1.5px solid rgba(239,68,68,0.55);border-radius:16px;
+      padding:14px 22px;display:flex;align-items:center;gap:12px;
+      font-family:'Satoshi',sans-serif;font-size:13.5px;font-weight:600;
+      box-shadow:0 12px 48px rgba(0,0,0,0.40);z-index:9999;
+      transition:transform .4s cubic-bezier(.34,1.3,.64,1);
+      max-width:440px;pointer-events:none;
+    }
+    .validation-toast.show{transform:translateX(-50%) translateY(0);}
+    .validation-toast-ico{width:24px;height:24px;border-radius:50%;
+      background:rgba(239,68,68,0.18);display:flex;align-items:center;
+      justify-content:center;flex-shrink:0;}
+    .validation-toast-ico svg{width:12px;height:12px;stroke:#ef4444;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+    /* Description row dans le modal récap */
+    #orRows .recap-row-val{white-space:normal;word-break:break-word;}
+    /* Aperçu dans le modal */
+    .or-preview-wrap{display:flex;justify-content:center;margin-bottom:20px;}
+    .or-preview-wrap .recap-frame{width:200px;}
+    .or-preview-wrap .recap-frame[data-fmt="landscape"]{width:100%;max-width:340px;}
+    .or-preview-wrap .recap-frame[data-fmt="square"]{width:180px;}
+    .or-preview-wrap .recap-vp-box{max-width:340px;width:100%;}
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+<div class="page-bg">
+  <div class="bg-blob bg-blob-1"></div><div class="bg-blob bg-blob-2"></div>
+  <div class="bg-blob bg-blob-3"></div><div class="bg-blob bg-blob-4"></div>
+</div>
+<div class="page-content">
+
+<!-- NAV -->
+<nav>
+  <a href="coaching.html" class="nav-logo">
+    <span class="nav-logo-text"><span class="nav-logo-bobe">BOBE</span><span class="nav-logo-florian">Florian</span></span>
+    <img class="nav-logo-bf" src="images/icones/Logo FB/BF.png" alt="BF"/>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">Portfolio</a></li>
+    <li>
+      <a href="coaching.html">Coaching <span class="nav-chevron">&#9660;</span></a>
+      <div class="nav-dropdown">
+        <a class="nav-dropdown-item" href="coaching.html#section-feedback"><img src="images/icones/formules/Feedback -var.png" alt=""/>Feedback</a>
+        <a class="nav-dropdown-item" href="coaching.html#section-classroom"><img src="images/icones/formules/Classroom -var.png" alt=""/>Classroom</a>
+        <a class="nav-dropdown-item" href="coaching.html#section-mastery"><img src="images/icones/formules/Mastery -var.png" alt=""/>Mastery</a>
+        <div class="nav-dropdown-divider"></div>
+        <a class="nav-dropdown-item" href="avis.html"><img class="star-ico full" src="images/icones/formules/Star Full.svg" alt="★" style="width:14px;height:14px;vertical-align:middle;">Avis clients</a>
+        <a class="nav-dropdown-item" href="coaching.html#faq"><span class="nav-dropdown-icon">?</span>FAQ</a>
+      </div>
+    </li>
+    <li>
+      <a href="commission.html" class="active">Commission <span class="nav-chevron">&#9660;</span></a>
+      <div class="nav-dropdown">
+        <a class="nav-dropdown-item" href="#commander"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.57L23 6H6"/></svg>Commander</a>
+        <a class="nav-dropdown-item" href="galerie.html"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Galerie</a>
+        <div class="nav-dropdown-divider"></div>
+        <a class="nav-dropdown-item" href="cgv-faq.html"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>CGV</a>
+        <a class="nav-dropdown-item" href="avis.html"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Avis clients</a>
+      </div>
+    </li>
+    <li><a href="#">Formations</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="lang-toggle" onclick="toggleLang()">
+      <img id="langFlag" src="images/icones/langues/france.png" alt="FR"/>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="commission-status"><span class="status-dot"></span>Open for commissions</div>
+  <h1>COMMISSION</h1>
+</section>
+
+<!-- PACK SELECTION -->
+<section class="pack-section" id="commander">
+  <h2 class="pack-section-q">Que souhaitez&#8209;vous <em>cr&#233;er&#8239;?</em></h2>
+  <div class="pack-grid">
+
+    <!-- CHARACTER DESIGN -->
+    <div class="preset-card" data-pack="chardesign"
+         data-name="Character Design" data-sub="Design &amp; fiche personnage"
+         onclick="selectPack(this)"
+         onmousemove="holoMove(event,this)" onmouseleave="holoReset(this)">
+  <div class="iridescent-ring"></div>
+  <div class="preset-inner">
+    <div class="preset-front">
+
+      <div class="holo"></div>
+      <div class="shine"></div>
+      <div class="spotlight"></div>
+      <div class="spotlight-border"></div>
+      <div class="preset-check">
+        <svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="preset-img">
+        <div class="preset-img-bg" style="background-image:url('images/preview_commissions/character_design.webp')"></div>
+        <div class="preset-img-overlay" style="background:linear-gradient(180deg,rgba(255,122,61,0.18) 0%,rgba(255,78,31,0.40) 100%)"></div>
+        <div class="preset-badge badge-char">STARTER</div>
+      </div>
+      <div class="preset-title-wrap">
+        <h3 class="preset-title">Character Design</h3>
+      </div>
+      <button class="preset-cta-btn" onclick="flipCard(event,this)">
+        <span class="cta-label">Contenu du pack</span>
+      </button>
+    </div><!-- /preset-front -->
+    <div class="preset-back">
+      <button class="preset-back-close" onclick="unflipCard(event,this)">&#10005;</button>
+      <div class="back-pack-dot" style="background:#FF7A3D"></div>
+      <p class="back-title">Character Design</p>
+      <p class="back-sub">Design &amp; fiche personnage</p>
+      <p class="back-desc">Conception compl&#232;te de votre personnage : design, accessoires, identit&#233;. Fiche de r&#233;f&#233;rence multi-vues.</p>
+      <ul class="back-features">
+<li class="back-feature">Design avant &amp; arri&#232;re</li>
+<li class="back-feature">Fiche de r&#233;f&#233;rence</li>
+<li class="back-feature">2 r&#233;visions incluses</li>
+<li class="back-feature">PNG + fichier source</li>
+      </ul>
+      <div class="back-thumbs">
+        <div class="back-thumb"><img src="images/clients_commissions/cd_pursteige.webp" alt="Pursteige"/></div>
+        <div class="back-thumb"><img src="images/clients_commissions/cd_tina.webp" alt="Tina"/></div>
+      </div>
+      <a class="back-see-more" href="galerie.html" style="--pack-accent:#FF7A3D;border-color:rgba(255,122,61,0.25);">Voir la galerie &#8594;</a>
+      <div class="back-price-row" style="--pack-accent:#FF7A3D">
+        <span class="back-from">&#192; partir de</span>
+        <span class="back-price-val">500&nbsp;&#8364;</span>
+      </div>
+      <p class="back-delay">D&#233;lai&nbsp;: 2&ndash;3 semaines</p>
+    </div><!-- /preset-back -->
+  </div><!-- /preset-inner -->
+    </div>
+
+    <!-- PORTRAIT -->
+    <div class="preset-card" data-pack="portrait"
+         data-name="Portrait" data-sub="Illustration compos&#233;e"
+         onclick="selectPack(this)"
+         onmousemove="holoMove(event,this)" onmouseleave="holoReset(this)">
+  <div class="iridescent-ring"></div>
+  <div class="preset-inner">
+    <div class="preset-front">
+
+      <div class="holo"></div>
+      <div class="shine"></div>
+      <div class="spotlight"></div>
+      <div class="spotlight-border"></div>
+      <div class="preset-check">
+        <svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="preset-img">
+        <div class="preset-img-bg" style="background-image:url('images/preview_commissions/portrait.webp')"></div>
+        <div class="preset-img-overlay" style="background:linear-gradient(180deg,rgba(108,99,255,0.18) 0%,rgba(74,64,232,0.40) 100%)"></div>
+        <div class="preset-badge badge-port">BEST&#8209;SELLER</div>
+      </div>
+      <div class="preset-title-wrap">
+        <h3 class="preset-title">Portrait</h3>
+      </div>
+      <button class="preset-cta-btn" onclick="flipCard(event,this)">
+        <span class="cta-label">Contenu du pack</span>
+      </button>
+    </div><!-- /preset-front -->
+    <div class="preset-back">
+      <button class="preset-back-close" onclick="unflipCard(event,this)">&#10005;</button>
+      <div class="back-pack-dot" style="background:#6C63FF"></div>
+      <p class="back-title">Portrait</p>
+      <p class="back-sub">Illustration compos&#233;e</p>
+      <p class="back-desc">Votre personnage mis en sc&#232;ne. Composition travaill&#233;e, lumi&#232;re et d&#233;cor qui r&#233;v&#232;lent son univers.</p>
+      <ul class="back-features">
+<li class="back-feature">Illustration pleine couleur</li>
+<li class="back-feature">Composition travaill&#233;e</li>
+<li class="back-feature">2 r&#233;visions incluses</li>
+<li class="back-feature">PNG haute r&#233;solution</li>
+      </ul>
+      <div class="back-thumbs">
+        <div class="back-thumb"><img src="images/clients_commissions/pt_hell_joe.webp" alt="Hell Joe"/></div>
+        <div class="back-thumb"><img src="images/clients_commissions/pt_recluse.webp" alt="Recluse"/></div>
+      </div>
+      <a class="back-see-more" href="galerie.html" style="--pack-accent:#6C63FF;border-color:rgba(108,99,255,0.25);">Voir la galerie &#8594;</a>
+      <div class="back-price-row" style="--pack-accent:#6C63FF">
+        <span class="back-from">&#192; partir de</span>
+        <span class="back-price-val">800&nbsp;&#8364;</span>
+      </div>
+      <p class="back-delay">D&#233;lai&nbsp;: 3&ndash;5 semaines</p>
+    </div><!-- /preset-back -->
+  </div><!-- /preset-inner -->
+    </div>
+
+    <!-- SPLASH ART -->
+    <div class="preset-card" data-pack="splashart"
+         data-name="Splash Art" data-sub="Rendu cin&#233;matique"
+         onclick="selectPack(this)"
+         onmousemove="holoMove(event,this)" onmouseleave="holoReset(this)">
+  <div class="iridescent-ring"></div>
+  <div class="preset-inner">
+    <div class="preset-front">
+
+      <div class="holo"></div>
+      <div class="shine"></div>
+      <div class="spotlight"></div>
+      <div class="spotlight-border"></div>
+      <div class="preset-check">
+        <svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="preset-img">
+        <div class="preset-img-bg" style="background-image:url('images/preview_commissions/splash_art.webp')"></div>
+        <div class="preset-img-overlay" style="background:linear-gradient(180deg,rgba(255,61,168,0.18) 0%,rgba(180,0,100,0.40) 100%)"></div>
+        <div class="preset-badge badge-splash">PREMIUM</div>
+      </div>
+      <div class="preset-title-wrap">
+        <h3 class="preset-title">Splash Art</h3>
+      </div>
+      <button class="preset-cta-btn" onclick="flipCard(event,this)">
+        <span class="cta-label">Contenu du pack</span>
+      </button>
+    </div><!-- /preset-front -->
+    <div class="preset-back">
+      <button class="preset-back-close" onclick="unflipCard(event,this)">&#10005;</button>
+      <div class="back-pack-dot" style="background:#FF3DA8"></div>
+      <p class="back-title">Splash Art</p>
+      <p class="back-sub">Rendu cin&#233;matique</p>
+      <p class="back-desc">Rendu cin&#233;matique 4K de qualit&#233; professionnelle. Narration visuelle complexe &amp; pr&#233;cision extr&#234;me.</p>
+      <ul class="back-features">
+<li class="back-feature">Sc&#232;ne cin&#233;matique 4K</li>
+<li class="back-feature">Effets visuels avanc&#233;s</li>
+<li class="back-feature">2 r&#233;visions incluses</li>
+<li class="back-feature">PNG + PSD</li>
+      </ul>
+      <div class="back-thumbs">
+        <div class="back-thumb"><img src="images/clients_commissions/sa_dragon_girl.webp" alt="Dragon Girl"/></div>
+        <div class="back-thumb"><img src="images/clients_commissions/sa_zerros.webp" alt="Zerros"/></div>
+      </div>
+      <a class="back-see-more" href="galerie.html" style="--pack-accent:#FF3DA8;border-color:rgba(255,61,168,0.25);">Voir la galerie &#8594;</a>
+      <div class="back-price-row" style="--pack-accent:#FF3DA8">
+        <span class="back-from">&#192; partir de</span>
+        <span class="back-price-val">1200&nbsp;&#8364;</span>
+      </div>
+      <p class="back-delay">D&#233;lai&nbsp;: 5&ndash;8 semaines</p>
+    </div><!-- /preset-back -->
+  </div><!-- /preset-inner -->
+    </div>
+
+    <!-- UNIQUE -->
+    <div class="preset-card" data-pack="unique"
+         data-name="Unique" data-sub="Projet sur&#8209;mesure"
+         onclick="selectPack(this)"
+         onmousemove="holoMove(event,this)" onmouseleave="holoReset(this)">
+  <div class="iridescent-ring"></div>
+  <div class="preset-inner">
+    <div class="preset-front">
+
+      <div class="holo"></div>
+      <div class="shine"></div>
+      <div class="spotlight"></div>
+      <div class="spotlight-border"></div>
+      <div class="preset-check">
+        <svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="preset-img">
+        <div class="preset-img-bg" style="background-image:url('images/preview_commissions/unique.webp')"></div>
+        <div class="preset-img-overlay" style="background:linear-gradient(180deg,rgba(0,180,160,0.18) 0%,rgba(0,120,110,0.40) 100%)"></div>
+        <div class="preset-badge badge-unique">UNIQUE</div>
+      </div>
+      <div class="preset-title-wrap">
+        <h3 class="preset-title">Unique</h3>
+      </div>
+      <button class="preset-cta-btn" onclick="flipCard(event,this)">
+        <span class="cta-label">Contenu du pack</span>
+      </button>
+    </div><!-- /preset-front -->
+    <div class="preset-back">
+      <button class="preset-back-close" onclick="unflipCard(event,this)">&#10005;</button>
+      <div class="back-pack-dot" style="background:#00D4B8"></div>
+      <p class="back-title">Unique</p>
+      <p class="back-sub">Projet sur-mesure</p>
+      <p class="back-desc">D&#233;finissez vous m&#234me de A &#224 Z l'int&#233;gralit&#233; de votre commande. Format et taille fichier, scope, style graphique, render : c&#8217;est vous qui d&#233;cidez.</p>
+      <ul class="back-features">
+<li class="back-feature">Brief personnalis&#233;</li>
+<li class="back-feature">Process sur-mesure</li>
+<li class="back-feature">R&#233;visions &#224; d&#233;finir</li>
+<li class="back-feature">Format selon besoins</li>
+      </ul>
+      <div class="back-thumbs">
+        <div class="back-thumb"><img src="images/clients_commissions/sa_nu.webp" alt="Nu"/></div>
+        <div class="back-thumb"><img src="images/clients_commissions/pt_yue_shui.webp" alt="Yue Shui"/></div>
+      </div>
+      <a class="back-see-more" href="galerie.html" style="--pack-accent:#00D4B8;border-color:rgba(0,212,184,0.25);">Voir la galerie &#8594;</a>
+      <div class="back-price-row" style="--pack-accent:#00D4B8">
+        
+        <span class="back-price-val">Sur devis</span>
+      </div>
+      <p class="back-delay">D&#233;lai&nbsp;: &#224; d&#233;finir</p>
+    </div><!-- /preset-back -->
+  </div><!-- /preset-inner -->
+    </div>
+
+
+  </div>
+</section>
+
+<!-- PERSONNALISATION -->
+<section class="perso-section" id="persoSection">
+
+  <div class="perso-header">
+    <div class="perso-header-pack-dot" id="persoHeaderDot" style="background:#6c63ff;"></div>
+    <div>
+      <h2 class="perso-header-title" id="persoHeaderTitle">Portrait</h2>
+      <p class="perso-header-sub" id="persoHeaderSub">Illustration compos&#233;e</p>
+    </div>
+  </div>
+
+  <div class="perso-cols">
+  <div class="perso-left">
+
+  <!-- ── STEPPER ── -->
+  <div class="steps-stepper" id="stepsStepper">
+    <div class="step-item">
+      <div class="step-circle active" id="sc0">1</div>
+      <span class="step-lbl active" id="sl0">Personnalisation</span>
+    </div>
+    <div class="step-connector" id="conn0"></div>
+    <div class="step-item">
+      <div class="step-circle" id="sc1">2</div>
+      <span class="step-lbl" id="sl1">Paiement</span>
+    </div>
+    <div class="step-connector" id="conn1"></div>
+    <div class="step-item">
+      <div class="step-circle" id="sc2">3</div>
+      <span class="step-lbl" id="sl2">Information</span>
+    </div>
+    <div class="step-connector" id="conn2"></div>
+    <div class="step-item">
+      <div class="step-circle" id="sc3">4</div>
+      <span class="step-lbl" id="sl3">Confirmation</span>
+    </div>
+  </div><!-- /steps-stepper -->
+
+  <div class="steps-slider">
+  <div class="steps-track" id="stepsTrack">
+
+  <!-- ── STEP 1 : PERSONNALISATION ── -->
+  <div class="step-panel" id="stepPanel0">
+  <!-- GROUP 1: PERSONNAGE -->
+  <div class="perso-group open" id="groupPersonnage">
+    <div class="perso-group-head" onclick="toggleGroup(this)">
+      <div class="perso-group-ico" style="background:rgba(108,99,255,0.10);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#6c63ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+        </svg>
+      </div>
+      <span class="perso-group-label" id="groupPersonnageLabel">Character Design</span>
+      <span class="perso-group-chevron"></span>
+    </div>
+    <div class="perso-group-body">
+      <div class="perso-row" id="rowCadragePose">
+        <div class="perso-field" style="flex:1.2;">
+          <div class="perso-field-ico"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4z"/></svg></div>
+          <label>Cadrage</label>
+          <select id="cadrage" onchange="updatePrice();updatePreview();updateRecap();">
+            <option value="buste">Buste (jusqu&#8217;&#224; la poitrine)</option>
+            <option value="demi">Plan serr&#233; (jusqu&#8217;&#224; la taille)</option>
+            <option value="full" selected>Corps entier</option>
+          </select>
+        </div>
+        <div class="perso-field" style="flex:1;">
+          <div class="perso-field-ico"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+          <label>Pose</label>
+          <select id="pose" onchange="updatePrice();updateRecap()">
+            <option value="static">Statique</option>
+            <option value="dynamic" selected>Dynamique</option>
+            <option value="combat">Combat / Action</option>
+          </select>
+        </div>
+      </div>
+      <div class="perso-row">
+        <div class="perso-field" style="flex:1;" id="fieldExpression">
+          <div class="perso-field-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+          <label>Expression</label>
+          <select>
+            <option>Neutre / Libre</option>
+            <option>Intense / D&#233;termin&#233;</option>
+            <option>Doux / Expressif</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- CHAMPS EXCLUSIFS CHARDESIGN -->
+      <div class="chardesign-only view-pack-section" style="display:none;">
+        <div class="view-pack-grid">
+
+          <div class="view-pack-card" onclick="selectViewPack(this,'starter')">
+            <div class="view-pack-body">
+              <span class="view-pack-name">Pack Starter</span>
+              <span class="view-pack-sub">turnaround A-pose</span>
+              <span class="view-pack-desc">Face, dos et 3/4 en A-pose. R&#233;f&#233;rence neutre et propre pour cadrer le design.</span>
+            </div>
+          </div>
+
+          <div class="view-pack-card" onclick="selectViewPack(this,'gesture')">
+            <div class="view-pack-body">
+              <span class="view-pack-name">Pack Gesture</span>
+              <span class="view-pack-sub">turnaround gesture &middot; 1 close up</span>
+              <span class="view-pack-desc">Turnaround en pose gesture + 1 close up du visage. Plus de vie et de caract&#232;re qu&#8217;une simple A-pose.</span>
+            </div>
+          </div>
+
+          <div class="view-pack-card" onclick="selectViewPack(this,'pro')">
+            <div class="view-pack-body">
+              <span class="view-pack-name">Pack Pro</span>
+              <span class="view-pack-sub">gesture &middot; close ups &middot; expressions</span>
+              <span class="view-pack-desc">Turnaround gesture, plusieurs close ups et fiche d&#8217;expressions. Chaque d&#233;tail du personnage est document&#233;.</span>
+            </div>
+          </div>
+
+          <div class="view-pack-card" onclick="selectViewPack(this,'ultimate')">
+            <div class="view-pack-body">
+              <span class="view-pack-name">Pack Ultimate</span>
+              <span class="view-pack-sub">dynamic &middot; FX &middot; expressions</span>
+              <span class="view-pack-desc">Turnaround gesture et dynamic, close ups, expressions et effets FX. Tout inclus, pr&#234;t pour la production.</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GROUP 2: ENVIRONNEMENT -->
+  <div class="perso-group" id="groupEnviro">
+    <div class="perso-group-head" onclick="toggleGroup(this)">
+      <div class="perso-group-ico" style="background:rgba(0,212,184,0.10);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#00D4B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+        </svg>
+      </div>
+      <span class="perso-group-label">Environnement</span>
+      <span class="perso-group-chevron"></span>
+    </div>
+    <div class="perso-group-body">
+      <div class="perso-row">
+        <div class="perso-field" style="flex:1.4;">
+          <div class="perso-field-ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+          <label>Background</label>
+          <select id="bgType" onchange="updatePrice();updatePreview();updateRecap();">
+            <option value="none">Sans fond (transparent)</option>
+            <option value="simple" selected>D&#233;cor simple (color / abstrait)</option>
+            <option value="complex">Sc&#232;ne complexe (environnement)</option>
+          </select>
+        </div>
+        <div class="perso-field" style="flex:1;">
+          <div class="perso-field-ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
+          <label>Format</label>
+          <select id="format" onchange="updatePrice();updatePreview();updateRecap();">
+            <option value="portrait">Portrait (3:4)</option>
+            <option value="landscape">Paysage (16:9)</option>
+            <option value="square">Carr&#233; (1:1)</option>
+            <option value="other">Autre (pr&#233;ciser dans description)</option>
+          </select>
+        </div>
+      </div>
+      <div class="perso-row">
+        <div class="perso-field full">
+          <div class="perso-field-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+          <label>Ambiance</label>
+          <select id="ambiance" onchange="updatePreview()">
+            <option>Libre / Sur r&#233;f&#233;rence</option>
+            <option>Chaude (oranges, rouges)</option>
+            <option>Froide (bleus, violets)</option>
+            <option>Sombre &amp; &#233;pique</option>
+            <option>Lumineuse &amp; a&#233;r&#233;e</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UNIQUE : Projet sur devis -->
+  <div class="perso-group open unique-only" id="groupUnique" style="display:none;">
+    <div class="perso-group-head" onclick="toggleGroup(this)">
+      <div class="perso-group-ico" style="background:rgba(108,99,255,0.10);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#6c63ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/>
+        </svg>
+      </div>
+      <span class="perso-group-label">Votre projet</span>
+      <span class="perso-group-chevron"></span>
+    </div>
+    <div class="perso-group-body" style="display:flex;flex-direction:column;gap:14px;padding:16px 20px;">
+      <div class="step-field-group" style="margin:0">
+        <label>Nom du projet</label>
+        <input class="step-input" id="uniqueNom" type="text" placeholder="Ex : Couverture d'album — Arcane Drift" />
+      </div>
+      <div class="step-field-group" style="margin:0">
+        <label>Description</label>
+        <textarea class="step-textarea" id="uniqueDesc" placeholder="Décrivez le projet : format, thème, usage prévu, contexte…" style="min-height:90px;"></textarea>
+      </div>
+      <div class="step-field-group" style="margin:0">
+        <label>Direction artistique &amp; références</label>
+        <textarea class="step-textarea" id="uniqueDA" placeholder="Style souhaité, ambiance, palette de couleurs, lien moodboard / Pinterest…" style="min-height:90px;"></textarea>
+      </div>
+      <div class="step-field-group" style="margin:0">
+        <label>Délai souhaité</label>
+        <select class="step-select" id="uniqueDeadline">
+          <option value="flexible">Flexible / À définir ensemble</option>
+          <option value="1mois">Environ 1 mois</option>
+          <option value="2-3mois">2 – 3 mois</option>
+          <option value="6mois">6 mois ou plus</option>
+          <option value="urgent">Urgent (préciser en description)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRICE BAR -->
+  <div class="perso-price-bar">
+    <div>
+      <p class="price-est-label">Estimation indicative</p>
+      <p class="price-est-val" id="priceVal">&#8764;&#8239;500&#8239;&#8364;</p>
+      <p class="price-est-note">Devis pr&#233;cis confirm&#233; sous 48h. Hors TVA.</p>
+    </div>
+    <button class="perso-cta" id="orderBtn" onclick="handleOrder()">Suivant →</button>
+  </div><!-- /price-bar -->
+  </div><!-- /stepPanel0 -->
+
+  <!-- ── STEP 2 : PAIEMENT ── -->
+  <div class="step-panel" id="stepPanel1">
+    <p class="step-panel-title">Paiement</p>
+
+    <!-- Modalités (déplacées depuis Personnalisation) -->
+    <div class="perso-group open" id="groupModalites" style="margin-bottom:18px;">
+      <div class="perso-group-head" onclick="toggleGroup(this)">
+        <div class="perso-group-ico" style="background:rgba(255,122,61,0.10);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FF7A3D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+        </div>
+        <span class="perso-group-label">Modalit&#233;s</span>
+        <span class="perso-group-chevron"></span>
+      </div>
+      <div class="perso-group-body">
+        <div class="perso-row">
+          <div class="perso-field" style="flex:1.2;">
+            <div class="perso-field-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <label>D&#233;lai</label>
+            <select id="deadline" onchange="updatePrice();updateRecap()">
+              <option value="standard" selected>Standard (4&#8209;6 sem.)</option>
+              <option value="express">Express (2&#8209;3 sem.) +30%</option>
+              <option value="rush">Rush (1 sem.) +60%</option>
+            </select>
+          </div>
+          <div class="perso-field" style="flex:1;">
+            <div class="perso-field-ico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+            <label>Licence</label>
+            <select id="license" onchange="updatePrice();updateRecap()">
+              <option value="personal" selected>Personnel</option>
+              <option value="commercial">Commercial +100&#8239;%</option>
+              <option value="streaming">Streaming / Twitch +50&#8239;%</option>
+            </select>
+          </div>
+        </div>
+        <div class="perso-row">
+          <div class="perso-field full" style="gap:16px;">
+            <div class="perso-field-ico"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+            <label>Commission priv&#233;e (NDA)<span class="info-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="8"/><line x1="12" y1="12" x2="12" y2="16"/></svg><span class="info-tooltip">Un NDA garantit que votre commission reste strictement confidentielle&nbsp;: aucune publication sur mes réseaux ou portfolio sans votre accord écrit préalable.</span></span></label>
+            <div class="toggle-wrap">
+              <label class="toggle">
+                <input type="checkbox" id="nda" onchange="updatePrice();updateRecap()"/>
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="toggle-label" id="ndaLabel">Non</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-field-group">
+      <label>Méthode de paiement</label>
+      <select class="step-select" id="paymentMethod" onchange="toggleAddressFields()">
+        <option value="stripe">Carte bancaire (Stripe) — lien envoyé par email</option>
+        <option value="virement">Virement bancaire — coordonnées envoyées par email</option>
+      </select>
+    </div>
+
+    <div class="step-addr-block" id="addressFields" style="display:none;">
+      <div class="step-row">
+        <div class="step-field-group">
+          <label>Prénom</label>
+          <input class="step-input" id="billingFirst" type="text" placeholder="Jean" />
+        </div>
+        <div class="step-field-group">
+          <label>Nom</label>
+          <input class="step-input" id="billingLast" type="text" placeholder="Dupont" />
+        </div>
+      </div>
+      <div class="step-field-group">
+        <label>Pays / Région</label>
+        <input class="step-input" id="billingCountry" type="text" placeholder="France" />
+      </div>
+    </div>
+
+    <p class="step-error-msg" id="errStep1">Veuillez remplir tous les champs requis.</p>
+
+    <div class="step-nav-bar">
+      <button class="btn-step-back" onclick="goToStep(0)">← Retour</button>
+      <button class="btn-step-next" onclick="validateStep1()">Suivant →</button>
+    </div>
+  </div><!-- /stepPanel1 -->
+
+  <!-- ── STEP 3 : INFORMATION ── -->
+  <div class="step-panel" id="stepPanel2">
+    <p class="step-panel-title">Informations projet</p>
+
+    <div id="projectInfoBlock">
+    <div class="step-field-group">
+      <label>Titre du projet</label>
+      <input class="step-input" id="projectTitle" type="text" placeholder="Ex : Portrait de personnage OC — Kira" />
+    </div>
+
+    <div class="step-field-group">
+      <label>Description &amp; références</label>
+      <textarea class="step-textarea" id="projectDesc" placeholder="Décrivez votre commande : style, ambiance, détails importants, contraintes…"></textarea>
+    </div>
+
+    <div class="step-field-group">
+      <label>Lien Google Drive / Pinterest (références visuelles)</label>
+      <input class="step-input" id="projectDrive" type="url" placeholder="https://drive.google.com/…" />
+    </div>
+    </div><!-- /projectInfoBlock -->
+
+    <div class="step-row">
+      <div class="step-field-group">
+        <label>Adresse email</label>
+        <input class="step-input" id="clientEmail" type="email" placeholder="exemple@mail.com" />
+      </div>
+      <div class="step-field-group">
+        <label>Discord</label>
+        <input class="step-input" id="clientDiscord" type="text" placeholder="pseudo ou lien serveur" />
+      </div>
+    </div>
+
+    <p class="step-error-msg" id="errStep2">Veuillez remplir tous les champs.</p>
+
+    <div class="step-nav-bar">
+      <button class="btn-step-back" onclick="goToStep(1)">← Retour</button>
+      <button class="btn-step-next" onclick="validateStep2()">Suivant →</button>
+    </div>
+  </div><!-- /stepPanel2 -->
+
+  <!-- ── STEP 4 : CONFIRMATION ── -->
+  <div class="step-panel" id="stepPanel3">
+    <p class="step-panel-title">Confirmation</p>
+
+    <div id="confirmSummary" style="background:rgba(108,99,255,0.06);border:1.5px solid rgba(108,99,255,0.15);border-radius:14px;padding:16px 20px;margin-bottom:20px;font-size:13px;color:#545c9e;line-height:1.8;"></div>
+
+    <div class="step-cgv-box">
+      <strong>Conditions Générales de Vente</strong><br>
+      En passant commande, vous acceptez que le projet démarrera uniquement après réception du paiement intégral. Aucun remboursement ne sera accordé une fois le travail commencé. Le délai indiqué est estimatif. Les fichiers sources ne sont pas inclus sauf mention contraire. La commande est réservée à un usage strictement personnel sauf licence commerciale souscrite. Toute diffusion ou revente est interdite sans accord écrit préalable. Le commanditaire s'engage à fournir toutes les références nécessaires dans les 72h suivant la validation.
+    </div>
+
+    <label class="step-check-row">
+      <input type="checkbox" id="cgvCheck" />
+      <span>J'ai lu et j'accepte les <a href="#" onclick="event.preventDefault();event.stopPropagation();openCGV()">Conditions Générales de Vente</a>.</span>
+    </label>
+    <label class="step-check-row">
+      <input type="checkbox" id="ageCheck" />
+      <span>Je certifie avoir 18 ans ou plus, ou disposer de l'autorisation parentale requise.</span>
+    </label>
+
+    <p class="step-error-msg" id="errStep3">Veuillez accepter les conditions pour continuer.</p>
+    <p class="step-error-msg" id="errStep3Send" style="color:#f87171;">Une erreur est survenue lors de l'envoi. Réessayez ou contactez-moi directement.</p>
+
+    <div class="step-nav-bar">
+      <button class="btn-step-back" onclick="goToStep(2)">← Retour</button>
+      <button class="btn-step-confirm" id="submitBtn" onclick="submitCommission()">Envoyer la commande ✓</button>
+    </div>
+  </div><!-- /stepPanel3 -->
+
+  </div><!-- /steps-track -->
+  </div><!-- /steps-slider -->
+  </div><!--/perso-left -->
+
+  <div class="perso-right" id="recapSidebar">
+    <div class="recap-panel">
+      <div class="recap-hd">
+        <span class="recap-lbl">Aper&#231;u commande</span>
+        <span class="recap-pack-badge" id="recapBadge" style="background:#6c63ff;">Portrait</span>
+      </div>
+      <div class="recap-frame-wrap" id="recapFrameWrap">
+        <div class="recap-frame" id="recapFrame" data-fmt="portrait" data-bg="simple" data-mood="">
+          <div class="recap-frame-bg"></div>
+          <div class="recap-chars-wrap" id="recapCharsWrap"></div>
+        </div>
+      </div>
+      <div id="recapVpImgWrap" style="display:none;justify-content:center;margin-bottom:14px;">
+        <div class="recap-vp-box" onclick="openVpLightbox()">
+          <span class="recap-vp-num" id="recapVpNum">1</span>
+          <img id="recapVpImg" src="" alt="" class="recap-vp-img">
+        </div>
+      </div>
+      <div class="recap-rows" id="recapRows">
+        <div class="recap-row">
+          <div class="recap-row-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg></div>
+          <span class="recap-row-key">Pack</span>
+          <span class="recap-row-val" id="rr-pack">&#8212;</span>
+        </div>
+      </div>
+      <div class="recap-price-row">
+        <span class="recap-price-label">Estimation</span>
+        <span class="recap-price-val" id="recapPriceVal">&#8212;</span>
+      </div>
+    </div>
+  </div>
+
+
+  </div><!--/perso-cols -->
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div><div class="footer-logo">BOBE<span>Florian &middot; Digital Artist</span></div></div>
+    <div class="footer-col"><h4>Navigation</h4><a href="#">Portfolio</a><a href="coaching.html">Coaching</a><a href="commission.html">Commission</a><a href="#">Formations</a></div>
+    <div class="footer-col"><h4>Commission</h4><a href="#">Character Design</a><a href="#">Portrait</a><a href="#">Splash Art</a><a href="#">Unique</a></div>
+    <div class="footer-col"><h4>L&#233;gal</h4><a href="cgv-faq.html">CGV</a><a href="cgv-faq.html#faq">FAQ</a><a href="#">Confidentialit&#233;</a></div>
+  </div>
+  <div class="footer-bottom">
+    <p>&#169; 2026 Bobe Florian. Tous droits r&#233;serv&#233;s.</p>
+    <div class="payment-icons">
+      <img src="images/icones/Paiement/Visa.png" alt="Visa"/>
+      <img src="images/icones/Paiement/Mastercard.png" alt="Mastercard"/>
+      <img src="images/icones/Paiement/PayPal.png" alt="PayPal"/>
+      <img src="images/icones/Paiement/Stripe.png" alt="Stripe"/>
+    </div>
+  </div>
+</footer>
+</div><!-- /page-content -->
+
+<!-- SUCCESS OVERLAY -->
+<div class="or-overlay" id="commissionSuccessOverlay">
+  <div class="or-modal" style="max-width:400px;">
+    <div style="padding:44px 32px;text-align:center;">
+      <div style="font-size:54px;margin-bottom:18px;">🎨</div>
+      <h2 style="font-family:'Satoshi',sans-serif;font-size:22px;font-weight:800;color:#1a1a3e;margin-bottom:14px;">Demande envoy&#233;e&#8239;!</h2>
+      <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(217,119,6,0.10);border:1.5px solid rgba(217,119,6,0.28);border-radius:20px;padding:7px 18px;margin-bottom:20px;">
+        <span style="width:8px;height:8px;border-radius:50%;background:#d97706;flex-shrink:0;animation:pulse-green 2s infinite;"></span>
+        <span style="font-size:11px;font-weight:700;color:#92400e;letter-spacing:1px;text-transform:uppercase;">Liste d&#8217;attente</span>
+      </div>
+      <p style="font-size:13.5px;color:#6b7280;line-height:1.75;margin-bottom:6px;">Je vais examiner votre projet et vous recontacter via le moyen de contact indiqu&#233;.</p>
+      <p style="font-size:12px;color:#b0a8d8;">D&#233;lai de r&#233;ponse habituel&#8239;: 24&#8211;48h</p>
+    </div>
+  </div>
+</div>
+
+<!-- VALIDATION TOAST -->
+<div class="validation-toast" id="validationToast">
+  <div class="validation-toast-ico">
+    <svg viewBox="0 0 24 24"><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/><circle cx="12" cy="12" r="10"/></svg>
+  </div>
+  <span class="validation-toast-msg">Veuillez remplir tous les champs obligatoires avant de commander.</span>
+</div>
+
+<!-- ORDER RECAP MODAL -->
+<div class="or-overlay" id="orderRecapOverlay" onclick="if(event.target===this)closeOrderRecap()">
+  <div class="or-modal">
+    <div class="or-modal-hd">
+      <div class="or-modal-dot" id="orDot"></div>
+      <div class="or-modal-title-wrap">
+        <span class="or-modal-lbl">Récapitulatif de commande</span>
+        <span class="or-modal-pack" id="orPackName"></span>
+      </div>
+      <button class="or-modal-close" onclick="closeOrderRecap()">&#10005;</button>
+    </div>
+    <div class="or-modal-body">
+      <div class="or-body-cols">
+        <div class="or-body-left">
+          <span class="or-section-lbl">Détails</span>
+          <div class="or-rows recap-rows" id="orRows"></div>
+          <div class="or-price-box">
+            <span class="or-price-lbl">Estimation</span>
+            <span class="or-price-val" id="orPrice"></span>
+          </div>
+          <p class="or-note">Devis précis confirmé sous 48h après réception de votre brief. Hors TVA.</p>
+        </div>
+        <div class="or-body-right">
+          <div id="orPreview"></div>
+        </div>
+      </div>
+    </div>
+    <div class="or-modal-footer">
+      <button class="or-btn-back" onclick="closeOrderRecap()">&#8592; Modifier</button>
+      <button class="or-btn-confirm" onclick="confirmOrder()">Confirmer la commande</button>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">&#10005;</button>
+  <img id="lightboxImg" src="" alt="" onclick="event.stopPropagation()"/>
+</div>
+
+<script>
+  emailjs.init('oxXBLOnqmLehp0GpU');
+
+  /* ─── HOLOGRAPHIC EFFECT ─── */
+  function holoMove(e, card) {
+    if (card.classList.contains('flipped')) return;
+    var r = card.getBoundingClientRect();
+    var x = (e.clientX - r.left) / r.width;
+    var y = (e.clientY - r.top)  / r.height;
+    card.style.setProperty('--mx', (x * 100) + '%');
+    card.style.setProperty('--my', (y * 100) + '%');
+    card.style.setProperty('--angle', (x * 360) + 'deg');
+    // Subtle 3D tilt
+    var rx = (y - 0.5) * -12;
+    var ry = (x - 0.5) * 12;
+    card.style.transform = 'translateY(-6px) scale(1.01) perspective(600px) rotateX('+rx+'deg) rotateY('+ry+'deg)';
+  }
+  function holoReset(card) {
+    card.style.transform = '';
+    card.style.setProperty('--mx', '50%');
+    card.style.setProperty('--my', '50%');
+  }
+
+  /* ─── PACK SELECTION ─── */
+  var PACKS = {
+    chardesign: { name:'Character Design', sub:'Design & fiche personnage', dot:'#FF7A3D', base:null },
+    portrait:   { name:'Portrait',         sub:'Illustration composée', dot:'#6C63FF', base:800 },
+    splashart:  { name:'Splash Art',       sub:'Rendu cinématique',     dot:'#FF3DA8', base:1200 },
+    unique:     { name:'Unique',           sub:'Projet sur-mesure',         dot:'#00D4B8', base:null }
+  };
+  var currentPack = null;
+  var selectedViewPack = null;
+
+  /* Snapshot original options before any pack is selected */
+  var ORIG_BG_HTML      = document.getElementById('bgType').innerHTML;
+  var ORIG_POSE_HTML    = document.getElementById('pose').innerHTML;
+  var ORIG_CADRAGE_HTML = document.getElementById('cadrage').innerHTML;
+  var ORIG_FORMAT_HTML  = document.getElementById('format').innerHTML;
+
+  function applyPortraitOptions(isPortrait) {
+    if (isPortrait) {
+      document.getElementById('bgType').innerHTML =
+        '<option value="none">Sans fond (transparent)</option>' +
+        '<option value="simple" selected>D\u00e9cor simple (color / abstrait)</option>';
+      document.getElementById('pose').innerHTML =
+        '<option value="static">Statique</option>' +
+        '<option value="dynamic" selected>Dynamique</option>';
+      document.getElementById('cadrage').innerHTML =
+        '<option value="buste">Buste (jusqu\u2019\u00e0 la poitrine)</option>' +
+        '<option value="demi">Plan serr\u00e9 (jusqu\u2019\u00e0 la taille)</option>' +
+        '<option value="americain" selected>Plan am\u00e9ricain (jusqu\u2019aux genoux)</option>';
+      document.getElementById('format').innerHTML =
+        '<option value="portrait" selected>Portrait (3:4)</option>';
+    } else {
+      document.getElementById('bgType').innerHTML    = ORIG_BG_HTML;
+      document.getElementById('pose').innerHTML      = ORIG_POSE_HTML;
+      document.getElementById('cadrage').innerHTML   = ORIG_CADRAGE_HTML;
+      document.getElementById('format').innerHTML    = ORIG_FORMAT_HTML;
+    }
+  }
+
+  function selectPack(card) {
+    document.querySelectorAll('.preset-card').forEach(function(c) { c.classList.remove('selected'); });
+    card.classList.add('selected');
+    var pid = card.getAttribute('data-pack');
+    currentPack = pid;
+    var p = PACKS[pid];
+    var ptPack = document.getElementById('ptag-pack'); if(ptPack) ptPack.textContent = p.name;
+    document.getElementById('persoHeaderTitle').textContent = p.name;
+    document.getElementById('persoHeaderSub').textContent = p.sub;
+    document.getElementById('persoHeaderDot').style.background = p.dot;
+    var isChar   = pid === 'chardesign';
+    var isUnique = pid === 'unique';
+    // Label groupe personnage
+    var lbl = document.getElementById('groupPersonnageLabel');
+    if (lbl) lbl.textContent = isChar ? 'Character Design' : 'Personnage';
+    // Visibilité des groupes
+    document.getElementById('groupPersonnage').style.display  = isUnique ? 'none' : '';
+    document.getElementById('groupEnviro').style.display      = (isChar || isUnique) ? 'none' : '';
+    document.getElementById('rowCadragePose').style.display   = isChar ? 'none' : '';
+    document.getElementById('fieldExpression').style.display  = isChar ? 'none' : '';
+    document.querySelectorAll('.chardesign-only').forEach(function(el) {
+      el.style.display = isChar ? '' : 'none';
+    });
+    document.querySelectorAll('.unique-only').forEach(function(el) {
+      el.style.display = isUnique ? '' : 'none';
+    });
+    // Bloc infos projet dans step 2 (masqué pour unique car rempli en step 0)
+    var pib = document.getElementById('projectInfoBlock');
+    if (pib) pib.style.display = isUnique ? 'none' : '';
+    // Bouton toujours "Suivant →"
+    var btn = document.getElementById('orderBtn');
+    if (btn) btn.textContent = 'Suivant \u2192';
+    // Reset slider au step 0 sans scroll
+    if (typeof _currentStep !== 'undefined' && _currentStep !== 0) {
+      _currentStep = 0;
+      var track = document.getElementById('stepsTrack');
+      if (track) track.style.transform = 'translateX(0)';
+      updateStepper(0);
+    }
+    if (isChar) {
+      document.querySelectorAll('.view-pack-card').forEach(function(c) { c.classList.remove('selected'); });
+      var firstCard = document.querySelector('.view-pack-card');
+      if (firstCard) { firstCard.classList.add('selected'); selectedViewPack = 'starter'; }
+    } else {
+      selectedViewPack = null;
+    }
+    applyPortraitOptions(pid === 'portrait');
+    var gd = document.getElementById('groupDetails');
+    if (gd) { if (isUnique) gd.classList.add('open'); else gd.classList.remove('open'); }
+    updateDeadlineLabels();
+    updatePrice();
+    var ps = document.getElementById('persoSection');
+    ps.classList.add('visible');
+    updatePreview();
+    updateRecap();
+  }
+
+  /* ─── PRICE ESTIMATION ─── */
+  function updatePrice() {
+    if (!currentPack) return;
+    var p = PACKS[currentPack];
+    var base;
+    if (currentPack === 'chardesign') {
+      if (!selectedViewPack) { document.getElementById('priceVal').textContent = 'Sur devis'; return; }
+      base = VP_PRICES[selectedViewPack];
+    } else {
+      if (!p.base) { document.getElementById('priceVal').textContent = 'Sur devis'; return; }
+      base = p.base;
+      var bg = document.getElementById('bgType') ? document.getElementById('bgType').value : 'simple';
+      if (bg === 'simple')  base += 80;
+      if (bg === 'complex') base += 220;
+      var xtra = parseInt((document.getElementById('persoCount') || {textContent:'0'}).textContent) || 0;
+      base += xtra * 150;
+    }
+    var dl = document.getElementById('deadline') ? document.getElementById('deadline').value : 'standard';
+    if (dl === 'express') base = Math.round(base * 1.30);
+    if (dl === 'rush')    base = Math.round(base * 1.60);
+    var lic = document.getElementById('license') ? document.getElementById('license').value : 'personal';
+    var licBase = (currentPack === 'chardesign') ? VP_PRICES[selectedViewPack] : (p.base || base);
+    if (lic === 'commercial') base += Math.round(licBase * 1.0);
+    if (lic === 'streaming')  base += Math.round(licBase * 0.5);
+    if (document.getElementById('nda') && document.getElementById('nda').checked) base = Math.round(base * 1.50);
+    document.getElementById('priceVal').textContent = '∼ ' + base.toLocaleString('fr-FR') + ' €';
+  }
+
+  /* ─── VIEW PACK SELECTION ─── */
+  var VP_PRICES = { starter: 300, gesture: 450, pro: 600, ultimate: 800 };
+
+  function selectViewPack(card, packId) {
+    document.querySelectorAll('.view-pack-card').forEach(function(c) { c.classList.remove('selected'); });
+    card.classList.add('selected');
+    selectedViewPack = packId;
+    updatePrice();
+    updateRecap();
+  }
+
+  /* ─── COUNTER ─── */
+  function changeCount(id, delta) {
+    var el = document.getElementById(id);
+    var v = parseInt(el.textContent) + delta;
+    if (v < 0) v = 0; if (v > 5) v = 5;
+    el.textContent = v;
+    updatePrice();
+    updatePreview();
+    updateRecap();
+  }
+
+  /* ─── NDA LABEL ─── */
+  document.getElementById('nda').addEventListener('change', function() {
+    document.getElementById('ndaLabel').textContent = this.checked ? 'Oui (+80 €)' : 'Non';
+  });
+
+
+  /* ─── PREVIEW PANEL ─── */
+  var CHAR_SVG_TPL = '<svg viewBox="0 0 40 120" preserveAspectRatio="xMidYMin meet" xmlns="http://www.w3.org/2000/svg">'
+    + '<ellipse cx="20" cy="9" rx="9.5" ry="10" fill="currentColor"/>'
+    + '<rect x="17" y="18" width="6" height="9" rx="1.5" fill="currentColor"/>'
+    + '<path d="M9 27 Q4 50 6 70 L34 70 Q36 50 31 27 Q25 23 20 23 Q15 23 9 27Z" fill="currentColor"/>'
+    + '<path d="M9 32 Q2 54 4 74 L9 74 Q11 55 15 42Z" fill="currentColor" opacity=".82"/>'
+    + '<path d="M31 32 Q38 54 36 74 L31 74 Q29 55 25 42Z" fill="currentColor" opacity=".82"/>'
+    + '<path d="M6 68 Q3 84 5 96 L35 96 Q37 84 34 68Z" fill="currentColor" opacity=".9"/>'
+    + '<rect x="6" y="94" width="12" height="26" rx="3" fill="currentColor"/>'
+    + '<rect x="22" y="94" width="12" height="26" rx="3" fill="currentColor"/>'
+    + '</svg>';
+
+  /* scale applied to top-origin char wrap for each cadrage */
+  var CAD_SCALE = { buste:2.4, demi:1.55, full:1.0 };
+
+  /* [left%, width%] for each character slot */
+  var CHAR_LAYOUTS = {
+    1: [[28,44]],
+    2: [[4,38],[58,38]],
+    3: [[0,32],[34,32],[68,32]],
+    4: [[0,28],[24,28],[48,28],[72,28]],
+    5: [[0,24],[19,24],[38,24],[57,24],[76,24]]
+  };
+
+  function buildCharSvgs(count, cadrage, bgType) {
+    var cont = document.getElementById('previewChars');
+    if (!cont) return;
+    cont.innerHTML = '';
+    if (count < 1) count = 1; if (count > 5) count = 5;
+    var layout = CHAR_LAYOUTS[count] || CHAR_LAYOUTS[1];
+    var scale  = CAD_SCALE[cadrage] || 1.0;
+    var color  = bgType === 'complex' ? 'rgba(255,255,255,0.72)' : 'rgba(48,28,120,0.55)';
+    for (var i = 0; i < count; i++) {
+      var wrap = document.createElement('div');
+      wrap.className = 'preview-char-wrap';
+      wrap.style.left      = layout[i][0] + '%';
+      wrap.style.width     = layout[i][1] + '%';
+      wrap.style.transform = 'scale(' + scale + ')';
+      wrap.style.color     = color;
+      wrap.innerHTML = CHAR_SVG_TPL;
+      cont.appendChild(wrap);
+    }
+  }
+
+  function updatePreview() {
+    var stage  = document.getElementById('previewStage');
+    var bgEl   = document.getElementById('previewBg');
+    var moodEl = document.getElementById('previewMood');
+    if (!stage) return;
+
+    var fmt    = (document.getElementById('format')  || {value:'portrait'}).value;
+    var bgType = (document.getElementById('bgType')  || {value:'simple'}).value;
+    var cadrage= (document.getElementById('cadrage') || {value:'full'}).value;
+    var ambiEl = document.getElementById('ambiance');
+    var moodIdx= ambiEl ? ambiEl.selectedIndex : 0;
+    var MOODS  = ['','warm','cold','dark','light'];
+    var mood   = MOODS[moodIdx] || '';
+    var extra  = parseInt((document.getElementById('persoCount') || {textContent:'0'}).textContent) || 0;
+    var total  = 1 + extra;
+
+    stage.setAttribute('data-fmt', fmt);
+    if (bgEl) bgEl.setAttribute('data-bg', bgType);
+    if (moodEl) { moodEl.setAttribute('data-mood', mood); moodEl.style.opacity = mood ? '' : '0'; }
+
+    buildCharSvgs(total, cadrage, bgType);
+
+    /* update info tags */
+    var FMT = {portrait:'Portrait\u202f3:4', landscape:'Paysage\u202f16:9', square:'Carr\u00e9\u202f1:1'};
+    var CAD = {buste:'Plan serré', demi:'Plan serré', full:'Corps entier'};
+    var BG  = {none:'Sans fond', simple:'Fond simple', complex:'D\u00e9cor complexe'};
+    function setTag(id,v){ var el=document.getElementById(id); if(el) el.textContent=v; }
+    setTag('ptag-cadrage', CAD[cadrage] || cadrage);
+    setTag('ptag-bg',      BG[bgType]   || bgType);
+    setTag('ptag-chars',   total===1 ? '1\u202fpersonnage' : total+'\u202fpersonnages');
+    /* pack tag updated in selectPack */
+  }
+
+
+  /* ─── FLIP CARD ─── */
+  function flipCard(e, btn) {
+    e.stopPropagation();
+    var card = btn.closest('.preset-card');
+    if (card) card.classList.add('flipped');
+  }
+  function unflipCard(e, btn) {
+    e.stopPropagation();
+    var card = btn.closest('.preset-card');
+    if (card) card.classList.remove('flipped');
+  }
+
+  /* ─── ACCORDION ─── */
+  function toggleGroup(head) {
+    head.parentElement.classList.toggle('open');
+  }
+
+  /* ─── FAQ ─── */
+  function toggleFaq(btn) { btn.parentElement.classList.toggle('open'); }
+
+  /* ─── LIGHTBOX ─── */
+  function openVpLightbox() {
+    var img = document.getElementById('recapVpImg');
+    if (img && img.src && img.naturalWidth > 0) { openLightbox(img.src); }
+  }
+  function openLightbox(src) {
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLightbox(); });
+
+  /* ─── VALIDATION & ORDER ─── */
+  function toggleConfirm() {}
+
+  function toggleAddressFields(val) {
+    var el = document.getElementById('addressFields');
+    if (el) el.style.display = val === 'virement' ? 'block' : 'none';
+  }
+
+  function validateAndHighlight() {
+    document.querySelectorAll('.field-error').forEach(function(el) {
+      el.classList.remove('field-error');
+    });
+    var errors = [];
+    function markField(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var empty = el.type === 'checkbox' ? !el.checked : el.value.trim() === '';
+      if (empty) {
+        var wrap = el.closest('.perso-field') || el.closest('.confirm-check-row');
+        if (wrap) { wrap.classList.add('field-error'); errors.push(wrap); }
+      }
+    }
+    markField('projectTitle');
+    markField('projectDesc');
+    markField('projectDrive');
+    markField('clientEmail');
+    markField('paymentMethod');
+    var pm = document.getElementById('paymentMethod');
+    if (pm && pm.value === 'virement') {
+      markField('clientName');
+      markField('clientAddress');
+      markField('clientZip');
+      markField('clientCity');
+    }
+    markField('confirmCheck');
+    markField('cgvCheck');
+    return errors;
+  }
+
+  var _toastTimer = null;
+  function showValidationToast() {
+    var toast = document.getElementById('validationToast');
+    if (!toast) return;
+    toast.classList.add('show');
+    clearTimeout(_toastTimer);
+    _toastTimer = setTimeout(function() { toast.classList.remove('show'); }, 4500);
+  }
+
+  function handleOrder() {
+    if (!currentPack) { showValidationToast(); return; }
+    // Validation step 0 pour Unique
+    if (currentPack === 'unique') {
+      var nom  = (document.getElementById('uniqueNom')  || {}).value || '';
+      var desc = (document.getElementById('uniqueDesc') || {}).value || '';
+      var bad = false;
+      ['uniqueNom','uniqueDesc'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el && !el.value.trim()) { el.classList.add('field-error'); bad = true; }
+        else if (el) el.classList.remove('field-error');
+      });
+      if (bad) return;
+    }
+    goToStep(1);
+  }
+
+  /* ── MULTI-STEP SLIDER ── */
+  var _currentStep = 0;
+
+  function goToStep(n) {
+    _currentStep = n;
+    var track = document.getElementById('stepsTrack');
+    if (track) track.style.transform = 'translateX(-' + (n * 100) + '%)';
+    updateStepper(n);
+    // Scroll to top of the form area
+    var stepper = document.getElementById('stepsStepper');
+    if (stepper) stepper.scrollIntoView({behavior:'smooth', block:'start'});
+    // Build summary on step 3
+    if (n === 3) buildConfirmSummary();
+  }
+
+  function updateStepper(n) {
+    for (var i = 0; i < 4; i++) {
+      var circle = document.getElementById('sc' + i);
+      var label  = document.getElementById('sl' + i);
+      var conn   = document.getElementById('conn' + i);
+      if (!circle) continue;
+      circle.className = 'step-circle ' + (i < n ? 'done' : i === n ? 'active' : 'future');
+      if (label) label.className = 'step-lbl ' + (i <= n ? 'active' : '');
+      if (conn)  conn.className  = 'step-connector ' + (i < n ? 'done' : '');
+    }
+  }
+
+  function toggleAddressFields() {
+    var method = (document.getElementById('paymentMethod') || {}).value;
+    var block  = document.getElementById('addressFields');
+    if (block) block.style.display = (method === 'virement') ? 'block' : 'none';
+  }
+
+  function validateStep1() {
+    var err = document.getElementById('errStep1');
+    if (err) err.style.display = 'none';
+    var method = (document.getElementById('paymentMethod') || {}).value;
+    if (method === 'virement') {
+      var first   = (document.getElementById('billingFirst')   || {}).value || '';
+      var last    = (document.getElementById('billingLast')    || {}).value || '';
+      var country = (document.getElementById('billingCountry') || {}).value || '';
+      if (!first.trim() || !last.trim() || !country.trim()) {
+        ['billingFirst','billingLast','billingCountry'].forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el && !el.value.trim()) el.classList.add('field-error');
+        });
+        if (err) err.style.display = 'block';
+        return;
+      }
+    }
+    goToStep(2);
+  }
+
+  function validateStep2() {
+    var err = document.getElementById('errStep2');
+    if (err) err.style.display = 'none';
+    var isUniq = currentPack === 'unique';
+    var fields = isUniq
+      ? ['clientEmail','clientDiscord']
+      : ['projectTitle','projectDesc','projectDrive','clientEmail','clientDiscord'];
+    var ok = true;
+    fields.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var bad = !el.value.trim() || (id === 'clientEmail' && !/\S+@\S+\.\S+/.test(el.value.trim()));
+      el.classList.toggle('field-error', bad);
+      if (bad) ok = false;
+    });
+    if (!ok) { if (err) err.style.display = 'block'; return; }
+    goToStep(3);
+  }
+
+  function buildConfirmSummary() {
+    var p      = PACKS[currentPack] || {};
+    var price  = (document.getElementById('priceVal')    || {textContent:''}).textContent;
+    var dlSel  = document.getElementById('deadline');
+    var licSel = document.getElementById('license');
+    var ndaEl  = document.getElementById('nda');
+    var fmtEl  = document.getElementById('format');
+    var cadEl  = document.getElementById('cadrage');
+    var bgEl   = document.getElementById('bgType');
+    var extra  = parseInt((document.getElementById('persoCount') || {textContent:'0'}).textContent) || 0;
+    var pmSel  = document.getElementById('paymentMethod');
+    var FMT = {portrait:'Portrait 3:4', landscape:'Paysage 16:9', square:'Carré 1:1', other:'Autre'};
+    var CAD = {buste:'Plan serré (buste)', demi:'Plan serré (taille)', americain:'Plan américain', full:'Corps entier'};
+    var BG  = {none:'Transparent', simple:'Décor simple', complex:'Scène complexe'};
+    var PM  = {stripe:'Carte bancaire (Stripe)', virement:'Virement bancaire'};
+    var isUniq = currentPack === 'unique';
+    var lines = ['🎨 Pack : ' + (p.name || currentPack)];
+    if (isUniq) {
+      lines.push('📋 Projet : ' + ((document.getElementById('uniqueNom') || {}).value || '—'));
+      lines.push('📝 Description : ' + ((document.getElementById('uniqueDesc') || {}).value || '—'));
+      var da = (document.getElementById('uniqueDA') || {}).value || '';
+      if (da.trim()) lines.push('🎨 DA / Références : ' + da);
+      var ddSel = document.getElementById('uniqueDeadline');
+      lines.push('⏱️ Délai souhaité : ' + (ddSel ? ddSel.options[ddSel.selectedIndex].text : '—'));
+    } else {
+      lines.push('💰 Estimation : ' + price);
+      lines.push('📐 Format : ' + (FMT[fmtEl ? fmtEl.value : ''] || '—'));
+      lines.push('🖼️ Cadrage : ' + (CAD[cadEl ? cadEl.value : ''] || '—'));
+      lines.push('🌄 Fond : ' + (BG[bgEl ? bgEl.value : ''] || '—'));
+      lines.push('👥 Personnages : ' + (1 + extra));
+      lines.push('📋 Projet : ' + ((document.getElementById('projectTitle') || {}).value || '—'));
+    }
+    lines.push('⏱️ Délai : ' + (dlSel ? dlSel.options[dlSel.selectedIndex].text : 'Standard'));
+    lines.push('📄 Licence : ' + (licSel ? licSel.options[licSel.selectedIndex].text : 'Personnel'));
+    lines.push('🔒 NDA : ' + ((ndaEl && ndaEl.checked) ? 'Oui' : 'Non'));
+    lines.push('💳 Paiement : ' + (PM[pmSel ? pmSel.value : ''] || '—'));
+    lines.push('📧 Email : ' + ((document.getElementById('clientEmail') || {}).value || '—'));
+    var disc = (document.getElementById('clientDiscord') || {}).value || '';
+    if (disc.trim()) lines.push('💬 Discord : ' + disc);
+    var box = document.getElementById('confirmSummary');
+    if (box) box.innerHTML = lines.join('<br>');
+  }
+
+  function submitCommission() {
+    var cgv = document.getElementById('cgvCheck');
+    var age = document.getElementById('ageCheck');
+    var err = document.getElementById('errStep3');
+    var errSend = document.getElementById('errStep3Send');
+    if (err) err.style.display = 'none';
+    if (errSend) errSend.style.display = 'none';
+    if (!cgv || !cgv.checked || !age || !age.checked) {
+      if (err) err.style.display = 'block';
+      return;
+    }
+    var btn = document.getElementById('submitBtn');
+    if (btn) { btn.disabled = true; btn.textContent = 'Envoi en cours…'; }
+
+    var p      = PACKS[currentPack] || {};
+    var price  = (document.getElementById('priceVal')    || {textContent:''}).textContent;
+    var dlSel  = document.getElementById('deadline');
+    var licSel = document.getElementById('license');
+    var ndaEl  = document.getElementById('nda');
+    var fmtEl  = document.getElementById('format');
+    var cadEl  = document.getElementById('cadrage');
+    var bgEl   = document.getElementById('bgType');
+    var extra  = parseInt((document.getElementById('persoCount') || {textContent:'0'}).textContent) || 0;
+    var pmSel  = document.getElementById('paymentMethod');
+    var FMT = {portrait:'Portrait 3:4', landscape:'Paysage 16:9', square:'Carré 1:1', other:'Autre'};
+    var CAD = {buste:'Plan serré (buste)', demi:'Plan serré (taille)', americain:'Plan américain', full:'Corps entier'};
+    var BG  = {none:'Transparent', simple:'Décor simple', complex:'Scène complexe'};
+    var PM  = {stripe:'Carte bancaire (Stripe)', virement:'Virement bancaire'};
+
+    var isUniq  = currentPack === 'unique';
+    var ddSel   = document.getElementById('uniqueDeadline');
+    var templateParams = {
+      pack:           p.name || currentPack,
+      price:          isUniq ? 'Sur devis' : price,
+      format:         isUniq ? '—' : (FMT[fmtEl ? fmtEl.value : ''] || '—'),
+      cadrage:        isUniq ? '—' : (CAD[cadEl ? cadEl.value  : ''] || '—'),
+      bg:             isUniq ? '—' : (BG [bgEl  ? bgEl.value   : ''] || '—'),
+      persos:         isUniq ? '—' : String(1 + extra),
+      deadline:       dlSel  ? dlSel.options[dlSel.selectedIndex].text   : 'Standard',
+      license:        licSel ? licSel.options[licSel.selectedIndex].text : 'Personnel',
+      nda:            (ndaEl && ndaEl.checked) ? 'Oui' : 'Non',
+      payment_method: PM[pmSel ? pmSel.value : ''] || '—',
+      billing_name:   ((document.getElementById('billingFirst') || {}).value || '') + ' ' + ((document.getElementById('billingLast') || {}).value || ''),
+      billing_country:(document.getElementById('billingCountry') || {value:''}).value || '—',
+      project_title:  isUniq ? ((document.getElementById('uniqueNom')  || {value:''}).value) : ((document.getElementById('projectTitle') || {value:''}).value),
+      project_desc:   isUniq ? ((document.getElementById('uniqueDesc') || {value:''}).value) : ((document.getElementById('projectDesc')  || {value:''}).value),
+      project_drive:  isUniq ? ((document.getElementById('uniqueDA')   || {value:'—'}).value || '—') : ((document.getElementById('projectDrive') || {value:'—'}).value || '—'),
+      unique_deadline:isUniq ? (ddSel ? ddSel.options[ddSel.selectedIndex].text : '—') : '—',
+      client_email:   (document.getElementById('clientEmail')   || {value:''}).value,
+      client_discord: (document.getElementById('clientDiscord') || {value:'—'}).value || '—'
+    };
+
+    emailjs.send('service_ksqetkj', 'template_o95aqd3', templateParams)
+      .then(function() {
+        if (btn) { btn.disabled = false; btn.textContent = '✓ Commande envoyée !'; btn.style.background = 'linear-gradient(135deg,#22c55e,#4ade80)'; }
+        // Scroll to success
+        var s = document.getElementById('stepsStepper');
+        if (s) s.scrollIntoView({behavior:'smooth'});
+      }, function(error) {
+        console.error('EmailJS error:', error);
+        if (btn) { btn.disabled = false; btn.textContent = 'Envoyer la commande ✓'; }
+        if (errSend) errSend.style.display = 'block';
+      });
+  }
+
+  /* ─── LANG ─── */
+
+  var currentLang = 'fr';
+  function toggleLang() {
+    currentLang = currentLang === 'fr' ? 'en' : 'fr';
+    document.getElementById('langFlag').src = currentLang === 'fr' ? 'images/icones/langues/france.png' : 'images/icones/langues/english.png';
+  }
+
+  /* ── DELAYS PER PACK ── */
+  var DELAYS = {
+    chardesign: {standard:'2–3 sem.',  express:'1–2 sem.', rush:'~1 sem.'},
+    portrait:   {standard:'3–5 sem.',  express:'2–3 sem.', rush:'1–2 sem.'},
+    splashart:  {standard:'5–8 sem.',  express:'3–4 sem.', rush:'~2 sem.'},
+    unique:     {standard:'à définir', express:'à définir', rush:'à définir'}
+  };
+
+  function updateDeadlineLabels() {
+    if (!currentPack) return;
+    var dl = DELAYS[currentPack] || DELAYS.chardesign;
+    var sel = document.getElementById('deadline');
+    if (!sel) return;
+    var labels = [
+      'Standard (' + dl.standard + ')',
+      'Express (' + dl.express + ') +30 %',
+      'Rush (' + dl.rush + ') +60 %'
+    ];
+    for (var i = 0; i < sel.options.length; i++) {
+      if (labels[i]) sel.options[i].text = labels[i];
+    }
+    var csel = document.querySelector('.csel[data-id="deadline"]');
+    if (csel) {
+      var curVal = sel.value;
+      csel.querySelectorAll('.csel-opt').forEach(function(opt, i) {
+        if (labels[i]) opt.textContent = labels[i];
+        if (opt.dataset.val === curVal && labels[i]) {
+          csel.querySelector('.csel-val').textContent = labels[i];
+        }
+      });
+    }
+  }
+
+  /* ── CUSTOM SELECT INIT ── */
+  function closeAllCsel() {
+    document.querySelectorAll('.csel.open').forEach(function(cv) {
+      cv.classList.remove('open');
+      var pf = cv.closest('.perso-field');
+      if (pf) pf.classList.remove('csel-open');
+      var pg = cv.closest('.perso-group');
+      if (pg) pg.style.zIndex = '';
+    });
+  }
+  function initCustomSelects() {
+    document.querySelectorAll('.perso-field select').forEach(function(sel) {
+      if (sel.dataset.cselDone) return;
+      sel.dataset.cselDone = '1';
+      var fieldEl = sel.closest('.perso-field');
+      var wrap = document.createElement('div');
+      wrap.className = 'csel';
+      wrap.dataset.id = sel.id || '';
+      var trigger = document.createElement('button');
+      trigger.type = 'button';
+      trigger.className = 'csel-trigger';
+      var valSpan = document.createElement('span');
+      valSpan.className = 'csel-val';
+      valSpan.textContent = sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].text : '';
+      trigger.appendChild(valSpan);
+      trigger.insertAdjacentHTML('beforeend',
+        '<svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 1l4 4 4-4"/></svg>');
+      var list = document.createElement('div');
+      list.className = 'csel-list';
+      Array.from(sel.options).forEach(function(opt) {
+        var item = document.createElement('div');
+        item.className = 'csel-opt' + (opt.selected ? ' active' : '');
+        item.dataset.val = opt.value;
+        item.textContent = opt.text;
+        (function(capturedOpt, capturedItem) {
+          capturedItem.addEventListener('click', function() {
+            sel.value = capturedOpt.value;
+            valSpan.textContent = capturedOpt.text;
+            list.querySelectorAll('.csel-opt').forEach(function(o) { o.classList.remove('active'); });
+            capturedItem.classList.add('active');
+            wrap.classList.remove('open');
+            if (fieldEl) fieldEl.classList.remove('csel-open');
+            sel.dispatchEvent(new Event('change', {bubbles:true}));
+          });
+        })(opt, item);
+        list.appendChild(item);
+      });
+      trigger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var wasOpen = wrap.classList.contains('open');
+        closeAllCsel();
+        if (!wasOpen) {
+          wrap.classList.add('open');
+          if (fieldEl) fieldEl.classList.add('csel-open');
+          var groupEl = fieldEl ? fieldEl.closest('.perso-group') : null;
+          if (groupEl) groupEl.style.zIndex = '20';
+        }
+      });
+      wrap.appendChild(trigger);
+      sel.style.display = 'none';
+      sel.parentNode.insertBefore(wrap, sel.nextSibling);
+      if (fieldEl) fieldEl.appendChild(list);
+      else wrap.appendChild(list);
+    });
+  }
+  document.addEventListener('click', function() { closeAllCsel(); });
+  window.addEventListener('scroll', function() { closeAllCsel(); }, true);
+
+  /* ── RECAP UPDATE ── */
+  var BUSTE_SVG = '<svg viewBox="0 0 40 68" xmlns="http://www.w3.org/2000/svg">'
+    + '<ellipse cx="20" cy="10" rx="10" ry="10.5" fill="currentColor"/>'
+    + '<rect x="17" y="19" width="6" height="8" rx="1.5" fill="currentColor"/>'
+    + '<path d="M8 27 Q5 50 7 68 L33 68 Q35 50 32 27 Q26 22 20 22 Q14 22 8 27Z" fill="currentColor"/>'
+    + '</svg>';
+  var FULL_SVG = '<svg viewBox="0 0 40 120" xmlns="http://www.w3.org/2000/svg">'
+    + '<ellipse cx="20" cy="9" rx="9.5" ry="10" fill="currentColor"/>'
+    + '<rect x="17" y="18" width="6" height="9" rx="1.5" fill="currentColor"/>'
+    + '<path d="M9 27 Q4 50 6 70 L34 70 Q36 50 31 27 Q25 23 20 23 Q15 23 9 27Z" fill="currentColor"/>'
+    + '<path d="M6 68 Q3 84 5 96 L35 96 Q37 84 34 68Z" fill="currentColor" opacity=".9"/>'
+    + '<rect x="6" y="94" width="12" height="26" rx="3" fill="currentColor"/>'
+    + '<rect x="22" y="94" width="12" height="26" rx="3" fill="currentColor"/>'
+    + '</svg>';
+
+  function rRow(ico, key, val) {
+    return '<div class="recap-row">'
+      + '<div class="recap-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + ico + '</svg></div>'
+      + '<span class="recap-row-key">' + key + '</span>'
+      + '<span class="recap-row-val">' + val + '</span>'
+      + '</div>';
+  }
+
+  function updateRecap() {
+    if (!currentPack) return;
+    var p = PACKS[currentPack];
+
+    var badge = document.getElementById('recapBadge');
+    if (badge) { badge.textContent = p.name; badge.style.background = p.dot; }
+
+    var fmt     = (document.getElementById('format')    || {value:'portrait'}).value;
+    var bgType  = (document.getElementById('bgType')    || {value:'simple'}).value;
+    var cadrage = (document.getElementById('cadrage')   || {value:'full'}).value;
+    var ambiEl  = document.getElementById('ambiance');
+    var moodIdx = ambiEl ? ambiEl.selectedIndex : 0;
+    var MOODS   = ['','warm','cold','dark','light'];
+    var mood    = MOODS[moodIdx] || '';
+    var extra   = parseInt((document.getElementById('persoCount') || {textContent:'0'}).textContent) || 0;
+    var total   = Math.min(1 + extra, 5);
+    var dlSel   = document.getElementById('deadline');
+    var licSel  = document.getElementById('license');
+    var ndaEl   = document.getElementById('nda');
+    var titleEl = document.getElementById('projectTitle');
+    var driveEl = document.getElementById('projectDrive');
+
+    var isChar = currentPack === 'chardesign';
+
+    /* toggle schematic frame vs chardesign image */
+    var frameWrap = document.getElementById('recapFrameWrap');
+    var vpImgWrap = document.getElementById('recapVpImgWrap');
+    if (frameWrap) frameWrap.style.display = isChar ? 'none' : '';
+    if (vpImgWrap) vpImgWrap.style.display = isChar ? 'flex' : 'none';
+
+    if (isChar && selectedViewPack) {
+      var VP_IMGS = {
+        starter: 'images/preview_packs_cd/pack_starter.webp',
+        gesture: 'images/preview_packs_cd/pack_gesture.webp',
+        pro:     'images/preview_packs_cd/pack_pro.webp',
+        ultimate:'images/preview_packs_cd/pack_ultimate.webp'
+      };
+      var VP_NUMS = {starter:'1', gesture:'2', pro:'3', ultimate:'4'};
+      var vpImg = document.getElementById('recapVpImg');
+      var vpNum = document.getElementById('recapVpNum');
+      if (vpImg) vpImg.src = VP_IMGS[selectedViewPack] || '';
+      if (vpNum) vpNum.textContent = VP_NUMS[selectedViewPack];
+    }
+
+    /* frame (non-chardesign only) */
+    var frame = document.getElementById('recapFrame');
+    if (frame && !isChar) {
+      frame.setAttribute('data-fmt', fmt === 'other' ? 'portrait' : fmt);
+      frame.setAttribute('data-bg', bgType);
+      frame.setAttribute('data-mood', mood);
+    }
+
+    /* mini characters (non-chardesign only) */
+    var cw = document.getElementById('recapCharsWrap');
+    if (cw && !isChar) {
+      cw.innerHTML = '';
+      var svgTpl  = (cadrage === 'buste' || cadrage === 'demi') ? BUSTE_SVG : FULL_SVG;
+      var widths  = [0,32,24,18,15,13];
+      var charW   = widths[total] || 13;
+      for (var i = 0; i < total; i++) {
+        var ch = document.createElement('div');
+        ch.className = 'recap-char';
+        ch.style.width = charW + 'px';
+        ch.innerHTML = svgTpl;
+        cw.appendChild(ch);
+      }
+    }
+
+    /* rows */
+    var FMT  = {portrait:'Portrait 3:4', landscape:'Paysage 16:9', square:'Carré 1:1', other:'Autre (préciser)'};
+    var CAD  = {buste:'Plan serré', demi:'Plan serré', full:'Corps entier'};
+    var BG   = {none:'Transparent', simple:'Décor simple', complex:'Scène complexe'};
+    var LIC  = {personal:'Personnel', commercial:'Commercial +100 %', streaming:'Streaming +50 %'};
+    var ICO  = {
+      fmt:   '<rect x="3" y="3" width="18" height="18" rx="2"/>',
+      cad:   '<path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/>',
+      chars: '<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/>',
+      bg:    '<circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/><rect x="3" y="3" width="18" height="18" rx="2"/>',
+      dl:    '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+      lic:   '<path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/>',
+      nda:     '<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>',
+      title:   '<line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="14" y2="12"/>',
+      contact: '<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>'
+    };
+
+    var dlText  = dlSel ? dlSel.options[dlSel.selectedIndex].text : 'Standard';
+    var licVal  = licSel ? licSel.value : 'personal';
+    var hasNDA  = ndaEl && ndaEl.checked;
+    var title   = titleEl ? titleEl.value.trim() : '';
+    var drive   = driveEl ? driveEl.value.trim() : '';
+    var contact = (document.getElementById('clientEmail')   || {value:''}).value.trim();
+    var discord = (document.getElementById('clientDiscord') || {value:''}).value.trim();
+
+    var rows = '';
+    if (title) rows += rRow(ICO.title, 'Projet', title);
+    if (!isChar) {
+      rows += rRow(ICO.fmt,   'Format',  FMT[fmt] || fmt);
+      rows += rRow(ICO.cad,   'Cadrage', CAD[cadrage] || cadrage);
+      rows += rRow(ICO.chars, 'Persos.', total === 1 ? '1 personnage' : total + ' personnages');
+      rows += rRow(ICO.bg,    'Fond',    BG[bgType] || bgType);
+    }
+    rows += rRow(ICO.dl,    'Délai',   dlText);
+    rows += rRow(ICO.lic,   'Licence', LIC[licVal] || 'Personnel');
+    if (hasNDA) rows += rRow(ICO.nda, 'NDA', 'Oui (+50 %)');
+    if (drive)  rows += rRow(ICO.lic, 'Drive', '✓ Lien fourni');
+
+    var cname2  = (document.getElementById('clientName')    || {value:''}).value.trim();
+    var caddr2  = (document.getElementById('clientAddress') || {value:''}).value.trim();
+    var czip2   = (document.getElementById('clientZip')     || {value:''}).value.trim();
+    var ccity2  = (document.getElementById('clientCity')    || {value:''}).value.trim();
+    var pmSel   = document.getElementById('paymentMethod');
+    var PM_LABELS = {stripe:'Stripe', paypal:'PayPal', virement:'Virement bancaire'};
+
+    var rowsEl = document.getElementById('recapRows');
+    if (rowsEl) {
+      rowsEl.innerHTML = rows;
+      if (contact) rowsEl.innerHTML += rRow(ICO.contact, 'Email', contact);
+      if (discord) rowsEl.innerHTML += rRow(ICO.contact, 'Discord', discord);
+      if (cname2)  rowsEl.innerHTML += rRow(ICO.contact, 'Nom', cname2);
+      if (caddr2)  rowsEl.innerHTML += rRow(ICO.contact, 'Adresse', caddr2 + (czip2 ? ', ' + czip2 : '') + (ccity2 ? ' ' + ccity2 : ''));
+      if (pmSel && pmSel.value) rowsEl.innerHTML += rRow(ICO.contact, 'Paiement', PM_LABELS[pmSel.value] || pmSel.value);
+    }
+
+    /* price mirror */
+    var pv = document.getElementById('priceVal');
+    var rv = document.getElementById('recapPriceVal');
+    if (pv && rv) rv.textContent = pv.textContent;
+  }
+
+  /* init on load */
+  initCustomSelects();
+
+  /* ── CGV MODAL ── */
+  function openCGV() {
+    document.getElementById('cgvModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeCGV() {
+    document.getElementById('cgvModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+</script>
+
+<!-- CGV MODAL -->
+<style>
+  #cgvModal{position:fixed;inset:0;z-index:2000;background:rgba(8,4,22,0.75);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s;}
+  #cgvModal.open{opacity:1;pointer-events:all;}
+  #cgvModal .cgv-box{background:#fff;border-radius:20px;width:100%;max-width:640px;max-height:82vh;display:flex;flex-direction:column;box-shadow:0 40px 100px rgba(5,0,30,0.45);transform:translateY(20px);transition:transform .3s cubic-bezier(.22,1,.36,1);}
+  #cgvModal.open .cgv-box{transform:translateY(0);}
+  #cgvModal .cgv-hd{display:flex;align-items:center;justify-content:space-between;padding:22px 28px 18px;border-bottom:1px solid rgba(108,99,255,0.10);flex-shrink:0;}
+  #cgvModal .cgv-hd h3{font-size:17px;font-weight:800;color:#1a0840;}
+  #cgvModal .cgv-close{background:rgba(90,70,180,0.08);border:1px solid rgba(90,70,180,0.15);color:#5a46a0;width:32px;height:32px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;font-family:'Satoshi',sans-serif;}
+  #cgvModal .cgv-close:hover{background:rgba(90,70,180,0.16);}
+  #cgvModal .cgv-body{overflow-y:auto;padding:6px 0 16px;}
+  #cgvModal .cgv-art{padding:18px 28px;border-bottom:1px solid rgba(108,99,255,0.08);}
+  #cgvModal .cgv-art:last-child{border-bottom:none;}
+  #cgvModal .cgv-art-label{font-size:11px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:#6c63ff;margin-bottom:6px;}
+  #cgvModal .cgv-art p{font-size:13px;color:#4a4a7a;line-height:1.72;}
+  #cgvModal .cgv-art strong{color:#2a235a;}
+</style>
+<div id="cgvModal" onclick="if(event.target===this)closeCGV()">
+  <div class="cgv-box">
+    <div class="cgv-hd">
+      <h3>Conditions Générales de Vente</h3>
+      <button class="cgv-close" onclick="closeCGV()">✕</button>
+    </div>
+    <div class="cgv-body">
+      <div class="cgv-art">
+        <p class="cgv-art-label">Article 1 — Objet</p>
+        <p>Les présentes conditions régissent toute commande d'illustration passée auprès de Bobe Florian. Toute commande implique l'acceptation sans réserve des présentes conditions.</p>
+      </div>
+      <div class="cgv-art">
+        <p class="cgv-art-label">Article 2 — Paiement</p>
+        <p>Un acompte de <strong>50 %</strong> est exigé avant tout démarrage. Le solde est dû à la livraison des fichiers finaux. Seuls les modes de paiement intégrés au site sont acceptés. Aucun paiement externe ne sera traité.</p>
+      </div>
+      <div class="cgv-art">
+        <p class="cgv-art-label">Article 3 — Révisions</p>
+        <p>Deux rondes de révisions mineures sont incluses par commission. Toute modification structurelle demandée après validation d'une étape fera l'objet d'un devis complémentaire.</p>
+      </div>
+      <div class="cgv-art">
+        <p class="cgv-art-label">Article 4 — Droits &amp; Licences</p>
+        <p>Par défaut, la livraison confère un droit d'usage <strong>personnel et non commercial</strong>. Les usages commerciaux, streaming ou NFT nécessitent la licence correspondante sélectionnée lors de la commande. Bobe Florian conserve le droit moral sur l'œuvre et peut la publier dans son portfolio sauf accord NDA.</p>
+      </div>
+      <div class="cgv-art">
+        <p class="cgv-art-label">Article 5 — Délais</p>
+        <p>Les délais indiqués sont des estimations indicatives. Bobe Florian ne peut être tenu responsable de retards liés à des circonstances extérieures. Tout retard significatif fera l'objet d'une communication proactive.</p>
+      </div>
+      <div class="cgv-art">
+        <p class="cgv-art-label">Article 6 — Annulation &amp; Remboursement</p>
+        <p>En cas d'annulation avant démarrage, l'acompte est intégralement remboursé. Après démarrage des travaux, l'acompte est conservé à titre d'indemnisation. Aucun remboursement ne sera accordé après livraison des fichiers finaux.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

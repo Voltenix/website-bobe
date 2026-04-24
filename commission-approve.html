@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Approbation Commission · Bobe Florian</title>
+  <link rel="stylesheet" href="Fonts/Satoshi/satoshi.css"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background:#0d0b1e; color:#fff; font-family:'Satoshi',sans-serif; min-height:100vh; padding:32px 24px; }
+    .page { max-width:680px; margin:0 auto; }
+
+    /* Header */
+    .page-header { display:flex; align-items:center; gap:14px; margin-bottom:28px; }
+    .page-logo { font-size:15px; font-weight:800; color:#fff; letter-spacing:.5px; }
+    .page-logo span { color:#a78bfa; }
+    .status-pill { margin-left:auto; display:inline-flex; align-items:center; gap:7px;
+      background:rgba(217,119,6,0.15); border:1.5px solid rgba(217,119,6,0.35);
+      border-radius:20px; padding:6px 14px; font-size:11px; font-weight:700;
+      color:#fbbf24; letter-spacing:1px; text-transform:uppercase; }
+    .status-dot { width:7px; height:7px; border-radius:50%; background:#f59e0b; flex-shrink:0;
+      animation:blink 1.8s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    /* Card */
+    .card { background:#1a1535; border:1px solid rgba(255,255,255,0.08);
+      border-radius:20px; padding:28px 30px; margin-bottom:16px; }
+    .card-title { font-size:10px; font-weight:700; letter-spacing:2.5px;
+      text-transform:uppercase; color:#6c63ff; margin-bottom:14px; }
+
+    /* Pack header */
+    .pack-hd { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+    .pack-dot { width:12px; height:12px; border-radius:50%; flex-shrink:0; }
+    .pack-name { font-size:24px; font-weight:900; color:#fff; }
+    .pack-title { font-size:14px; color:rgba(255,255,255,0.45); margin-top:2px; }
+
+    /* Details grid */
+    .details-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .detail-row { display:flex; align-items:center; gap:10px;
+      background:rgba(255,255,255,0.04); border-radius:10px; padding:10px 14px; }
+    .detail-row.full { grid-column:1/-1; }
+    .detail-key { font-size:9.5px; font-weight:700; letter-spacing:.8px; text-transform:uppercase;
+      color:rgba(255,255,255,0.35); flex:0 0 72px; }
+    .detail-val { font-size:13px; color:rgba(255,255,255,0.80); font-weight:500;
+      flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .detail-row.desc-row .detail-val { white-space:normal; word-break:break-word; line-height:1.55; }
+
+    /* Invoice box */
+    .invoice-box { background:rgba(108,99,255,0.08); border:1.5px solid rgba(108,99,255,0.22);
+      border-radius:14px; padding:18px 20px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    .invoice-left { display:flex; flex-direction:column; gap:4px; }
+    .invoice-num { font-size:16px; font-weight:800; color:#a78bfa; letter-spacing:.5px; }
+    .invoice-label { font-size:10px; color:rgba(255,255,255,0.35); letter-spacing:1px; text-transform:uppercase; }
+    .invoice-price { font-size:28px; font-weight:900; color:#fff; }
+    .invoice-price-note { font-size:10.5px; color:rgba(255,255,255,0.35); margin-top:2px; }
+
+    /* Actions */
+    .actions { display:flex; gap:12px; flex-wrap:wrap; }
+    .btn { height:48px; border-radius:12px; border:none; cursor:pointer;
+      font-family:'Satoshi',sans-serif; font-size:14px; font-weight:700;
+      transition:opacity .18s, transform .15s; display:flex; align-items:center; gap:8px; padding:0 22px; }
+    .btn:hover { opacity:.88; transform:translateY(-1px); }
+    .btn:disabled { opacity:.35; cursor:not-allowed; transform:none; }
+    .btn-pdf { background:#1a1535; border:1.5px solid rgba(108,99,255,0.35); color:#a78bfa; }
+    .btn-approve { background:linear-gradient(135deg,#22c55e,#4ade80); color:#fff; flex:1; justify-content:center; }
+    .btn-decline { background:#1a1535; border:1.5px solid rgba(239,68,68,0.30); color:#f87171; }
+
+    /* Status */
+    .status-msg { margin-top:14px; font-size:13px; line-height:1.6; padding:14px 18px;
+      border-radius:12px; display:none; }
+    .status-msg.success { display:block; background:rgba(34,197,94,0.10);
+      border:1px solid rgba(34,197,94,0.25); color:#4ade80; }
+    .status-msg.error { display:block; background:rgba(239,68,68,0.10);
+      border:1px solid rgba(239,68,68,0.25); color:#f87171; }
+    .status-msg.info { display:block; background:rgba(108,99,255,0.10);
+      border:1px solid rgba(108,99,255,0.25); color:#a78bfa; }
+
+    /* Invalid link */
+    .invalid-card { text-align:center; padding:60px 32px; }
+    .invalid-card .icon { font-size:52px; margin-bottom:16px; }
+    .invalid-card h1 { font-size:20px; font-weight:800; margin-bottom:8px; }
+    .invalid-card p { color:rgba(255,255,255,0.45); font-size:14px; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="page-header">
+    <div class="page-logo">BOBE<span>Florian</span></div>
+    <div class="status-pill"><div class="status-dot"></div>En attente</div>
+  </div>
+
+  <div id="mainContent"></div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+  emailjs.init('oxXBLOnqmLehp0GpU');
+
+  function buildClientEmail(d, invoiceNum) {
+    var year = new Date().getFullYear();
+    function row(k, v) {
+      return '<tr><td style="padding:8px 14px;border-bottom:1px solid rgba(255,255,255,.06);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.35);width:110px;vertical-align:top;">' + k + '</td>'
+           + '<td style="padding:8px 14px;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px;color:rgba(255,255,255,.78);font-weight:500;">' + v + '</td></tr>';
+    }
+    return '<!DOCTYPE html><html><body style="margin:0;padding:0;background:#0d0b1e;font-family:system-ui,-apple-system,\'Segoe UI\',sans-serif;">'
+      + '<table width="100%" cellpadding="0" cellspacing="0" style="background:#0d0b1e;padding:32px 16px;"><tr><td align="center">'
+      + '<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">'
+
+      /* Header */
+      + '<tr><td style="background:linear-gradient(135deg,#3a2a7a 0%,#6c63ff 60%,#a78bfa 100%);border-radius:16px 16px 0 0;padding:26px 32px;">'
+      + '<table width="100%" cellpadding="0" cellspacing="0"><tr>'
+      + '<td><div style="font-size:19px;font-weight:900;color:#fff;letter-spacing:.5px;">BOBE<span style="color:#c4b5fd;">Florian</span></div>'
+      + '<div style="font-size:10px;color:rgba(255,255,255,.50);margin-top:2px;letter-spacing:.5px;">Digital Artist</div></td>'
+      + '<td align="right"><div style="background:rgba(34,197,94,.18);border:1.5px solid rgba(34,197,94,.45);border-radius:20px;padding:6px 14px;display:inline-block;font-size:10px;font-weight:700;color:#4ade80;letter-spacing:1.5px;text-transform:uppercase;">\u2705 APPROUV\u00c9E</div></td>'
+      + '</tr></table></td></tr>'
+
+      /* Body */
+      + '<tr><td style="background:#1a1535;padding:28px 32px;">'
+      + '<div style="font-size:13px;color:rgba(255,255,255,.50);margin-bottom:20px;line-height:1.65;">Bonjour,<br><br>Votre commission a \u00e9t\u00e9 examin\u00e9e et <strong style="color:#4ade80;">approuv\u00e9e</strong>. Voici le r\u00e9capitulatif de votre commande.</div>'
+
+      /* Details */
+      + '<table width="100%" cellpadding="0" cellspacing="0" style="background:rgba(255,255,255,.04);border-radius:10px;margin-bottom:20px;border:1px solid rgba(255,255,255,.07);">'
+      + row('Pack', d.pack)
+      + row('Titre', d.title)
+      + row('D\u00e9lai', d.deadline)
+      + row('Licence', d.license)
+      + row('NDA', d.nda)
+      + '</table>'
+
+      /* Invoice box */
+      + '<div style="background:rgba(108,99,255,.10);border:1.5px solid rgba(108,99,255,.28);border-radius:12px;padding:16px 20px;margin-bottom:20px;">'
+      + '<table width="100%" cellpadding="0" cellspacing="0"><tr>'
+      + '<td><div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:4px;">Num\u00e9ro de facture</div>'
+      + '<div style="font-size:15px;font-weight:800;color:#a78bfa;">' + invoiceNum + '</div></td>'
+      + '<td align="right"><div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:4px;">Estimation</div>'
+      + '<div style="font-size:22px;font-weight:900;color:#fff;">' + d.price + '</div></td>'
+      + '</tr></table></div>'
+
+      /* Payment */
+      + '<div style="background:rgba(255,255,255,.03);border-radius:10px;padding:14px 16px;margin-bottom:24px;">'
+      + '<div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:10px;">Moyens de paiement accept\u00e9s</div>'
+      + '<div style="font-size:12.5px;color:rgba(255,255,255,.55);line-height:2;">'
+      + '\u2022 Virement bancaire (IBAN communiqu\u00e9 sur demande)<br>'
+      + '\u2022 PayPal \u2014 contact@bobeflorian.com<br>'
+      + '\u2022 Stripe \u2014 lien envoy\u00e9 apr\u00e8s confirmation</div></div>'
+
+      + '<div style="font-size:13px;color:rgba(255,255,255,.40);line-height:1.65;">Je vous recontacterai tr\u00e8s prochainement pour les \u00e9tapes suivantes.<br><br>\u2014 Bobe Florian</div>'
+      + '</td></tr>'
+
+      /* Footer */
+      + '<tr><td style="background:#110e2a;border-radius:0 0 16px 16px;padding:16px 32px;text-align:center;">'
+      + '<div style="font-size:11px;color:rgba(255,255,255,.28);">\u00a9 ' + year + ' Bobe Florian \u00b7 contact@bobeflorian.com</div>'
+      + '</td></tr>'
+
+      + '</table></td></tr></table></body></html>';
+  }
+
+  var p = new URLSearchParams(window.location.search);
+  var isPreview = p.get('preview') === '1';
+  var data = isPreview ? {
+    pack:     'Portrait Digital',
+    title:    'Elara, Guerri\u00e8re des Sables',
+    contact:  'client@exemple.com',
+    discord:  'elara#1234',
+    price:    '~ 480 \u20ac',
+    format:   'Portrait 3:4',
+    cadrage:  'Plan serr\u00e9 (buste)',
+    bg:       'D\u00e9cor simple',
+    persos:   '1',
+    deadline: 'Standard (3\u20135 sem.)',
+    license:  'Personnel',
+    nda:      'Non',
+    drive:    'https://drive.google.com/test',
+    desc:     'Personnage f\u00e9minin avec armure dor\u00e9e et cape rouge. Expression d\u00e9termin\u00e9e, regard vers la droite. Arri\u00e8re-plan d\u00e9sertique au coucher du soleil.',
+    cname:    'Marie Dupont',
+    caddr:    '15 Rue des Lilas',
+    czip:     '75011',
+    ccity:    'Paris',
+    payment:  'stripe'
+  } : {
+    pack:     p.get('pack')     || '',
+    title:    p.get('title')    || '',
+    contact:  p.get('contact')  || '',
+    discord:  p.get('discord')  || '',
+    price:    p.get('price')    || '',
+    format:   p.get('format')   || '\u2014',
+    cadrage:  p.get('cadrage')  || '\u2014',
+    bg:       p.get('bg')       || '\u2014',
+    persos:   p.get('persos')   || '1',
+    deadline: p.get('deadline') || '\u2014',
+    license:  p.get('license')  || '\u2014',
+    nda:      p.get('nda')      || 'Non',
+    drive:    p.get('drive')    || '',
+    desc:     p.get('desc')     || '',
+    cname:    p.get('cname')    || '',
+    caddr:    p.get('caddr')    || '',
+    czip:     p.get('czip')     || '',
+    ccity:    p.get('ccity')    || '',
+    payment:  p.get('payment')  || ''
+  };
+
+  var PACK_COLORS = {
+    'Portrait':         '#6c63ff',
+    'Splash Art':       '#FF3DA8',
+    'Character Design': '#FF7A3D',
+    'Unique':           '#00D4B8'
+  };
+
+  var currentInvoiceNum = null;
+
+  function getInvoiceNumber() {
+    if (currentInvoiceNum) return currentInvoiceNum;
+    var year  = new Date().getFullYear();
+    var key   = 'cm_invoice_' + year;
+    var count = parseInt(localStorage.getItem(key) || '0') + 1;
+    localStorage.setItem(key, String(count));
+    currentInvoiceNum = 'CM_Invoice_' + year + String(count).padStart(3, '0');
+    return currentInvoiceNum;
+  }
+
+  function peekInvoiceNumber() {
+    var year  = new Date().getFullYear();
+    var key   = 'cm_invoice_' + year;
+    var count = parseInt(localStorage.getItem(key) || '0') + 1;
+    return 'CM_Invoice_' + year + String(count).padStart(3, '0');
+  }
+
+  function isEmail(str) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str);
+  }
+
+  function detailRow(key, val, full, isDesc) {
+    var cls = 'detail-row' + (full ? ' full' : '') + (isDesc ? ' desc-row' : '');
+    return '<div class="' + cls + '"><span class="detail-key">' + key + '</span><span class="detail-val">' + val + '</span></div>';
+  }
+
+  function render() {
+    if (!data.pack && !isPreview) {
+      document.getElementById('mainContent').innerHTML =
+        '<div class="card invalid-card"><div class="icon">&#10060;</div><h1>Lien invalide</h1><p>Les donn\u00e9es sont manquantes ou le lien a expir\u00e9.</p></div>';
+      return;
+    }
+
+    var dot = PACK_COLORS[data.pack] || '#6c63ff';
+    var previewNum = peekInvoiceNumber();
+
+    var html = '<div class="card">'
+      + '<div class="card-title">R\u00e9capitulatif de commande</div>'
+      + '<div class="pack-hd">'
+      + '<div class="pack-dot" style="background:' + dot + '"></div>'
+      + '<div><div class="pack-name">' + data.pack + '</div>'
+      + '<div class="pack-title">' + (data.title !== '(sans titre)' ? data.title : '') + '</div></div>'
+      + '</div>'
+      + '<div class="details-grid">'
+      + detailRow('Email', data.contact || '—', false)
+      + (data.discord ? detailRow('Discord', data.discord, false) : '')
+      + detailRow('Prix estim\u00e9', data.price, false)
+      + detailRow('Format', data.format, false)
+      + detailRow('Cadrage', data.cadrage, false)
+      + detailRow('Personnages', data.persos, false)
+      + detailRow('Fond', data.bg, false)
+      + detailRow('D\u00e9lai', data.deadline, false)
+      + detailRow('Licence', data.license, false)
+      + detailRow('NDA', data.nda, false)
+      + (data.drive ? detailRow('Drive', '\u2713 Lien fourni', false) : '')
+      + (data.desc  ? detailRow('Description', data.desc, true, true) : '')
+      + '</div>'
+      + '</div>'
+
+      + '<div class="card">'
+      + '<div class="card-title">Facturation</div>'
+      + '<div class="invoice-box">'
+      + '<div class="invoice-left">'
+      + '<div class="invoice-label">Num\u00e9ro de facture</div>'
+      + '<div class="invoice-num" id="invoiceNumDisplay">' + previewNum + '</div>'
+      + '</div>'
+      + '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">'
+      + '<div class="invoice-price-note">Prix final</div>'
+      + '<input id="finalPrice" type="text" value="' + data.price.replace(/~/g,'').trim() + '" style="background:rgba(255,255,255,0.07);border:1px solid rgba(167,139,250,0.35);border-radius:8px;color:#fff;font-size:22px;font-weight:800;font-family:inherit;text-align:right;padding:4px 10px;width:160px;outline:none;" />'
+      + '</div>'
+      + '</div>'
+      + '</div>'
+
+      + '<div class="actions">'
+      + '<button class="btn btn-decline" onclick="declineCommission()">&#10005; Refuser</button>'
+      + '<button class="btn btn-pdf" onclick="generatePDF()" id="btnPdf">&#128196; G\u00e9n\u00e9rer PDF</button>'
+      + '<button class="btn btn-approve" onclick="approveCommission()" id="btnApprove">&#10003; Approuver &amp; notifier</button>'
+      + '</div>'
+      + '<div class="status-msg" id="statusMsg"></div>';
+
+    document.getElementById('mainContent').innerHTML = html;
+  }
+
+  function generatePDF() {
+    var invoiceNum = getInvoiceNumber();
+    var numDisplay = document.getElementById('invoiceNumDisplay');
+    if (numDisplay) numDisplay.textContent = invoiceNum;
+
+    var doc = new window.jspdf.jsPDF({ unit:'mm', format:'a4' });
+    var W = 210, H = 297;
+    var today = new Date();
+    var dateStr = today.toLocaleDateString('fr-FR', { day:'2-digit', month:'long', year:'numeric' });
+    var dueDate = new Date(today); dueDate.setDate(dueDate.getDate() + 30);
+    var dueDateStr = dueDate.toLocaleDateString('fr-FR', { day:'2-digit', month:'long', year:'numeric' });
+
+    var sep  = function(yy) { doc.setDrawColor(210,205,245); doc.setLineWidth(0.25); doc.line(20, yy, W-20, yy); };
+    var secH = function(label, yy) {
+      doc.setFontSize(7.5); doc.setFont('helvetica','bold'); doc.setTextColor(130,120,180);
+      doc.text(label, 20, yy);
+    };
+
+    /* ── HEADER ── */
+    doc.setFillColor(26, 21, 53); doc.rect(0, 0, W, 40, 'F');
+    doc.setFontSize(20); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+    doc.text('BOBE FLORIAN', 20, 17);
+    doc.setFontSize(8.5); doc.setFont('helvetica','normal'); doc.setTextColor(167,139,250);
+    doc.text('Digital Artist  \u2022  contact@bobeflorian.com  \u2022  www.bobeflorian.com', 20, 25);
+    doc.setFontSize(7.5); doc.setTextColor(160,150,200);
+    doc.text('SIRET 907 494 173 00020', 20, 32);
+
+    doc.setFontSize(20); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+    doc.text('DEVIS', W-20, 17, { align:'right' });
+    doc.setFontSize(9); doc.setFont('helvetica','normal'); doc.setTextColor(167,139,250);
+    doc.text(invoiceNum, W-20, 25, { align:'right' });
+    doc.setTextColor(160,150,200);
+    doc.text(dateStr, W-20, 32, { align:'right' });
+
+    var y = 50;
+    var col2 = 112;
+
+    /* ── FROM / TO ── */
+    doc.setFontSize(7); doc.setFont('helvetica','bold'); doc.setTextColor(130,120,180);
+    doc.text('PRESTATAIRE', 20, y);
+    doc.text('CLIENT', col2, y);
+    y += 4;
+
+    doc.setFont('helvetica','bold'); doc.setFontSize(9); doc.setTextColor(20,15,50);
+    doc.text('BOBE Florian', 20, y);
+    doc.text(data.cname || data.contact || '\u2014', col2, y);
+    y += 5;
+
+    doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(70,60,110);
+    doc.text('71 Boulevard Eug\u00e8ne Reguillon', 20, y);
+    if (data.caddr) doc.text(data.caddr, col2, y);
+    y += 4.5;
+    doc.text('69100 Villeurbanne', 20, y);
+    if (data.czip || data.ccity) doc.text((data.czip + ' ' + data.ccity).trim(), col2, y);
+    y += 4.5;
+    doc.text('T\u00e9l : 06.95.18.19.72', 20, y);
+    doc.text(data.contact || '', col2, y);
+    y += 4.5;
+    if (data.discord) { doc.setTextColor(100,90,160); doc.text('Discord : ' + data.discord, col2, y); doc.setTextColor(70,60,110); }
+    y += 8;
+
+    sep(y); y += 8;
+
+    /* ── DÉTAILS DE LA COMMANDE ── */
+    secH('D\u00c9TAILS DE LA COMMANDE', y); y += 5;
+
+    var PAYMENT_LABELS = { stripe:'Stripe', paypal:'PayPal', virement:'Virement bancaire' };
+    var detailRows = [
+      ['Pack',            data.pack],
+      ['Titre du projet', data.title],
+      ['Format',          data.format],
+      ['Cadrage',         data.cadrage],
+      ['Personnages',     data.persos],
+      ['Fond',            data.bg],
+      ['D\u00e9lai',      data.deadline],
+      ['Licence',         data.license],
+      ['NDA',             data.nda],
+      ['Paiement',        PAYMENT_LABELS[data.payment] || data.payment || '\u2014']
+    ];
+
+    doc.setFontSize(9);
+    detailRows.forEach(function(r) {
+      doc.setFont('helvetica','bold'); doc.setTextColor(80,70,130);
+      doc.text(r[0], 20, y);
+      doc.setFont('helvetica','normal'); doc.setTextColor(30,20,60);
+      doc.text(String(r[1] || '\u2014'), 78, y);
+      y += 5.8;
+    });
+
+    if (data.desc) {
+      y += 1;
+      doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor(80,70,130);
+      doc.text('Description', 20, y); y += 4.5;
+      doc.setFont('helvetica','normal'); doc.setTextColor(50,40,90);
+      var descLines = doc.splitTextToSize(data.desc, W - 40);
+      var maxLines = Math.min(descLines.length, 5);
+      doc.text(descLines.slice(0, maxLines), 20, y);
+      y += maxLines * 4.8 + 2;
+    }
+
+    y += 3; sep(y); y += 8;
+
+    /* ── PRIX ── */
+    var finalPrice = (document.getElementById('finalPrice') || {value: data.price}).value.trim() || data.price;
+    var priceClean = finalPrice.replace(/[~\u00a0]/g, '').replace(/\u20ac/g, 'EUR').trim();
+    doc.setFillColor(240, 238, 255);
+    doc.roundedRect(20, y-3, W-40, 16, 3, 3, 'F');
+    doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(130,120,180);
+    doc.text('PRIX', 26, y+3.5);
+    doc.setFontSize(16); doc.setFont('helvetica','bold'); doc.setTextColor(26,21,53);
+    doc.text(priceClean, W-26, y+6, { align:'right' });
+    doc.setFontSize(7.5); doc.setFont('helvetica','normal'); doc.setTextColor(150,140,190);
+    doc.text('TVA non applicable \u2014 article 293 B du CGI', 26, y+10);
+    y += 24;
+
+    sep(y); y += 8;
+
+    /* ── DOMICILIATION BANCAIRE ── */
+    secH('DOMICILIATION BANCAIRE', y); y += 5;
+    doc.setFontSize(8.5); doc.setFont('helvetica','normal'); doc.setTextColor(50,40,90);
+    doc.text('Bobe Florian \u2014 Cr\u00e9dit Agricole des Savoie', 20, y); y += 4.5;
+    doc.text('12 Avenue des Alpes, 73000 Chamb\u00e9ry, France', 20, y); y += 4.5;
+    doc.setFont('helvetica','bold'); doc.setTextColor(30,20,60);
+    doc.text('IBAN : FR76 1810 6008 1096 7355 7824 058', 20, y); y += 4.5;
+    doc.text('BIC : AGRIFRPP881', 20, y); y += 10;
+
+    sep(y); y += 7;
+
+    /* ── CONDITIONS DE RÈGLEMENT ── */
+    secH('CONDITIONS DE R\u00c8GLEMENT', y); y += 5;
+    doc.setFontSize(8.5); doc.setFont('helvetica','normal'); doc.setTextColor(50,40,90);
+    doc.text('Date limite de r\u00e8glement : ' + dueDateStr + ' (30 jours apr\u00e8s facturation)', 20, y); y += 5;
+    doc.setFontSize(7); doc.setTextColor(120,110,160);
+    var legal = 'En cas de retard de paiement, p\u00e9nalit\u00e9s exigibles de plein droit au taux d\'int\u00e9r\u00eat l\u00e9gal de 0,12\u00a0% (LME n\u00b02008-776) et indemnit\u00e9 forfaitaire pour frais de recouvrement de 40\u00a0\u20ac (article D441-5 du Code de Commerce).';
+    var legalLines = doc.splitTextToSize(legal, W - 40);
+    doc.text(legalLines, 20, y);
+
+    /* ── FOOTER ── */
+    doc.setFillColor(26, 21, 53); doc.rect(0, H-20, W, 20, 'F');
+    doc.setFontSize(7.5); doc.setFont('helvetica','normal'); doc.setTextColor(167,139,250);
+    doc.text('\u00a9 ' + today.getFullYear() + ' Bobe Florian  \u00b7  Digital Artist  \u00b7  contact@bobeflorian.com  \u00b7  SIRET 907\u00a0494\u00a0173\u000020', W/2, H-8, { align:'center' });
+
+    doc.save(invoiceNum + '.pdf');
+    if (document.getElementById('statusMsg')) showStatus('info', '&#128196; Devis <strong>' + invoiceNum + '.pdf</strong> t\u00e9l\u00e9charg\u00e9 \u2014 d\u00e9placez-le dans D:\\Work\\Commission\\Invoice\\');
+  }
+
+  function approveCommission() {
+    var btnApprove = document.getElementById('btnApprove');
+    var btnPdf     = document.getElementById('btnPdf');
+    btnApprove.disabled = true;
+    btnApprove.textContent = 'Envoi en cours\u2026';
+
+    var invoiceNum = getInvoiceNumber();
+    document.getElementById('invoiceNumDisplay').textContent = invoiceNum;
+
+    var clientIsEmail = isEmail(data.contact);
+
+    var sendPromise = clientIsEmail
+      ? emailjs.send('service_ksqetkj', 'template_o95aqd3', {
+          to_email:  data.contact,
+          subject:   'Votre commission est approuv\u00e9e \u2014 Bobe Florian',
+          body_html: buildClientEmail(data, invoiceNum)
+        })
+      : Promise.resolve();
+
+    sendPromise.then(function() {
+      var msg = clientIsEmail
+        ? '&#10003; Commission approuv\u00e9e \u2014 email envoy\u00e9 \u00e0 <strong>' + data.contact + '</strong>' + (data.discord ? ' (Discord\u00a0: ' + data.discord + ')' : '') + '. G\u00e9n\u00e9rez le PDF ci-dessus si ce n\u2019est pas d\u00e9j\u00e0 fait.'
+        : '&#10003; Commission approuv\u00e9e. Email\u00a0: <strong>' + data.contact + '</strong>' + (data.discord ? ' \u00b7 Discord\u00a0: <strong>' + data.discord + '</strong>' : '') + ' \u2014 contactez manuellement avec la facture PDF.';
+      showStatus('success', msg);
+      btnApprove.textContent = '\u2713 Approuv\u00e9e';
+      if (!currentInvoiceNum) generatePDF();
+    }).catch(function(err) {
+      console.error('EmailJS:', err);
+      showStatus('error', 'Erreur EmailJS\u00a0: ' + JSON.stringify(err) + '<br>Contactez manuellement le client.');
+      btnApprove.disabled = false;
+      btnApprove.textContent = '\u2713 Approuver & notifier';
+    });
+  }
+
+  function declineCommission() {
+    if (!confirm('Refuser cette commission\u00a0? Cette action est irr\u00e9versible.')) return;
+    showStatus('error', '&#10005; Commission refus\u00e9e. Pensez \u00e0 informer le client si n\u00e9cessaire.');
+    document.querySelector('.btn-approve').disabled = true;
+    document.querySelector('.btn-pdf').disabled = true;
+  }
+
+  function showStatus(type, msg) {
+    var el = document.getElementById('statusMsg');
+    if (!el) return;
+    el.className = 'status-msg ' + type;
+    el.innerHTML = msg;
+  }
+
+  render();
+</script>
+</body>
+</html>

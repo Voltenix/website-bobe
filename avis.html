@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Avis Clients – Bobe Florian</title>
+  <style>
+    /* ─── FONTS ─── */
+    @font-face {
+      font-family: 'Zodiak';
+      src: url('Fonts/Zodiak/Zodiak-Bold.otf') format('opentype');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Satoshi';
+      src: url('Fonts/Satoshi/Fonts/WEB/fonts/Satoshi-Regular.woff2') format('woff2');
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Satoshi';
+      src: url('Fonts/Satoshi/Fonts/WEB/fonts/Satoshi-Medium.woff2') format('woff2');
+      font-weight: 500; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Satoshi';
+      src: url('Fonts/Satoshi/Fonts/WEB/fonts/Satoshi-Bold.woff2') format('woff2');
+      font-weight: 700; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Satoshi';
+      src: url('Fonts/Satoshi/Fonts/WEB/fonts/Satoshi-Black.woff2') format('woff2');
+      font-weight: 900; font-style: normal; font-display: swap;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #7B6CF6;
+      --purple-dark: #5A4FD1;
+      --glass: rgba(255,255,255,0.10);
+      --glass-border: rgba(255,255,255,0.18);
+      --text: #ffffff;
+      --text-muted: rgba(255,255,255,0.65);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Satoshi', sans-serif;
+      background: #7680d4;
+      color: var(--text);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ─── BACKGROUND ─── */
+    .page-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background: url('Coaching Page/BG.png') center top / cover no-repeat;
+      background-attachment: fixed;
+    }
+    .page-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg,
+        rgba(90,80,200,0.15) 0%,
+        rgba(100,110,220,0.10) 40%,
+        rgba(200,210,255,0.20) 80%,
+        rgba(255,255,255,0.60) 100%
+      );
+    }
+
+    .page-content { position: relative; z-index: 1; }
+
+    /* ─── NAVBAR ─── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 60px;
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #fff;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.80);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color .2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+    .nav-back {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.22);
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background .2s;
+      backdrop-filter: blur(6px);
+    }
+    .nav-back:hover { background: rgba(255,255,255,0.20); }
+
+    /* ─── HERO ─── */
+    .hero {
+      text-align: center;
+      padding: 64px 20px 48px;
+    }
+    .hero-tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.50);
+      margin-bottom: 12px;
+    }
+    .hero h1 {
+      font-family: 'Zodiak', serif;
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #fff 30%, rgba(160,150,255,0.9) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 14px;
+      filter: drop-shadow(0 2px 4px rgba(36,40,57,0.46)) drop-shadow(0 0px 2px rgba(36,40,57,0.46));
+    }
+    .hero-sub {
+      font-size: 15px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.55);
+    }
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      margin-top: 28px;
+    }
+    .hero-stat {
+      text-align: center;
+    }
+    .hero-stat-num {
+      font-size: 28px;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+    }
+    .hero-stat-label {
+      font-size: 11px;
+      color: rgba(255,255,255,0.50);
+      margin-top: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ─── FILTER TABS ─── */
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      padding: 0 20px 40px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 20px;
+      border-radius: 30px;
+      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.10);
+      color: rgba(255,255,255,0.70);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Satoshi', sans-serif;
+      transition: all .2s;
+      backdrop-filter: blur(6px);
+    }
+    .filter-btn img { width: 16px; height: 16px; object-fit: contain; opacity: 0.75; }
+    .filter-btn:hover { background: rgba(255,255,255,0.18); color: #fff; }
+    .filter-btn.active {
+      background: linear-gradient(135deg, var(--purple) 0%, var(--purple-dark) 100%);
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(120,100,240,0.38);
+    }
+    .filter-btn.active img { opacity: 1; }
+
+    /* ─── REVIEWS GRID ─── */
+    .reviews-section {
+      padding: 0 60px 80px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .reviews-masonry {
+      columns: 3;
+      column-gap: 22px;
+    }
+    .review-card {
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.95);
+      border-radius: 20px;
+      padding: 24px 26px;
+      margin-bottom: 22px;
+      break-inside: avoid;
+      position: relative;
+      transition: transform .3s, box-shadow .3s;
+      display: block;
+    }
+    .review-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(80,60,200,0.18);
+    }
+    .review-card[data-hidden="true"] { display: none; }
+
+    /* type badge: top-right */
+    .review-type-badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 3px;
+    }
+    .review-type-icon {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+      opacity: 0.90;
+    }
+    .review-date {
+      font-size: 10px;
+      color: rgba(255,255,255,0.38);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .review-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+      padding-right: 36px;
+    }
+    .review-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(120,100,220,0.25);
+      flex-shrink: 0;
+    }
+    .review-name { font-size: 15px; font-weight: 700; color: #1a0e50; }
+    .review-plan {
+      font-size: 11px;
+      color: #8b7cf6;
+      font-weight: 500;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .review-plan-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .plan-dot-feedback  { background: rgba(150,200,255,0.70); }
+    .plan-dot-classroom { background: rgba(180,150,255,0.70); }
+    .plan-dot-mastery   { background: rgba(255,200,100,0.70); }
+
+    .review-stars {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 12px;
+    }
+    .star { color: rgba(255,215,60,0.80); font-size: 14px; }
+    .review-text {
+      font-size: 13.5px;
+      line-height: 1.80;
+      color: #4a3a7a;
+    }
+    .review-date { font-size: 10px; color: #a99ee0; font-weight: 500; white-space: nowrap; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: rgba(30,25,80,0.85);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(255,255,255,0.10);
+      padding: 36px 60px;
+      text-align: center;
+    }
+    footer p { font-size: 12px; color: rgba(255,255,255,0.35); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .reviews-masonry { columns: 2; }
+    }
+    @media (max-width: 680px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .reviews-section { padding: 0 20px 60px; }
+      .reviews-masonry { columns: 1; }
+      .hero-stats { gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-bg"></div>
+
+<div class="page-content">
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="coaching.html" class="nav-logo">BOBE<span style="display:inline;font-size:11px;font-weight:300;letter-spacing:1px;color:rgba(255,255,255,.5);margin-left:6px;vertical-align:middle;">FLORIAN</span></a>
+    <ul class="nav-links">
+      <li><a href="#">Portfolio</a></li>
+      <li><a href="coaching.html" class="active">Coaching</a></li>
+      <li><a href="#">Commission</a></li>
+      <li><a href="#">Formations</a></li>
+    </ul>
+    <a href="coaching.html" class="nav-back">← Retour au coaching</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-tag">Bobe Florian · Coaching</p>
+    <h1>Avis Clients</h1>
+    <p class="hero-sub">Ce que disent ceux qui ont choisi de progresser.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">43+</div>
+        <div class="hero-stat-label">Élèves</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">★ 5/5</div>
+        <div class="hero-stat-label">Note moyenne</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">3</div>
+        <div class="hero-stat-label">Formules</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterAvis('all', this)">Tous les avis</button>
+    <button class="filter-btn" onclick="filterAvis('Feedback', this)">
+      <img src="images/icones/formules/Feedback -var.png" alt="" /> Feedback
+    </button>
+    <button class="filter-btn" onclick="filterAvis('Classroom', this)">
+      <img src="images/icones/formules/Classroom -var.png" alt="" /> Classroom
+    </button>
+    <button class="filter-btn" onclick="filterAvis('Mastery', this)">
+      <img src="images/icones/formules/Mastery -var.png" alt="" /> Mastery
+    </button>
+  </div>
+
+  <!-- REVIEWS -->
+  <div class="reviews-section">
+    <div class="reviews-masonry" id="reviewsGrid">
+
+      <!-- Kmilou · Classroom · Avr. 2026 -->
+      <div class="review-card" data-plan="Classroom">
+        <div class="review-type-badge">
+          <img class="review-type-icon" src="images/icones/formules/Classroom -var.png" alt="Classroom" />
+          <span class="review-date">Avr. 2026</span>
+        </div>
+        <div class="review-header">
+          <img class="review-avatar" src="images/clients_pp/kmilou.webp" alt="Kmilou" />
+          <div>
+            <p class="review-name">Kmilou</p>
+            <p class="review-plan"><span class="review-plan-dot plan-dot-classroom"></span>Classroom</p>
+          </div>
+        </div>
+        <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="review-text">Je suis élève depuis quelques mois et autant dire que c'est un plaisir chaque semaine ! Florian est un super prof, pédagogue, patient et plein de bons conseils pour nous permettre de nous améliorer sans brûler les étapes. Il s'adapte à notre niveau et arrive facilement à mettre le doigt là où on ne saurait dire ce qui provoque un blocage. Les cours sont agréables et les exercices vraiment instructifs — on évolue au fur et à mesure. Chaque dimanche est un moment sympa où l'on apprend dans une bonne ambiance !</p>
+      </div>
+
+      <!-- Oska · Classroom · Avr. 2026 -->
+      <div class="review-card" data-plan="Classroom">
+        <div class="review-type-badge">
+          <img class="review-type-icon" src="images/icones/formules/Classroom -var.png" alt="Classroom" />
+          <span class="review-date">Avr. 2026</span>
+        </div>
+        <div class="review-header">
+          <img class="review-avatar" src="images/clients_pp/oska.webp" alt="Oska" />
+          <div>
+            <p class="review-name">Oska [LONK]</p>
+            <p class="review-plan"><span class="review-plan-dot plan-dot-classroom"></span>Classroom</p>
+          </div>
+        </div>
+        <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="review-text">Je suis très satisfait des cours donnés par Bobe Florian. Après plus d'un an d'inscription, j'ai pu voir mes compétences s'améliorer de manière drastique. On apprend beaucoup : anatomie, gestion des valeurs, création de personnage, composition... C'est très complet et surtout les retours sont super instructifs. J'ai pu apprendre beaucoup plus que je ne le pensais. En bref, ça m'a beaucoup aidé à mieux analyser mon travail et à voir mes défauts et comment les corriger.</p>
+      </div>
+
+      <!-- centipede · Classroom · Avr. 2026 -->
+      <div class="review-card" data-plan="Classroom">
+        <div class="review-type-badge">
+          <img class="review-type-icon" src="images/icones/formules/Classroom -var.png" alt="Classroom" />
+          <span class="review-date">Avr. 2026</span>
+        </div>
+        <div class="review-header">
+          <img class="review-avatar" src="images/clients_pp/centipede.webp" alt="centipede" />
+          <div>
+            <p class="review-name">centipede [PLGR]</p>
+            <p class="review-plan"><span class="review-plan-dot plan-dot-classroom"></span>Classroom</p>
+          </div>
+        </div>
+        <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="review-text">Ça fait maintenant plusieurs mois que je suis dans la formation — je voulais partager mon expérience ! La formation m'a permis de progresser énormément, et surtout rapidement. On étudie toute forme de choses : environnement, anatomie, FX, composition... C'est TRÈS complet, mais surtout structuré. Le feedback hebdomadaire sur nos travaux personnels est un immense game changer. Travailler avec Florian c'est agréable — les échanges sont construits, instructifs, bienveillants. Soyez prêts à sortir de votre zone de confort, mais n'ayez crainte, ici vous êtes bien entourés.</p>
+      </div>
+
+      <!-- Bam · Classroom · Avr. 2026 -->
+      <div class="review-card" data-plan="Classroom">
+        <div class="review-type-badge">
+          <img class="review-type-icon" src="images/icones/formules/Classroom -var.png" alt="Classroom" />
+          <span class="review-date">Avr. 2026</span>
+        </div>
+        <div class="review-header">
+          <img class="review-avatar" src="images/clients_pp/bam.webp" alt="Bam" />
+          <div>
+            <p class="review-name">Bam</p>
+            <p class="review-plan"><span class="review-plan-dot plan-dot-classroom"></span>Classroom</p>
+          </div>
+        </div>
+        <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="review-text">Florian, très bon sensei, à l'écoute et il s'adapte suivant notre besoin. Il vous donne des conseils pertinents suivant votre besoin et ne vous submergera pas d'infos superflues. Ce que mes collègues ont dit au-dessus résume très bien ce qu'on pense tous des cours de Florian !</p>
+      </div>
+
+      <!-- Toadette · Mastery · Avr. 2026 -->
+      <div class="review-card" data-plan="Mastery">
+        <div class="review-type-badge">
+          <img class="review-type-icon" src="images/icones/formules/Mastery -var.png" alt="Mastery" />
+          <span class="review-date">Avr. 2026</span>
+        </div>
+        <div class="review-header">
+          <img class="review-avatar" src="images/clients_pp/toadette.webp" alt="Toadette" />
+          <div>
+            <p class="review-name">Toadette</p>
+            <p class="review-plan"><span class="review-plan-dot plan-dot-mastery"></span>Mastery</p>
+          </div>
+        </div>
+        <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="review-text">Florian m'a beaucoup aidée à progresser en dessin et à avancer vers mes objectifs. Il est très à l'écoute, avec un excellent esprit d'analyse et de critique. Il m'encourage toujours — il est très humain et toujours bienveillant, ce qui me permet de prendre confiance en moi. Et le plus important, on sent vraiment qu'il est passionné, avec une vraie envie de partager et de transmission.</p>
+      </div>
+
+      <!-- Nosori · Feedback · Avr. 2026 -->
+      <div class="review-card" data-plan="Feedback">
+        <div class="review-type-badge">
+          <img class="review-type-icon" src="images/icones/formules/Feedback -var.png" alt="Feedback" />
+          <span class="review-date">Avr. 2026</span>
+        </div>
+        <div class="review-header">
+          <img class="review-avatar" src="images/clients_pp/nosori.webp" alt="Nosori" />
+          <div>
+            <p class="review-name">Nosori</p>
+            <p class="review-plan"><span class="review-plan-dot plan-dot-feedback"></span>Feedback</p>
+          </div>
+        </div>
+        <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="review-text">This was a really useful second opinion when I felt lost and lacked direction on a painting. Florian gave thoughtful and helpful feedback. The session was in English, and communication was smooth and easy. Highly recommended.</p>
+      </div>
+
+      <!-- Wado · Classroom · Nov. 2025 -->
+      <div class="review-card" data-plan="Classroom">
+        <div class="review-type-badge">
+          <img class="review-type-icon" src="images/icones/formules/Classroom -var.png" alt="Classroom" />
+          <span class="review-date">Nov. 2025</span>
+        </div>
+        <div class="review-header">
+          <img class="review-avatar" src="images/clients_pp/wado.webp" alt="Wado" />
+          <div>
+            <p class="review-name">Wado</p>
+            <p class="review-plan"><span class="review-plan-dot plan-dot-classroom"></span>Classroom</p>
+          </div>
+        </div>
+        <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="review-text">Bobe Florian est un généraliste qui maîtrise tous les aspects fondamentaux du painting et du dessin. J'ai appris beaucoup de techniques et de manières de faire — mais le principal reste de développer son esprit critique et son sens artistique, et c'est quelque chose qu'il vous apprendra à faire. Si vous voulez apprendre à vous développer en tant qu'artiste graphique, foncez ! En 3 mois j'ai appris énormément.</p>
+      </div>
+
+      <!-- Le Zig · Classroom · Sept. 2025 -->
+      <div class="review-card" data-plan="Classroom">
+        <div class="review-type-badge">
+          <img class="review-type-icon" src="images/icones/formules/Classroom -var.png" alt="Classroom" />
+          <span class="review-date">Sept. 2025</span>
+        </div>
+        <div class="review-header">
+          <img class="review-avatar" src="images/clients_pp/le_zig.webp" alt="Le Zig" />
+          <div>
+            <p class="review-name">Le Zig [MS]</p>
+            <p class="review-plan"><span class="review-plan-dot plan-dot-classroom"></span>Classroom</p>
+          </div>
+        </div>
+        <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="review-text">Merci mec ! En 2 semaines tu m'as vraiment aidé avec les retours et les feedbacks. C'était trop bien. Malheureusement l'été touche à sa fin et je me vois contraint de partir — j'ai un peu le seum je t'avoue. Les gars, rejoignez — vous le regretterez pas. C'est vraiment un bon, et même les cours sont super chill. Flo est monstrueux, il trouve des retours à faire sur tes dessins que tu ne soupçonnes même pas au premier coup d'œil.</p>
+      </div>
+
+      <!-- Samookie · Feedback · Avr. 2025 -->
+      <div class="review-card" data-plan="Feedback">
+        <div class="review-type-badge">
+          <img class="review-type-icon" src="images/icones/formules/Feedback -var.png" alt="Feedback" />
+          <span class="review-date">Avr. 2025</span>
+        </div>
+        <div class="review-header">
+          <img class="review-avatar" src="images/clients_pp/samookie.webp" alt="Samookie" />
+          <div>
+            <p class="review-name">Samookie [WWM]</p>
+            <p class="review-plan"><span class="review-plan-dot plan-dot-feedback"></span>Feedback</p>
+          </div>
+        </div>
+        <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="review-text">Merci beaucoup pour tes retours, ça m'aide beaucoup !! Je note tout pour les dessins à l'avenir.</p>
+      </div>
+
+      <!-- Noctulyne · Mastery · Mars 2026 -->
+      <div class="review-card" data-plan="Mastery">
+        <div class="review-type-badge">
+          <img class="review-type-icon" src="images/icones/formules/Mastery -var.png" alt="Mastery" />
+          <span class="review-date">Mars 2026</span>
+        </div>
+        <div class="review-header">
+          <img class="review-avatar" src="images/clients_pp/noctulyne.webp" alt="Noctulyne" />
+          <div>
+            <p class="review-name">Noctulyne</p>
+            <p class="review-plan"><span class="review-plan-dot plan-dot-mastery"></span>Mastery</p>
+          </div>
+        </div>
+        <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="review-text">Le suivi Mastery est vraiment exceptionnel. Florian prend le temps d'analyser précisément là où tu en es et construit un plan entièrement adapté à tes objectifs. J'ai débloqué en quelques semaines des problèmes que j'avais depuis des mois. Les sessions sont enregistrées, on peut tout revoir à tête reposée. Un investissement qui vaut vraiment le coup.</p>
+      </div>
+
+      <!-- Tolo · Mastery · Avr. 2026 -->
+      <div class="review-card" data-plan="Mastery">
+        <div class="review-type-badge">
+          <img class="review-type-icon" src="images/icones/formules/Mastery -var.png" alt="Mastery" />
+          <span class="review-date">Avr. 2026</span>
+        </div>
+        <div class="review-header">
+          <img class="review-avatar" src="images/clients_pp/tolo.webp" alt="Tolo" />
+          <div>
+            <p class="review-name">Tolo</p>
+            <p class="review-plan"><span class="review-plan-dot plan-dot-mastery"></span>Mastery</p>
+          </div>
+        </div>
+        <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="review-text">Le programme Mastery est une vraie révélation. Florian prend le temps de comprendre où tu veux aller et construit un plan sur-mesure. La progression est visible et mesurable, mois après mois. Ce qui m'a le plus marqué c'est sa capacité à identifier exactement ce qui bloque et à proposer des solutions concrètes et actionnables immédiatement. Je recommande à tous ceux qui ont un objectif clair.</p>
+      </div>
+
+      <!-- Mavri · Feedback · Fév. 2026 -->
+      <div class="review-card" data-plan="Feedback">
+        <div class="review-type-badge">
+          <img class="review-type-icon" src="images/icones/formules/Feedback -var.png" alt="Feedback" />
+          <span class="review-date">Fév. 2026</span>
+        </div>
+        <div class="review-header">
+          <img class="review-avatar" src="images/clients_pp/mavri.webp" alt="Mavri" />
+          <div>
+            <p class="review-name">Mavri</p>
+            <p class="review-plan"><span class="review-plan-dot plan-dot-feedback"></span>Feedback</p>
+          </div>
+        </div>
+        <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="review-text">Super rapport qualité/prix pour la formule Feedback. Les retours sont très détaillés avec des annotations directement sur mon artwork — Florian pointe exactement ce qui ne fonctionne pas et propose des corrections concrètes. En quelques feedbacks j'ai commencé à voir mes erreurs moi-même. Idéal pour progresser à son rythme sans avoir à s'engager sur des cours fixes.</p>
+      </div>
+
+      <!-- Hestia · Classroom · Janv. 2026 -->
+      <div class="review-card" data-plan="Classroom">
+        <div class="review-type-badge">
+          <img class="review-type-icon" src="images/icones/formules/Classroom -var.png" alt="Classroom" />
+          <span class="review-date">Janv. 2026</span>
+        </div>
+        <div class="review-header">
+          <img class="review-avatar" src="images/clients_pp/hestia.webp" alt="Hestia" />
+          <div>
+            <p class="review-name">Hestia</p>
+            <p class="review-plan"><span class="review-plan-dot plan-dot-classroom"></span>Classroom</p>
+          </div>
+        </div>
+        <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="review-text">Les cours du dimanche sont devenus incontournables dans ma semaine. Florian explique clairement ses process et répond à toutes les questions en direct — on sent vraiment qu'il aime enseigner. La communauté est bienveillante et les exercices bien ciblés. En quelques mois, j'ai progressé bien plus que je ne l'aurais cru possible seule.</p>
+      </div>
+
+      <!-- HASA · Classroom · Mars 2026 -->
+      <div class="review-card" data-plan="Classroom">
+        <div class="review-type-badge">
+          <img class="review-type-icon" src="images/icones/formules/Classroom -var.png" alt="Classroom" />
+          <span class="review-date">Mars 2026</span>
+        </div>
+        <div class="review-header">
+          <img class="review-avatar" src="images/clients_pp/hasa.webp" alt="HASA" />
+          <div>
+            <p class="review-name">HASA</p>
+            <p class="review-plan"><span class="review-plan-dot plan-dot-classroom"></span>Classroom</p>
+          </div>
+        </div>
+        <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="review-text">Une formation vraiment complète et bien structurée. Chaque session apporte de nouveaux outils, de nouvelles façons de voir les choses. Les feedbacks hebdomadaires sur mes travaux perso sont un vrai plus — ça booste la progression de façon énorme. Florian est patient, toujours constructif, et il sait adapter son discours selon ton niveau. Vraiment content d'avoir rejoint.</p>
+      </div>
+
+      <!-- Ju_ste_Skazh · Feedback · Fév. 2026 -->
+      <div class="review-card" data-plan="Feedback">
+        <div class="review-type-badge">
+          <img class="review-type-icon" src="images/icones/formules/Feedback -var.png" alt="Feedback" />
+          <span class="review-date">Fév. 2026</span>
+        </div>
+        <div class="review-header">
+          <img class="review-avatar" src="images/clients_pp/ju_ste_skazh.webp" alt="Ju_ste_Skazh" />
+          <div>
+            <p class="review-name">Ju_ste_Skazh</p>
+            <p class="review-plan"><span class="review-plan-dot plan-dot-feedback"></span>Feedback</p>
+          </div>
+        </div>
+        <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="review-text">J'avais des doutes avant de me lancer mais les retours de Florian sont d'une clarté redoutable. Il ne survole pas, il rentre vraiment dans le détail — composition, valeurs, anatomie, tout y passe. En quelques feedbacks, j'ai compris des choses sur ma pratique que je ne voyais pas du tout seul. Un regard extérieur expert, ça change vraiment la donne.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Bobe Florian. Tous droits réservés. — <a href="coaching.html" style="color:rgba(255,255,255,0.50);text-decoration:none;">Retour au Coaching</a></p>
+  </footer>
+
+</div><!-- /page-content -->
+
+<script>
+  function filterAvis(plan, btn) {
+    // Update active button
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // Show/hide cards
+    document.querySelectorAll('.review-card').forEach(card => {
+      if (plan === 'all' || card.dataset.plan === plan) {
+        card.removeAttribute('data-hidden');
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+</script>
+</body>
+</html>

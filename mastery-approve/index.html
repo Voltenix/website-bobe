@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Approbation Mastery · Bobe Florian</title>
+  <link rel="stylesheet" href="Fonts/Satoshi/satoshi.css"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0d0b1e;
+      color: #fff;
+      font-family: 'Satoshi', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      background: #1a1535;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 40px 44px;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+    }
+    .icon { font-size: 48px; margin-bottom: 16px; }
+    h1 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+    p { font-size: 14px; color: rgba(255,255,255,0.50); line-height: 1.6; margin-bottom: 6px; }
+    .client-info {
+      background: rgba(123,108,246,0.10);
+      border: 1px solid rgba(123,108,246,0.22);
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin: 20px 0;
+      text-align: left;
+    }
+    .client-info p { color: rgba(255,255,255,0.55); font-size: 13px; margin-bottom: 4px; }
+    .client-info strong { color: #fff; }
+    .btn {
+      display: block;
+      width: 100%;
+      margin-top: 24px;
+      background: linear-gradient(135deg,#22c55e,#4ade80);
+      color: #fff;
+      font-family: 'Satoshi', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 14px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: opacity .18s;
+    }
+    .btn:hover { opacity: .88; }
+    .btn:disabled { opacity: .40; cursor: not-allowed; }
+    .status { margin-top: 16px; font-size: 13px; color: rgba(255,255,255,0.40); }
+    .status.success { color: #4ade80; }
+    .status.error { color: #f87171; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="icon" id="icon">⏳</div>
+  <h1 id="title">Envoi en cours…</h1>
+  <p id="subtitle">Veuillez patienter.</p>
+
+  <div class="client-info" id="clientInfo" style="display:none;">
+    <p>Client : <strong id="infoName"></strong></p>
+    <p>Email : <strong id="infoContact"></strong></p>
+    <p>Pack : <strong id="infoPack"></strong></p>
+  </div>
+
+  <button class="btn" id="btnConfirm" style="display:none;" onclick="sendApproval()">
+    ✅ Confirmer &amp; envoyer le lien Stripe
+  </button>
+  <p class="status" id="status"></p>
+</div>
+
+<script>
+  var MAKE_WEBHOOK = 'https://hook.eu1.make.com/hxp5h8efxocjq1mv1ubbfyvv1vf4abee';
+
+  var params = new URLSearchParams(window.location.search);
+  var data = {
+    client_name:    params.get('client_name')    || '',
+    client_contact: params.get('client_contact') || '',
+    pack_name:      params.get('pack_name')       || '',
+    stripe_url:     params.get('stripe_url')      || ''
+  };
+
+  if (!data.client_name || !data.client_contact || !data.stripe_url) {
+    document.getElementById('icon').textContent = '❌';
+    document.getElementById('title').textContent = 'Lien invalide';
+    document.getElementById('subtitle').textContent = 'Les données sont manquantes. Ce lien est peut-être expiré.';
+  } else {
+    document.getElementById('icon').textContent = '🎨';
+    document.getElementById('title').textContent = 'Approuver cette demande';
+    document.getElementById('subtitle').textContent = 'Vérifie les informations puis confirme pour envoyer le lien de paiement au client.';
+    document.getElementById('infoName').textContent    = data.client_name;
+    document.getElementById('infoContact').textContent = data.client_contact;
+    document.getElementById('infoPack').textContent    = data.pack_name;
+    document.getElementById('clientInfo').style.display = 'block';
+    document.getElementById('btnConfirm').style.display = 'block';
+  }
+
+  function sendApproval() {
+    var btn = document.getElementById('btnConfirm');
+    var status = document.getElementById('status');
+    btn.disabled = true;
+    btn.textContent = 'Envoi…';
+    status.textContent = '';
+
+    fetch(MAKE_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(function(res) {
+      if (res.ok) {
+        document.getElementById('icon').textContent = '✅';
+        document.getElementById('title').textContent = 'Email envoyé !';
+        document.getElementById('subtitle').textContent = data.client_name + ' a reçu son lien de paiement pour le ' + data.pack_name + '.';
+        document.getElementById('clientInfo').style.display = 'none';
+        btn.style.display = 'none';
+        status.className = 'status success';
+        status.textContent = 'Le client peut maintenant procéder au paiement.';
+      } else {
+        throw new Error('HTTP ' + res.status);
+      }
+    })
+    .catch(function(err) {
+      btn.disabled = false;
+      btn.textContent = '✅ Confirmer & envoyer le lien Stripe';
+      status.className = 'status error';
+      status.textContent = 'Erreur : ' + err.message + '. Réessaye.';
+    });
+  }
+</script>
+
+</body>
+</html>

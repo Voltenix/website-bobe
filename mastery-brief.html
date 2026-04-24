@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mastery — Votre brief projet · Bobe Florian</title>
+  <link rel="stylesheet" href="Fonts/Satoshi/satoshi.css"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --purple: #7b6cf6; --purple-dark: #5a4dd1; }
+
+    body {
+      background: #0d0b1e;
+      color: #fff;
+      font-family: 'Satoshi', sans-serif;
+      min-height: 100vh;
+      padding: 0 0 80px;
+    }
+
+    /* ── HEADER ── */
+    .brief-header {
+      background: linear-gradient(135deg, rgba(123,108,246,0.18) 0%, rgba(90,77,209,0.08) 100%);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 32px 24px 28px;
+      text-align: center;
+    }
+    .brief-header-logo {
+      font-family: 'Satoshi', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 14px;
+    }
+    .brief-header h1 {
+      font-size: clamp(22px, 5vw, 32px);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .brief-header p {
+      font-size: 14.5px;
+      color: rgba(255,255,255,0.55);
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ── STEPS ── */
+    .steps-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      padding: 24px 16px 0;
+    }
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.30);
+    }
+    .step.active { color: rgba(255,255,255,0.85); }
+    .step.done { color: #4ade80; }
+    .step-num {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      border: 1.5px solid currentColor;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+    .step.active .step-num { background: var(--purple); border-color: var(--purple); color: #fff; }
+    .step.done .step-num { background: #4ade80; border-color: #4ade80; color: #0d0b1e; }
+    .step-sep { width: 32px; height: 1px; background: rgba(255,255,255,0.12); margin: 0 6px; align-self: center; }
+
+    /* ── MAIN WRAPPER ── */
+    .brief-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 40px 20px 0;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 18px;
+    }
+
+    /* ── PACK CARDS ── */
+    .pack-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    @media (max-width: 480px) { .pack-grid { grid-template-columns: 1fr; } }
+
+    .pack-card {
+      border: 1.5px solid rgba(255,255,255,0.10);
+      border-radius: 14px;
+      padding: 18px 20px;
+      cursor: pointer;
+      background: rgba(255,255,255,0.03);
+      transition: border-color .18s, background .18s, transform .12s;
+      position: relative;
+    }
+    .pack-card:hover { border-color: rgba(123,108,246,0.45); background: rgba(123,108,246,0.07); transform: translateY(-2px); }
+    .pack-card.selected { border-color: var(--purple); background: rgba(123,108,246,0.12); }
+    .pack-card.selected::after {
+      content: '✓';
+      position: absolute;
+      top: 12px; right: 14px;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: var(--purple);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      display: grid; place-items: center;
+    }
+    .pack-card.best { border-color: rgba(34,197,94,0.35); }
+    .pack-card.best.selected { border-color: #4ade80; background: rgba(34,197,94,0.09); }
+    .pack-hours { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,0.38); margin-bottom: 6px; }
+    .pack-name { font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+    .pack-price { font-size: 22px; font-weight: 800; color: var(--purple); }
+    .pack-per-h { font-size: 12px; color: rgba(255,255,255,0.40); margin-left: 4px; }
+    .pack-saving { font-size: 11.5px; color: #4ade80; font-weight: 600; margin-top: 6px; display: inline-block; }
+    .pack-best-badge { font-size: 10.5px; font-weight: 700; color: #4ade80; background: rgba(34,197,94,0.14); border: 1px solid rgba(34,197,94,0.30); border-radius: 20px; padding: 2px 9px; display: inline-block; margin-top: 6px; }
+    .pack-desc { font-size: 12.5px; color: rgba(255,255,255,0.45); line-height: 1.5; margin-top: 8px; }
+
+    /* ── FORM ── */
+    .brief-form { display: flex; flex-direction: column; gap: 22px; margin-bottom: 40px; }
+
+    .form-group { display: flex; flex-direction: column; gap: 7px; }
+    .form-group label {
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.72);
+    }
+    .form-group label span.req { color: var(--purple); margin-left: 3px; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255,255,255,0.05);
+      border: 1.5px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      padding: 11px 14px;
+      color: #fff;
+      font-family: 'Satoshi', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color .18s;
+      width: 100%;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: rgba(123,108,246,0.60);
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.22); }
+    .form-group select option { background: #1a1535; color: #fff; }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+    .form-hint { font-size: 12px; color: rgba(255,255,255,0.35); line-height: 1.5; }
+
+    /* ── DIVIDER ── */
+    .brief-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.07);
+      margin: 36px 0;
+    }
+
+    /* ── CTA BLOCK ── */
+    .cta-block {
+      background: rgba(123,108,246,0.08);
+      border: 1px solid rgba(123,108,246,0.22);
+      border-radius: 16px;
+      padding: 24px 24px 20px;
+      text-align: center;
+    }
+    .cta-block h3 {
+      font-size: 17px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .cta-block p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.48);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    .cta-selected-pack {
+      display: inline-block;
+      background: rgba(123,108,246,0.18);
+      border: 1px solid rgba(123,108,246,0.35);
+      border-radius: 20px;
+      padding: 5px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--purple);
+      margin-bottom: 16px;
+    }
+    #ctaSelectedPack { display: none; }
+
+    .btn-pay {
+      display: inline-block;
+      background: linear-gradient(135deg, #7b6cf6 0%, #a78bfa 100%);
+      color: #fff;
+      font-family: 'Satoshi', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 14px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: opacity .18s, transform .15s;
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+    .btn-pay:hover { opacity: .88; transform: translateY(-1px); }
+    .btn-pay:disabled { opacity: .35; cursor: not-allowed; transform: none; }
+
+    .cta-note { font-size: 11.5px; color: rgba(255,255,255,0.30); margin-top: 12px; }
+
+    /* ── BACK LINK ── */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.35);
+      font-size: 13px;
+      text-decoration: none;
+      margin-bottom: 32px;
+      transition: color .18s;
+    }
+    .back-link:hover { color: rgba(255,255,255,0.70); }
+  </style>
+</head>
+<body>
+
+  <div class="brief-header">
+    <p class="brief-header-logo">Bobe Florian · Mastery</p>
+    <h1>Votre brief de projet</h1>
+    <p>Renseignez les informations ci-dessous pour préparer notre premier échange et choisir votre pack d'heures.</p>
+  </div>
+
+  <div class="brief-wrap">
+
+    <a class="back-link" href="coaching.html#section-mastery">
+      ← Retour à la page Mastery
+    </a>
+
+    <div class="steps-bar">
+      <div class="step done"><div class="step-num">✓</div> CGV acceptées</div>
+      <div class="step-sep"></div>
+      <div class="step active"><div class="step-num">2</div> Brief projet</div>
+      <div class="step-sep"></div>
+      <div class="step"><div class="step-num">3</div> Paiement</div>
+    </div>
+
+    <div style="height:40px;"></div>
+
+    <!-- PACK SELECTION -->
+    <p class="section-label">1 — Choisissez votre pack d'heures</p>
+    <div class="pack-grid">
+
+      <div class="pack-card" onclick="selectPack(this,'decouverte','https://buy.stripe.com/3cI00ccDr4r0eCM23rcMM09')">
+        <p class="pack-hours">2 heures</p>
+        <p class="pack-name">Découverte</p>
+        <span class="pack-price">€185</span><span class="pack-per-h">· €92/h</span>
+        <p class="pack-desc">Tester le format, débloquer un point précis sans engagement important.</p>
+      </div>
+
+      <div class="pack-card" onclick="selectPack(this,'progression','https://buy.stripe.com/14A14gbzn9LkcuEeQdcMM08')">
+        <p class="pack-hours">6 heures</p>
+        <p class="pack-name">Progression</p>
+        <span class="pack-price">€510</span><span class="pack-per-h">· €85/h</span>
+        <span class="pack-saving">−15 %</span>
+        <p class="pack-desc">Progression ciblée sur plusieurs séances, bon équilibre investissement / résultats.</p>
+      </div>
+
+      <div class="pack-card best" onclick="selectPack(this,'intensif','https://buy.stripe.com/5kQ28k1YN8Hg7akdM9cMM07')">
+        <p class="pack-hours">12 heures</p>
+        <p class="pack-name">Intensif</p>
+        <span class="pack-price">€950</span><span class="pack-per-h">· €79/h</span>
+        <span class="pack-saving">−21 %</span>
+        <span class="pack-best-badge">⭐ Meilleur rapport</span>
+        <p class="pack-desc">Assez de temps pour transformer vraiment votre niveau et atteindre vos objectifs.</p>
+      </div>
+
+      <div class="pack-card" onclick="selectPack(this,'expert','https://buy.stripe.com/9B6eV6dHv7Dc2U423rcMM06')">
+        <p class="pack-hours">24 heures</p>
+        <p class="pack-name">Expert</p>
+        <span class="pack-price">€1 650</span><span class="pack-per-h">· €69/h</span>
+        <span class="pack-saving">−31 %</span>
+        <p class="pack-desc">Suivi complet sur la durée, pour aller très loin, très vite. Meilleur tarif horaire.</p>
+      </div>
+
+    </div>
+
+    <!-- BRIEF FORM -->
+    <p class="section-label">2 — Parlez-moi de votre projet</p>
+    <div class="brief-form">
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Prénom / Pseudo <span class="req">*</span></label>
+          <input type="text" id="fieldName" placeholder="Ex : Elara, NightOwl…"/>
+        </div>
+        <div class="form-group">
+          <label>Email <span class="req">*</span></label>
+          <input type="email" id="fieldContact" placeholder="votre@email.com"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Discord <span style="opacity:.5;font-weight:400;">(optionnel)</span></label>
+        <input type="text" id="fieldDiscord" placeholder="pseudo#0000"/>
+      </div>
+
+      <div class="form-group">
+        <label>Votre objectif principal <span class="req">*</span></label>
+        <select id="fieldGoal">
+          <option value="">— Sélectionnez —</option>
+          <option>Passer un cap artistique</option>
+          <option>Devenir professionnel / freelance</option>
+          <option>Réaliser un projet de cœur spécifique</option>
+          <option>Préparer un portfolio / entrée en école</option>
+          <option>Autre (précisez dans la description)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Votre niveau actuel</label>
+        <select id="fieldLevel">
+          <option value="">— Sélectionnez —</option>
+          <option>Débutant (moins d'1 an de pratique)</option>
+          <option>Intermédiaire (1–3 ans)</option>
+          <option>Avancé (3–5 ans)</option>
+          <option>Confirmé (5 ans +)</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Disponibilité hebdomadaire</label>
+          <select id="fieldAvail">
+            <option value="">— Sélectionnez —</option>
+            <option>Quelques heures (&lt; 5h)</option>
+            <option>Mi-temps (5–15h)</option>
+            <option>Investissement total (15h+)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Délai de progression souhaité</label>
+          <select id="fieldTimeline">
+            <option value="">— Sélectionnez —</option>
+            <option>À mon rythme</option>
+            <option>3 à 6 mois</option>
+            <option>Le plus vite possible</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Description de votre projet / contexte <span class="req">*</span></label>
+        <textarea id="fieldDesc" rows="5" placeholder="Décrivez votre projet, vos points de blocage, ce que vous souhaitez travailler. Plus c'est précis, plus notre premier échange sera efficace."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Lien Google Drive (portfolio / exemples)</label>
+        <input type="url" id="fieldDrive" placeholder="https://drive.google.com/…"/>
+        <p class="form-hint">Partagez vos travaux actuels pour que je puisse évaluer votre niveau avant notre premier échange.</p>
+      </div>
+
+    </div>
+
+    <div class="brief-divider"></div>
+
+    <!-- CTA -->
+    <div class="cta-block" id="ctaBlock">
+      <h3>Envoyer votre brief</h3>
+      <p>Florian recevra votre brief et vous enverra un email de validation avec votre lien de paiement.</p>
+      <div id="ctaSelectedPack" class="cta-selected-pack"></div>
+      <button id="btnSend" class="btn-pay" onclick="onSubmit()">Choisir un pack ci-dessus →</button>
+      <p class="cta-note" id="ctaNote">Vous recevrez une réponse sous 24–48h</p>
+    </div>
+
+    <!-- SUCCESS -->
+    <div id="successBlock" style="display:none;background:rgba(34,197,94,0.08);border:1.5px solid rgba(34,197,94,0.30);border-radius:16px;padding:32px 24px;text-align:center;">
+      <div style="font-size:40px;margin-bottom:12px;">✅</div>
+      <h3 style="font-size:18px;font-weight:800;color:#4ade80;margin-bottom:8px;">Brief envoyé !</h3>
+      <p style="font-size:14px;color:rgba(255,255,255,0.55);line-height:1.6;">Florian a reçu votre demande.<br/>Vous recevrez un email de validation avec votre lien de paiement sous <strong style="color:rgba(255,255,255,0.80);">24–48h</strong>.</p>
+    </div>
+
+  </div><!-- /brief-wrap -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    emailjs.init('oxXBLOnqmLehp0GpU');
+
+    var selectedStripe = '';
+    var selectedPackName = '';
+    var MAKE_WEBHOOK = 'https://hook.eu1.make.com/hxp5h8efxocjq1mv1ubbfyvv1vf4abee';
+
+    function selectPack(card, name, stripe) {
+      document.querySelectorAll('.pack-card').forEach(function(c) { c.classList.remove('selected'); });
+      card.classList.add('selected');
+      selectedStripe = stripe;
+      selectedPackName = name.charAt(0).toUpperCase() + name.slice(1);
+      var badge = document.getElementById('ctaSelectedPack');
+      badge.textContent = 'Pack ' + selectedPackName + ' sélectionné';
+      badge.style.display = 'inline-block';
+      var btn = document.getElementById('btnSend');
+      btn.textContent = 'Envoyer mon brief →';
+    }
+
+    function onSubmit() {
+      var name    = document.getElementById('fieldName').value.trim();
+      var contact = document.getElementById('fieldContact').value.trim();
+      var discord = document.getElementById('fieldDiscord').value.trim();
+      var goal    = document.getElementById('fieldGoal').value;
+      var desc    = document.getElementById('fieldDesc').value.trim();
+      var level   = document.getElementById('fieldLevel').value;
+      var avail   = document.getElementById('fieldAvail').value;
+      var timeline= document.getElementById('fieldTimeline').value;
+      var drive   = document.getElementById('fieldDrive').value.trim();
+
+      if (!selectedStripe) {
+        alert('Veuillez sélectionner un pack avant de continuer.');
+        return;
+      }
+      if (!name || !contact || !goal || !desc) {
+        alert('Merci de remplir les champs obligatoires (marqués *) avant de continuer.');
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact)) {
+        alert('Merci de saisir une adresse email valide.');
+        return;
+      }
+
+      var btn = document.getElementById('btnSend');
+      btn.textContent = 'Envoi en cours…';
+      btn.disabled = true;
+
+      var approveUrl = 'https://mastery-approve.vercel.app'
+        + '?client_name='    + encodeURIComponent(name)
+        + '&client_contact=' + encodeURIComponent(contact)
+        + '&pack_name=Pack ' + encodeURIComponent(selectedPackName)
+        + '&stripe_url='     + encodeURIComponent(selectedStripe);
+
+      emailjs.send('service_ksqetkj', 'template_yp1x19k', {
+        client_name:  name,
+        client_contact: contact,
+        client_discord: discord || '—',
+        pack_name:    'Pack ' + selectedPackName,
+        goal:         goal || '—',
+        level:        level || '—',
+        availability: avail || '—',
+        timeline:     timeline || '—',
+        description:  desc,
+        drive_link:   drive || 'Non fourni',
+        approve_url:  approveUrl
+      }).then(function() {
+        document.getElementById('ctaBlock').style.display = 'none';
+        document.getElementById('successBlock').style.display = 'block';
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      }, function(err) {
+        btn.textContent = 'Envoyer mon brief →';
+        btn.disabled = false;
+        alert('Erreur lors de l\'envoi. Réessayez ou contactez directement contact@bobeflorian.com');
+        console.error('EmailJS error:', err);
+      });
+    }
+  </script>
+
+</body>
+</html>
