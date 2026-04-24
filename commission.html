@@ -1158,12 +1158,12 @@
     <div class="step-connector" id="conn0"></div>
     <div class="step-item">
       <div class="step-circle" id="sc1">2</div>
-      <span class="step-lbl" id="sl1">Paiement</span>
+      <span class="step-lbl" id="sl1">Information</span>
     </div>
     <div class="step-connector" id="conn1"></div>
     <div class="step-item">
       <div class="step-circle" id="sc2">3</div>
-      <span class="step-lbl" id="sl2">Information</span>
+      <span class="step-lbl" id="sl2">Paiement</span>
     </div>
     <div class="step-connector" id="conn2"></div>
     <div class="step-item">
@@ -1359,8 +1359,48 @@
   </div><!-- /price-bar -->
   </div><!-- /stepPanel0 -->
 
-  <!-- ── STEP 2 : PAIEMENT ── -->
+  <!-- ── STEP 2 : INFORMATION ── -->
   <div class="step-panel" id="stepPanel1">
+    <p class="step-panel-title">Informations projet</p>
+
+    <div id="projectInfoBlock">
+    <div class="step-field-group">
+      <label>Titre du projet</label>
+      <input class="step-input" id="projectTitle" type="text" placeholder="Ex : Portrait de personnage OC — Kira" />
+    </div>
+
+    <div class="step-field-group">
+      <label>Description &amp; références</label>
+      <textarea class="step-textarea" id="projectDesc" placeholder="Décrivez votre commande : style, ambiance, détails importants, contraintes…"></textarea>
+    </div>
+
+    <div class="step-field-group">
+      <label>Lien Google Drive / Pinterest (références visuelles)</label>
+      <input class="step-input" id="projectDrive" type="url" placeholder="https://drive.google.com/…" />
+    </div>
+    </div><!-- /projectInfoBlock -->
+
+    <div class="step-row">
+      <div class="step-field-group">
+        <label>Adresse email</label>
+        <input class="step-input" id="clientEmail" type="email" placeholder="exemple@mail.com" />
+      </div>
+      <div class="step-field-group">
+        <label>Discord</label>
+        <input class="step-input" id="clientDiscord" type="text" placeholder="pseudo ou lien serveur" />
+      </div>
+    </div>
+
+    <p class="step-error-msg" id="errStep1">Veuillez remplir tous les champs.</p>
+
+    <div class="step-nav-bar">
+      <button class="btn-step-back" onclick="goToStep(0)">← Retour</button>
+      <button class="btn-step-next" onclick="validateStep1()">Suivant →</button>
+    </div>
+  </div><!-- /stepPanel1 -->
+
+  <!-- ── STEP 3 : PAIEMENT ── -->
+  <div class="step-panel" id="stepPanel2">
     <p class="step-panel-title">Paiement</p>
 
     <!-- Modalités (déplacées depuis Personnalisation) -->
@@ -1451,47 +1491,7 @@
       </div>
     </div>
 
-    <p class="step-error-msg" id="errStep1">Veuillez remplir tous les champs requis.</p>
-
-    <div class="step-nav-bar">
-      <button class="btn-step-back" onclick="goToStep(0)">← Retour</button>
-      <button class="btn-step-next" onclick="validateStep1()">Suivant →</button>
-    </div>
-  </div><!-- /stepPanel1 -->
-
-  <!-- ── STEP 3 : INFORMATION ── -->
-  <div class="step-panel" id="stepPanel2">
-    <p class="step-panel-title">Informations projet</p>
-
-    <div id="projectInfoBlock">
-    <div class="step-field-group">
-      <label>Titre du projet</label>
-      <input class="step-input" id="projectTitle" type="text" placeholder="Ex : Portrait de personnage OC — Kira" />
-    </div>
-
-    <div class="step-field-group">
-      <label>Description &amp; références</label>
-      <textarea class="step-textarea" id="projectDesc" placeholder="Décrivez votre commande : style, ambiance, détails importants, contraintes…"></textarea>
-    </div>
-
-    <div class="step-field-group">
-      <label>Lien Google Drive / Pinterest (références visuelles)</label>
-      <input class="step-input" id="projectDrive" type="url" placeholder="https://drive.google.com/…" />
-    </div>
-    </div><!-- /projectInfoBlock -->
-
-    <div class="step-row">
-      <div class="step-field-group">
-        <label>Adresse email</label>
-        <input class="step-input" id="clientEmail" type="email" placeholder="exemple@mail.com" />
-      </div>
-      <div class="step-field-group">
-        <label>Discord</label>
-        <input class="step-input" id="clientDiscord" type="text" placeholder="pseudo ou lien serveur" />
-      </div>
-    </div>
-
-    <p class="step-error-msg" id="errStep2">Veuillez remplir tous les champs.</p>
+    <p class="step-error-msg" id="errStep2">Veuillez remplir tous les champs requis.</p>
 
     <div class="step-nav-bar">
       <button class="btn-step-back" onclick="goToStep(1)">← Retour</button>
@@ -2050,6 +2050,25 @@
   function validateStep1() {
     var err = document.getElementById('errStep1');
     if (err) err.style.display = 'none';
+    var isUniq = currentPack === 'unique';
+    var fields = isUniq
+      ? ['clientEmail','clientDiscord']
+      : ['projectTitle','projectDesc','projectDrive','clientEmail','clientDiscord'];
+    var ok = true;
+    fields.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var bad = !el.value.trim() || (id === 'clientEmail' && !/\S+@\S+\.\S+/.test(el.value.trim()));
+      el.classList.toggle('field-error', bad);
+      if (bad) ok = false;
+    });
+    if (!ok) { if (err) err.style.display = 'block'; return; }
+    goToStep(2);
+  }
+
+  function validateStep2() {
+    var err = document.getElementById('errStep2');
+    if (err) err.style.display = 'none';
     var method = (document.getElementById('paymentMethod') || {}).value;
     if (method === 'virement') {
       var first   = (document.getElementById('billingFirst')   || {}).value || '';
@@ -2064,25 +2083,6 @@
         return;
       }
     }
-    goToStep(2);
-  }
-
-  function validateStep2() {
-    var err = document.getElementById('errStep2');
-    if (err) err.style.display = 'none';
-    var isUniq = currentPack === 'unique';
-    var fields = isUniq
-      ? ['clientEmail','clientDiscord']
-      : ['projectTitle','projectDesc','projectDrive','clientEmail','clientDiscord'];
-    var ok = true;
-    fields.forEach(function(id) {
-      var el = document.getElementById(id);
-      if (!el) return;
-      var bad = !el.value.trim() || (id === 'clientEmail' && !/\S+@\S+\.\S+/.test(el.value.trim()));
-      el.classList.toggle('field-error', bad);
-      if (bad) ok = false;
-    });
-    if (!ok) { if (err) err.style.display = 'block'; return; }
     goToStep(3);
   }
 
