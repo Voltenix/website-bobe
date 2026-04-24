@@ -1163,12 +1163,7 @@
     <div class="step-connector" id="conn1"></div>
     <div class="step-item">
       <div class="step-circle" id="sc2">3</div>
-      <span class="step-lbl" id="sl2">Paiement</span>
-    </div>
-    <div class="step-connector" id="conn2"></div>
-    <div class="step-item">
-      <div class="step-circle" id="sc3">4</div>
-      <span class="step-lbl" id="sl3">Confirmation</span>
+      <span class="step-lbl" id="sl2">Confirmation</span>
     </div>
   </div><!-- /steps-stepper -->
 
@@ -1363,47 +1358,7 @@
   <div class="step-panel" id="stepPanel1">
     <p class="step-panel-title">Informations projet</p>
 
-    <div id="projectInfoBlock">
-    <div class="step-field-group">
-      <label>Titre du projet</label>
-      <input class="step-input" id="projectTitle" type="text" placeholder="Ex : Portrait de personnage OC — Kira" />
-    </div>
-
-    <div class="step-field-group">
-      <label>Description &amp; références</label>
-      <textarea class="step-textarea" id="projectDesc" placeholder="Décrivez votre commande : style, ambiance, détails importants, contraintes…"></textarea>
-    </div>
-
-    <div class="step-field-group">
-      <label>Lien Google Drive / Pinterest (références visuelles)</label>
-      <input class="step-input" id="projectDrive" type="url" placeholder="https://drive.google.com/…" />
-    </div>
-    </div><!-- /projectInfoBlock -->
-
-    <div class="step-row">
-      <div class="step-field-group">
-        <label>Adresse email</label>
-        <input class="step-input" id="clientEmail" type="email" placeholder="exemple@mail.com" />
-      </div>
-      <div class="step-field-group">
-        <label>Discord</label>
-        <input class="step-input" id="clientDiscord" type="text" placeholder="pseudo ou lien serveur" />
-      </div>
-    </div>
-
-    <p class="step-error-msg" id="errStep1">Veuillez remplir tous les champs.</p>
-
-    <div class="step-nav-bar">
-      <button class="btn-step-back" onclick="goToStep(0)">← Retour</button>
-      <button class="btn-step-next" onclick="validateStep1()">Suivant →</button>
-    </div>
-  </div><!-- /stepPanel1 -->
-
-  <!-- ── STEP 3 : PAIEMENT ── -->
-  <div class="step-panel" id="stepPanel2">
-    <p class="step-panel-title">Paiement</p>
-
-    <!-- Modalités (déplacées depuis Personnalisation) -->
+    <!-- Modalités -->
     <div class="perso-group open" id="groupModalites" style="margin-bottom:18px;">
       <div class="perso-group-head" onclick="toggleGroup(this)">
         <div class="perso-group-ico" style="background:rgba(255,122,61,0.10);">
@@ -1451,8 +1406,36 @@
       </div>
     </div>
 
+    <div id="projectInfoBlock">
     <div class="step-field-group">
-      <label>Méthode de paiement</label>
+      <label>Titre du projet</label>
+      <input class="step-input" id="projectTitle" type="text" placeholder="Ex : Portrait de personnage OC — Kira" />
+    </div>
+
+    <div class="step-field-group">
+      <label>Description &amp; références</label>
+      <textarea class="step-textarea" id="projectDesc" placeholder="Décrivez votre commande : style, ambiance, détails importants, contraintes…"></textarea>
+    </div>
+
+    <div class="step-field-group">
+      <label>Lien Google Drive / Pinterest (références visuelles)</label>
+      <input class="step-input" id="projectDrive" type="url" placeholder="https://drive.google.com/…" />
+    </div>
+    </div><!-- /projectInfoBlock -->
+
+    <div class="step-row">
+      <div class="step-field-group">
+        <label>Adresse email</label>
+        <input class="step-input" id="clientEmail" type="email" placeholder="exemple@mail.com" />
+      </div>
+      <div class="step-field-group">
+        <label>Discord</label>
+        <input class="step-input" id="clientDiscord" type="text" placeholder="pseudo ou lien serveur" />
+      </div>
+    </div>
+
+    <div class="step-field-group" style="margin-top:8px;">
+      <label>Méthode de paiement souhaitée</label>
       <input type="hidden" id="paymentMethod" value="stripe" />
       <div class="pay-cards">
         <div class="pay-card selected" id="payCard-stripe" onclick="selectPayMethod('stripe')">
@@ -1474,33 +1457,16 @@
       </div>
     </div>
 
-    <div class="step-addr-block" id="addressFields" style="display:none;">
-      <div class="step-row">
-        <div class="step-field-group">
-          <label>Prénom</label>
-          <input class="step-input" id="billingFirst" type="text" placeholder="Jean" />
-        </div>
-        <div class="step-field-group">
-          <label>Nom</label>
-          <input class="step-input" id="billingLast" type="text" placeholder="Dupont" />
-        </div>
-      </div>
-      <div class="step-field-group">
-        <label>Pays / Région</label>
-        <input class="step-input" id="billingCountry" type="text" placeholder="France" />
-      </div>
-    </div>
-
-    <p class="step-error-msg" id="errStep2">Veuillez remplir tous les champs requis.</p>
+    <p class="step-error-msg" id="errStep1">Veuillez remplir tous les champs.</p>
 
     <div class="step-nav-bar">
-      <button class="btn-step-back" onclick="goToStep(1)">← Retour</button>
-      <button class="btn-step-next" onclick="validateStep2()">Suivant →</button>
+      <button class="btn-step-back" onclick="goToStep(0)">← Retour</button>
+      <button class="btn-step-next" onclick="validateStep1()">Suivant →</button>
     </div>
-  </div><!-- /stepPanel2 -->
+  </div><!-- /stepPanel1 -->
 
-  <!-- ── STEP 4 : CONFIRMATION ── -->
-  <div class="step-panel" id="stepPanel3">
+  <!-- ── STEP 3 : CONFIRMATION ── -->
+  <div class="step-panel" id="stepPanel2">
     <p class="step-panel-title">Confirmation</p>
 
     <div id="confirmSummary" style="background:rgba(108,99,255,0.06);border:1.5px solid rgba(108,99,255,0.15);border-radius:14px;padding:16px 20px;margin-bottom:20px;font-size:13px;color:#545c9e;line-height:1.8;"></div>
@@ -1523,7 +1489,7 @@
     <p class="step-error-msg" id="errStep3Send" style="color:#f87171;">Une erreur est survenue lors de l'envoi. Réessayez ou contactez-moi directement.</p>
 
     <div class="step-nav-bar">
-      <button class="btn-step-back" onclick="goToStep(2)">← Retour</button>
+      <button class="btn-step-back" onclick="goToStep(1)">← Retour</button>
       <button class="btn-step-confirm" id="submitBtn" onclick="submitCommission()">Envoyer la commande ✓</button>
     </div>
   </div><!-- /stepPanel3 -->
@@ -2017,12 +1983,12 @@
     // Scroll to top of the form area
     var stepper = document.getElementById('stepsStepper');
     if (stepper) stepper.scrollIntoView({behavior:'smooth', block:'start'});
-    // Build summary on step 3
-    if (n === 3) buildConfirmSummary();
+    // Build summary on step 2 (Confirmation)
+    if (n === 2) buildConfirmSummary();
   }
 
   function updateStepper(n) {
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < 3; i++) {
       var circle = document.getElementById('sc' + i);
       var label  = document.getElementById('sl' + i);
       var conn   = document.getElementById('conn' + i);
@@ -2064,26 +2030,6 @@
     });
     if (!ok) { if (err) err.style.display = 'block'; return; }
     goToStep(2);
-  }
-
-  function validateStep2() {
-    var err = document.getElementById('errStep2');
-    if (err) err.style.display = 'none';
-    var method = (document.getElementById('paymentMethod') || {}).value;
-    if (method === 'virement') {
-      var first   = (document.getElementById('billingFirst')   || {}).value || '';
-      var last    = (document.getElementById('billingLast')    || {}).value || '';
-      var country = (document.getElementById('billingCountry') || {}).value || '';
-      if (!first.trim() || !last.trim() || !country.trim()) {
-        ['billingFirst','billingLast','billingCountry'].forEach(function(id) {
-          var el = document.getElementById(id);
-          if (el && !el.value.trim()) el.classList.add('field-error');
-        });
-        if (err) err.style.display = 'block';
-        return;
-      }
-    }
-    goToStep(3);
   }
 
   function buildConfirmSummary() {
