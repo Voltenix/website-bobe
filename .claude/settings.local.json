@@ -54,7 +54,11 @@
       "Bash(grep -o \"plan-header.\\\\{0,400\\\\}\" \"D:/Work/Marketing/Website/coaching.html\")",
       "Skill(update-config)",
       "Skill(update-config:*)",
-      "Bash(python3 -c \"import json; json.load\\(open\\('.claude/settings.local.json'\\)\\); print\\('JSON valide'\\)\")"
+      "Bash(python3 -c \"import json; json.load\\(open\\('.claude/settings.local.json'\\)\\); print\\('JSON valide'\\)\")",
+      "Bash(gh pr *)",
+      "Bash(gh pr create --title 'Payment method: replace dropdown with card selector' --body ' *)",
+      "Bash(where gh *)",
+      "Bash(winget list *)"
     ]
   }
 }
