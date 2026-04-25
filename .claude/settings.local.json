@@ -58,7 +58,8 @@
       "Bash(gh pr *)",
       "Bash(gh pr create --title 'Payment method: replace dropdown with card selector' --body ' *)",
       "Bash(where gh *)",
-      "Bash(winget list *)"
+      "Bash(winget list *)",
+      "WebFetch(domain:bobe-florian-2-aerovity-aerovitys-projects.vercel.app)"
     ]
   }
 }
