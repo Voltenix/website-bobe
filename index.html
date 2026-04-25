@@ -6,23 +6,7 @@
   <title>Bobe Florian — Artiste & Coach Créatif</title>
   <link rel="stylesheet" href="fonts/Satoshi/Fonts/WEB/css/satoshi.css">
   <style>
-    @font-face {
-      font-family: 'Zodiak';
-      src: url('fonts/Zodiak/Zodiak-Bold.otf') format('opentype');
-      font-weight: 700; font-display: swap;
-    }
-    @font-face {
-      font-family: 'Zodiak';
-      src: url('fonts/Zodiak/Zodiak-Regular.otf') format('opentype');
-      font-weight: 400; font-display: swap;
-    }
-    @font-face {
-      font-family: 'Zodiak';
-      src: url('fonts/Zodiak/Zodiak-BoldItalic.otf') format('opentype');
-      font-weight: 700; font-style: italic; font-display: swap;
-    }
-
-    :root {
+:root {
       --purple: #6C63FF; --purple2: #4A40E8;
       --pink: #FF3DA8;   --pink2: #CC0080;
       --orange: #FF7A3D; --orange2: #FF4E1F;
@@ -72,10 +56,10 @@
       width: 38px; height: 38px; border-radius: 11px;
       background: linear-gradient(135deg, #c79bff, #ffb2dc, #98cdff);
       display: flex; align-items: center; justify-content: center;
-      font-family: 'Zodiak', serif; font-weight: 700; font-size: 17px; color: #fff;
+      font-family: 'Satoshi', sans-serif; font-weight: 900; font-size: 17px; color: #fff;
       text-shadow: 0 1px 4px rgba(0,0,0,0.18);
     }
-    .nav-logo-name { font-family: 'Zodiak', serif; font-weight: 700; font-size: 17px; color: var(--text); letter-spacing: -0.3px; }
+    .nav-logo-name { font-family: 'Satoshi', sans-serif; font-weight: 800; font-size: 17px; color: var(--text); letter-spacing: -0.3px; }
     .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
     .nav-links a {
       text-decoration: none; color: var(--muted); font-size: 14px; font-weight: 500;
@@ -101,8 +85,8 @@
       background: rgba(108,99,255,0.1); border-radius: 30px; padding: 5px 16px; margin-bottom: 16px;
     }
     .section-title {
-      font-family: 'Zodiak', serif; font-weight: 700;
-      font-size: clamp(32px, 4vw, 50px); line-height: 1.1; letter-spacing: -0.8px;
+      font-family: 'Satoshi', sans-serif; font-weight: 900;
+      font-size: clamp(30px, 4vw, 48px); line-height: 1.1; letter-spacing: -0.6px;
       color: var(--text); margin-bottom: 14px;
     }
     .section-title .g { background: linear-gradient(135deg, #6c63ff, #ff3da8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
@@ -165,7 +149,7 @@
       text-transform: uppercase; color: #fff; margin-bottom: 10px;
     }
     .actu-chip-dot { width: 6px; height: 6px; border-radius: 50%; background: #fff; animation: pulse 2s infinite; }
-    .actu-slide-title { font-family: 'Zodiak', serif; font-weight: 700; font-size: clamp(22px, 3vw, 34px); color: #fff; line-height: 1.15; margin-bottom: 8px; }
+    .actu-slide-title { font-family: 'Satoshi', sans-serif; font-weight: 900; font-size: clamp(22px, 3vw, 36px); color: #fff; line-height: 1.1; margin-bottom: 8px; letter-spacing: -0.4px; }
     .actu-slide-desc { font-size: 14px; color: rgba(255,255,255,0.78); line-height: 1.55; max-width: 520px; }
     .actu-slide-cta {
       flex-shrink: 0; margin-left: 32px;
@@ -177,23 +161,25 @@
     }
     .actu-slide-cta:hover { background: rgba(255,255,255,0.28); transform: translateY(-2px); }
     .actu-nav {
-      position: absolute; bottom: 32px; left: 64px; right: 64px; z-index: 3;
-      display: flex; align-items: center; justify-content: space-between;
+      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); z-index: 3;
+      display: flex; align-items: center; gap: 8px;
     }
-    .actu-dots { display: flex; gap: 8px; }
     .actu-dot {
       width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.35);
       border: none; cursor: pointer; padding: 0; transition: all 0.25s;
     }
     .actu-dot.active { width: 28px; border-radius: 4px; background: #fff; }
-    .actu-arrows { display: flex; gap: 8px; }
     .actu-arrow {
-      width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.3);
+      position: absolute; top: 50%; z-index: 3; transform: translateY(-50%);
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.3);
       background: rgba(255,255,255,0.12); backdrop-filter: blur(12px); cursor: pointer;
       display: flex; align-items: center; justify-content: center; color: #fff;
       transition: all 0.2s;
     }
-    .actu-arrow:hover { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.6); transform: scale(1.05); }
+    #actuPrev { left: 20px; }
+    #actuNext { right: 20px; }
+    .actu-arrow:hover { background: rgba(255,255,255,0.28); border-color: rgba(255,255,255,0.7); transform: translateY(-50%) scale(1.06); }
 
     /* ── PREUVE SOCIALE ── */
     .proof-section { padding: 80px 0; }
@@ -207,7 +193,7 @@
     .proof-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--c1), var(--c2)); }
     .proof-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(108,99,255,0.15); }
     .proof-num {
-      font-family: 'Zodiak', serif; font-size: 44px; font-weight: 700; line-height: 1;
+      font-family: 'Satoshi', sans-serif; font-size: 44px; font-weight: 900; line-height: 1;
       background: linear-gradient(135deg, var(--c1), var(--c2));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
       margin-bottom: 6px;
@@ -256,7 +242,7 @@
     .avis-more { display: flex; justify-content: center; margin-top: 44px; }
 
     /* ── QUI SUIS-JE ── */
-    .about-section { padding: 100px 0; }
+    .about-section { padding: 100px 0 56px; }
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
     .about-visual { position: relative; }
     .about-img-box {
@@ -270,7 +256,7 @@
       color: #fff; border-radius: 16px; padding: 18px 22px;
       box-shadow: 0 12px 36px rgba(255,61,168,0.38); text-align: center;
     }
-    .xp-num { font-family: 'Zodiak', serif; font-size: 36px; font-weight: 700; line-height: 1; }
+    .xp-num { font-family: 'Satoshi', sans-serif; font-size: 36px; font-weight: 900; line-height: 1; }
     .xp-lbl { font-size: 12px; font-weight: 600; opacity: 0.9; margin-top: 2px; }
     .about-bio { font-size: 16px; color: #4a4a7a; line-height: 1.75; margin-bottom: 22px; }
     .about-note {
@@ -287,7 +273,7 @@
     }
 
     /* ── PORTFOLIO ── */
-    .portfolio-section { padding: 100px 0; }
+    .portfolio-section { padding: 56px 0 100px; }
     .port-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 44px; }
     .port-card {
       border-radius: var(--r); overflow: hidden; position: relative;
@@ -370,7 +356,7 @@
     }
     .footer-inner { max-width:1240px; margin:0 auto; }
     .footer-top { display:grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap:48px; margin-bottom:48px; }
-    .f-brand { font-family:'Zodiak', serif; font-size:20px; font-weight:700; color:#fff; margin-bottom:12px; }
+    .f-brand { font-family:'Satoshi', sans-serif; font-size:20px; font-weight:800; color:#fff; margin-bottom:12px; }
     .f-desc { font-size:14px; color:rgba(255,255,255,0.45); line-height:1.65; margin-bottom:20px; }
     .f-socials { display:flex; gap:8px; }
     .f-s {
@@ -396,7 +382,6 @@
       .about-grid { grid-template-columns:1fr; gap:48px; }
       .about-visual { max-width:360px; margin:0 auto; }
       .footer-top { grid-template-columns:1fr 1fr; }
-      .actu-nav { left: 32px; right: 32px; }
     }
     @media (max-width: 768px) {
       nav { padding:0 20px; }
@@ -407,7 +392,7 @@
       .actu-slide { height: 85vh; }
       .actu-slide-content { flex-direction:column; align-items:flex-start; gap:16px; padding:28px 24px; }
       .actu-slide-cta { margin-left:0; }
-      .actu-nav { left:20px; right:20px; bottom:20px; }
+      #actuPrev { left: 10px; } #actuNext { right: 10px; }
       .proof-grid { grid-template-columns:1fr 1fr; }
       .port-grid { grid-template-columns:repeat(2,1fr); }
       .social-grid { grid-template-columns:1fr 1fr; }
@@ -435,7 +420,7 @@
 
 <!-- ═══════════ NAVIGATION ═══════════ -->
 <nav id="nav">
-  <a href="#" class="nav-logo">
+  <a href="index.html" class="nav-logo">
     <div class="nav-logo-badge">B</div>
     <span class="nav-logo-name">Bobe Florian</span>
   </a>
@@ -453,7 +438,7 @@
 
 <!-- ═══════════ HERO — SLIDER ACTUALITÉS ═══════════ -->
 <section class="hero-section">
-  <div class="actu-slider-wrap">
+  <div class="actu-slider-wrap" id="actuWrap">
     <div class="actu-slider" id="actuSlider">
       <div class="actu-track" id="actuTrack">
 
@@ -503,20 +488,16 @@
 
       </div>
     </div>
-    <div class="actu-nav">
-      <div class="actu-dots" id="actuDots">
-        <button class="actu-dot active" data-i="0"></button>
-        <button class="actu-dot" data-i="1"></button>
-        <button class="actu-dot" data-i="2"></button>
-      </div>
-      <div class="actu-arrows">
-        <button class="actu-arrow" id="actuPrev" aria-label="Précédent">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
-        </button>
-        <button class="actu-arrow" id="actuNext" aria-label="Suivant">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
-        </button>
-      </div>
+    <button class="actu-arrow" id="actuPrev" aria-label="Précédent">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button class="actu-arrow" id="actuNext" aria-label="Suivant">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+    <div class="actu-nav" id="actuDots">
+      <button class="actu-dot active" data-i="0"></button>
+      <button class="actu-dot" data-i="1"></button>
+      <button class="actu-dot" data-i="2"></button>
     </div>
   </div>
 
@@ -560,88 +541,144 @@
 
       <div class="t-card">
         <div class="t-head">
-          <div class="t-av" style="background:linear-gradient(135deg,#c79bff,#6C63FF)">L</div>
-          <div><div class="t-name">Lucas M.</div><span class="t-pack tp">Classroom</span></div>
+          <div class="t-av"><img src="images/clients_pp/kmilou.webp" alt="Kmilou"></div>
+          <div><div class="t-name">Kmilou</div><span class="t-pack tp">Classroom</span></div>
         </div>
         <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <p class="t-text">Florian a une approche vraiment unique. Il m'a permis de comprendre mes erreurs et de progresser bien plus vite que seul.</p>
+        <p class="t-text">Florian est un super prof, pédagogue, patient et plein de bons conseils. Il s'adapte à notre niveau et arrive facilement à mettre le doigt là où on ne saurait dire ce qui provoque un blocage.</p>
       </div>
 
       <div class="t-card">
         <div class="t-head">
-          <div class="t-av" style="background:linear-gradient(135deg,#ffb2dc,#FF3DA8)">S</div>
-          <div><div class="t-name">Sophie R.</div><span class="t-pack tm">Mastery</span></div>
+          <div class="t-av"><img src="images/clients_pp/oska.webp" alt="Oska"></div>
+          <div><div class="t-name">Oska [LONK]</div><span class="t-pack tp">Classroom</span></div>
         </div>
         <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <p class="t-text">Le programme Mastery a complètement transformé ma façon de travailler. J'ai maintenant un portfolio pro et mes premiers clients.</p>
+        <p class="t-text">Après plus d'un an d'inscription, j'ai pu voir mes compétences s'améliorer de manière drastique. Très complet — anatomie, valeurs, composition, character design. Les retours sont super instructifs.</p>
       </div>
 
       <div class="t-card">
         <div class="t-head">
-          <div class="t-av" style="background:linear-gradient(135deg,#ffd6a0,#FF7A3D)">A</div>
-          <div><div class="t-name">Antoine B.</div><span class="t-pack tp">Feedback</span></div>
+          <div class="t-av"><img src="images/clients_pp/bam.webp" alt="Bam"></div>
+          <div><div class="t-name">Bam</div><span class="t-pack tp">Classroom</span></div>
         </div>
         <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <p class="t-text">Même en une session, j'ai reçu plus de conseils utiles qu'en plusieurs mois de tutoriels. Très concret et direct.</p>
+        <p class="t-text">Florian, très bon sensei, à l'écoute et il s'adapte suivant notre besoin. Il ne vous submergera pas d'infos superflues — chaque conseil est pertinent et ciblé.</p>
       </div>
 
       <div class="t-card">
         <div class="t-head">
-          <div class="t-av" style="background:linear-gradient(135deg,#98cdff,#00D4B8)">M</div>
-          <div><div class="t-name">Manon D.</div><span class="t-pack tc">Classroom</span></div>
+          <div class="t-av"><img src="images/clients_pp/toadette.webp" alt="Toadette"></div>
+          <div><div class="t-name">Toadette</div><span class="t-pack tm">Mastery</span></div>
         </div>
         <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <p class="t-text">Les sessions m'ont vraiment structuré dans mon apprentissage. Florian s'adapte à chaque profil, c'est ce qui fait la différence.</p>
+        <p class="t-text">Florian m'a beaucoup aidée à progresser en dessin. Il est très à l'écoute, avec un excellent esprit d'analyse. On sent vraiment qu'il est passionné avec une vraie envie de transmettre.</p>
       </div>
 
       <div class="t-card">
         <div class="t-head">
-          <div class="t-av" style="background:linear-gradient(135deg,#c79bff,#FF3DA8)">T</div>
-          <div><div class="t-name">Thomas K.</div><span class="t-pack tm">Mastery</span></div>
+          <div class="t-av"><img src="images/clients_pp/nosori.webp" alt="Nosori"></div>
+          <div><div class="t-name">Nosori</div><span class="t-pack tm">Mastery</span></div>
         </div>
         <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <p class="t-text">Mastery va bien au-delà du dessin. Florian m'a aidé à penser comme un professionnel. Je recommande à 100%.</p>
+        <p class="t-text">This was a really useful second opinion when I felt lost and lacked direction on a painting. Florian gave thoughtful and helpful feedback. Highly recommended.</p>
       </div>
 
       <div class="t-card">
         <div class="t-head">
-          <div class="t-av" style="background:linear-gradient(135deg,#6C63FF,#00D4B8)">C</div>
-          <div><div class="t-name">Clara V.</div><span class="t-pack tp">Feedback</span></div>
+          <div class="t-av"><img src="images/clients_pp/noctulyne.webp" alt="Noctulyne"></div>
+          <div><div class="t-name">Noctulyne</div><span class="t-pack tm">Mastery</span></div>
         </div>
         <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <p class="t-text">La session feedback m'a donné la confiance et les outils pour vraiment passer à l'étape suivante dans ma création.</p>
+        <p class="t-text">Le suivi Mastery est vraiment exceptionnel. Florian prend le temps d'analyser précisément là où tu en es et construit un plan entièrement adapté à tes objectifs. Un investissement qui vaut vraiment le coup.</p>
       </div>
 
-      <!-- Duplicates for infinite loop -->
       <div class="t-card">
-        <div class="t-head"><div class="t-av" style="background:linear-gradient(135deg,#c79bff,#6C63FF)">L</div><div><div class="t-name">Lucas M.</div><span class="t-pack tp">Classroom</span></div></div>
+        <div class="t-head">
+          <div class="t-av"><img src="images/clients_pp/mavri.webp" alt="Mavri"></div>
+          <div><div class="t-name">Mavri</div><span class="t-pack tc">Feedback</span></div>
+        </div>
         <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <p class="t-text">Florian a une approche vraiment unique. Il m'a permis de comprendre mes erreurs et de progresser bien plus vite que seul.</p>
+        <p class="t-text">Super rapport qualité/prix pour la formule Feedback. Les retours sont très détaillés avec des annotations directement sur mon artwork. En quelques feedbacks j'ai commencé à voir mes erreurs moi-même.</p>
+      </div>
+
+      <div class="t-card">
+        <div class="t-head">
+          <div class="t-av"><img src="images/clients_pp/hestia.webp" alt="Hestia"></div>
+          <div><div class="t-name">Hestia</div><span class="t-pack tp">Classroom</span></div>
+        </div>
+        <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="t-text">Les cours du dimanche sont devenus incontournables dans ma semaine. En quelques mois, j'ai progressé bien plus que je ne l'aurais cru possible seule.</p>
+      </div>
+
+      <div class="t-card">
+        <div class="t-head">
+          <div class="t-av"><img src="images/clients_pp/le_zig.webp" alt="Le Zig"></div>
+          <div><div class="t-name">Le Zig [MS]</div><span class="t-pack tp">Classroom</span></div>
+        </div>
+        <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="t-text">En 2 semaines tu m'as vraiment aidé avec les retours et les feedbacks. Flo est monstrueux, il trouve des retours à faire sur tes dessins que tu ne soupçonnes même pas au premier coup d'œil.</p>
+      </div>
+
+      <div class="t-card">
+        <div class="t-head">
+          <div class="t-av"><img src="images/clients_pp/ju_ste_skazh.webp" alt="Ju_ste_Skazh"></div>
+          <div><div class="t-name">Ju_ste_Skazh</div><span class="t-pack tc">Feedback</span></div>
+        </div>
+        <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="t-text">Les retours de Florian sont d'une clarté redoutable. Il ne survole pas, il rentre vraiment dans le détail — composition, valeurs, anatomie, tout y passe. Un regard extérieur expert, ça change vraiment la donne.</p>
+      </div>
+
+      <!-- Duplicates for infinite scroll -->
+      <div class="t-card">
+        <div class="t-head"><div class="t-av"><img src="images/clients_pp/kmilou.webp" alt="Kmilou"></div><div><div class="t-name">Kmilou</div><span class="t-pack tp">Classroom</span></div></div>
+        <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="t-text">Florian est un super prof, pédagogue, patient et plein de bons conseils. Il s'adapte à notre niveau et arrive facilement à mettre le doigt là où on ne saurait dire ce qui provoque un blocage.</p>
       </div>
       <div class="t-card">
-        <div class="t-head"><div class="t-av" style="background:linear-gradient(135deg,#ffb2dc,#FF3DA8)">S</div><div><div class="t-name">Sophie R.</div><span class="t-pack tm">Mastery</span></div></div>
+        <div class="t-head"><div class="t-av"><img src="images/clients_pp/oska.webp" alt="Oska"></div><div><div class="t-name">Oska [LONK]</div><span class="t-pack tp">Classroom</span></div></div>
         <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <p class="t-text">Le programme Mastery a complètement transformé ma façon de travailler. J'ai maintenant un portfolio pro et mes premiers clients.</p>
+        <p class="t-text">Après plus d'un an d'inscription, j'ai pu voir mes compétences s'améliorer de manière drastique. Très complet — anatomie, valeurs, composition, character design. Les retours sont super instructifs.</p>
       </div>
       <div class="t-card">
-        <div class="t-head"><div class="t-av" style="background:linear-gradient(135deg,#ffd6a0,#FF7A3D)">A</div><div><div class="t-name">Antoine B.</div><span class="t-pack tp">Feedback</span></div></div>
+        <div class="t-head"><div class="t-av"><img src="images/clients_pp/bam.webp" alt="Bam"></div><div><div class="t-name">Bam</div><span class="t-pack tp">Classroom</span></div></div>
         <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <p class="t-text">Même en une session, j'ai reçu plus de conseils utiles qu'en plusieurs mois de tutoriels. Très concret et direct.</p>
+        <p class="t-text">Florian, très bon sensei, à l'écoute et il s'adapte suivant notre besoin. Il ne vous submergera pas d'infos superflues — chaque conseil est pertinent et ciblé.</p>
       </div>
       <div class="t-card">
-        <div class="t-head"><div class="t-av" style="background:linear-gradient(135deg,#98cdff,#00D4B8)">M</div><div><div class="t-name">Manon D.</div><span class="t-pack tc">Classroom</span></div></div>
+        <div class="t-head"><div class="t-av"><img src="images/clients_pp/toadette.webp" alt="Toadette"></div><div><div class="t-name">Toadette</div><span class="t-pack tm">Mastery</span></div></div>
         <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <p class="t-text">Les sessions m'ont vraiment structuré dans mon apprentissage. Florian s'adapte à chaque profil, c'est ce qui fait la différence.</p>
+        <p class="t-text">Florian m'a beaucoup aidée à progresser en dessin. Il est très à l'écoute, avec un excellent esprit d'analyse. On sent vraiment qu'il est passionné avec une vraie envie de transmettre.</p>
       </div>
       <div class="t-card">
-        <div class="t-head"><div class="t-av" style="background:linear-gradient(135deg,#c79bff,#FF3DA8)">T</div><div><div class="t-name">Thomas K.</div><span class="t-pack tm">Mastery</span></div></div>
+        <div class="t-head"><div class="t-av"><img src="images/clients_pp/nosori.webp" alt="Nosori"></div><div><div class="t-name">Nosori</div><span class="t-pack tm">Mastery</span></div></div>
         <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <p class="t-text">Mastery va bien au-delà du dessin. Florian m'a aidé à penser comme un professionnel. Je recommande à 100%.</p>
+        <p class="t-text">This was a really useful second opinion when I felt lost and lacked direction on a painting. Florian gave thoughtful and helpful feedback. Highly recommended.</p>
       </div>
       <div class="t-card">
-        <div class="t-head"><div class="t-av" style="background:linear-gradient(135deg,#6C63FF,#00D4B8)">C</div><div><div class="t-name">Clara V.</div><span class="t-pack tp">Feedback</span></div></div>
+        <div class="t-head"><div class="t-av"><img src="images/clients_pp/noctulyne.webp" alt="Noctulyne"></div><div><div class="t-name">Noctulyne</div><span class="t-pack tm">Mastery</span></div></div>
         <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <p class="t-text">La session feedback m'a donné la confiance et les outils pour vraiment passer à l'étape suivante dans ma création.</p>
+        <p class="t-text">Le suivi Mastery est vraiment exceptionnel. Florian prend le temps d'analyser précisément là où tu en es et construit un plan entièrement adapté à tes objectifs. Un investissement qui vaut vraiment le coup.</p>
+      </div>
+      <div class="t-card">
+        <div class="t-head"><div class="t-av"><img src="images/clients_pp/mavri.webp" alt="Mavri"></div><div><div class="t-name">Mavri</div><span class="t-pack tc">Feedback</span></div></div>
+        <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="t-text">Super rapport qualité/prix pour la formule Feedback. Les retours sont très détaillés avec des annotations directement sur mon artwork. En quelques feedbacks j'ai commencé à voir mes erreurs moi-même.</p>
+      </div>
+      <div class="t-card">
+        <div class="t-head"><div class="t-av"><img src="images/clients_pp/hestia.webp" alt="Hestia"></div><div><div class="t-name">Hestia</div><span class="t-pack tp">Classroom</span></div></div>
+        <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="t-text">Les cours du dimanche sont devenus incontournables dans ma semaine. En quelques mois, j'ai progressé bien plus que je ne l'aurais cru possible seule.</p>
+      </div>
+      <div class="t-card">
+        <div class="t-head"><div class="t-av"><img src="images/clients_pp/le_zig.webp" alt="Le Zig"></div><div><div class="t-name">Le Zig [MS]</div><span class="t-pack tp">Classroom</span></div></div>
+        <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="t-text">En 2 semaines tu m'as vraiment aidé avec les retours et les feedbacks. Flo est monstrueux, il trouve des retours à faire sur tes dessins que tu ne soupçonnes même pas au premier coup d'œil.</p>
+      </div>
+      <div class="t-card">
+        <div class="t-head"><div class="t-av"><img src="images/clients_pp/ju_ste_skazh.webp" alt="Ju_ste_Skazh"></div><div><div class="t-name">Ju_ste_Skazh</div><span class="t-pack tc">Feedback</span></div></div>
+        <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="t-text">Les retours de Florian sont d'une clarté redoutable. Il ne survole pas, il rentre vraiment dans le détail — composition, valeurs, anatomie, tout y passe. Un regard extérieur expert, ça change vraiment la donne.</p>
       </div>
 
     </div>
@@ -693,13 +730,12 @@
       <p class="section-desc">Un aperçu de mes travaux récents en illustration, character design et concept art.</p>
     </div>
     <div class="port-grid">
-      <!-- Remplacer chaque .port-ph par <img src="images/landpage/portfolio-X.jpg" alt=""> -->
-      <div class="port-card"><div class="port-ph">portfolio-1.jpg</div><div class="port-overlay"><span class="port-lbl">Illustration</span></div></div>
-      <div class="port-card"><div class="port-ph">portfolio-2.jpg</div><div class="port-overlay"><span class="port-lbl">Character Design</span></div></div>
-      <div class="port-card"><div class="port-ph">portfolio-3.jpg</div><div class="port-overlay"><span class="port-lbl">Concept Art</span></div></div>
-      <div class="port-card"><div class="port-ph">portfolio-4.jpg</div><div class="port-overlay"><span class="port-lbl">Fanart</span></div></div>
-      <div class="port-card"><div class="port-ph">portfolio-5.jpg</div><div class="port-overlay"><span class="port-lbl">Cover Art</span></div></div>
-      <div class="port-card"><div class="port-ph">portfolio-6.jpg</div><div class="port-overlay"><span class="port-lbl">Character Design</span></div></div>
+      <div class="port-card"><img src="images/portfolio/makima.webp" alt="Makima"><div class="port-overlay"><span class="port-lbl">Character Design</span></div></div>
+      <div class="port-card"><img src="images/portfolio/luffy_x_kaido.webp" alt="Luffy x Kaido"><div class="port-overlay"><span class="port-lbl">Illustration</span></div></div>
+      <div class="port-card"><img src="images/portfolio/goku_ultra_instinct.webp" alt="Goku Ultra Instinct"><div class="port-overlay"><span class="port-lbl">Fanart</span></div></div>
+      <div class="port-card"><img src="images/portfolio/akaza.webp" alt="Akaza"><div class="port-overlay"><span class="port-lbl">Fanart</span></div></div>
+      <div class="port-card"><img src="images/portfolio/recluse_nightreign.webp" alt="Recluse Nightreign"><div class="port-overlay"><span class="port-lbl">Concept Art</span></div></div>
+      <div class="port-card"><img src="images/portfolio/dandadan.webp" alt="Dandadan"><div class="port-overlay"><span class="port-lbl">Fanart</span></div></div>
     </div>
     <div class="port-cta">
       <a href="galerie.html" class="btn-main">
@@ -887,9 +923,9 @@
   document.getElementById('actuPrev').addEventListener('click', () => { goTo(cur - 1); resetTimer(); });
   dots.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.i); resetTimer(); }));
 
-  // Pause on hover
-  document.getElementById('actuSlider').addEventListener('mouseenter', () => clearInterval(timer));
-  document.getElementById('actuSlider').addEventListener('mouseleave', startTimer);
+  // Pause on hover — listen on the whole wrap so arrows don't break it
+  document.getElementById('actuWrap').addEventListener('mouseenter', () => clearInterval(timer));
+  document.getElementById('actuWrap').addEventListener('mouseleave', startTimer);
   startTimer();
 
   // Stat counters
